@@ -13,13 +13,21 @@ public class Bot : Character
     private NavMeshAgent navMeshAgent;
     private IState currentState;
 
+    //public Transform currentPos;
+
 
     protected override void Awake()
     {
         base.Awake();
         navMeshAgent = GetComponent<NavMeshAgent>();
         navMeshAgent.stoppingDistance = 3;
-        ChangeState(new PatrolState());
+        ChangeState(new IdleState());
+    }
+
+    private void Start()
+    {
+        CurrentTarget = LevelManager.Instance.character;
+        //navMeshAgent.SetDestination(CurrentTarget.transform.position);
     }
 
     public override void OnInit()
@@ -36,16 +44,14 @@ public class Bot : Character
         base.OnDespawn();
     }
 
-    private void Start()
-    {
-        navMeshAgent.SetDestination(CurrentTarget.transform.position);
-    }
-
     private void Update()
     {
-        currentState?.OnExecute(this);
+        HandleAnim();
+        if (!IsDead)
+        {
+            currentState?.OnExecute(this);
+        }
     }
-
 
     public void StopMoving()
     {
@@ -67,9 +73,9 @@ public class Bot : Character
         aimed.SetActive(false);
     }
 
-    public void MoveToTarget(Character target)
+    public void MoveToTarget()
     {
-        navMeshAgent.SetDestination(target.transform.position);
+        navMeshAgent.SetDestination(CurrentTarget.transform.position);
     }
 
     public void ChangeState(IState newState)
@@ -79,14 +85,10 @@ public class Bot : Character
         currentState?.OnEnter(this);
     }
 
-    public override void CheckTargetNearest()
+    public void CheckTargetNearest()
     {
         float minDistance = float.MaxValue;
         Character currentTargetTmp = null;
-        if (CharactersTargeted.Count == 0)
-        {
-            TargetNearest = null;
-        }
 
         for (int i = 0; i < CharactersTargeted.Count; i++)
         {
@@ -97,6 +99,29 @@ public class Bot : Character
                 currentTargetTmp = CharactersTargeted[i];
             }
         }
-        TargetNearest = currentTargetTmp;
+        if (TargetNearest != currentTargetTmp)
+        {
+            TargetNearest = currentTargetTmp; // neu CharactersTargeted.Count = 0 thi TargetNearest gan bang null
+        }
+    }
+    private void HandleAnim()
+    {
+        if (IsAttack)
+        {
+            ChangeAnim("Attack");
+            return;
+        }
+
+        if (!navMeshAgent.isStopped)
+        {
+            ChangeAnim("Run");
+            return;
+        }
+        if (navMeshAgent.isStopped)
+        {
+            ChangeAnim("Idle");
+            return;
+        }
+
     }
 }
