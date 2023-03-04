@@ -28,14 +28,14 @@ public class Bullet : MonoBehaviour
         rb.velocity= Vector3.zero;
         SourceFireCharacter = null;
         if (!gameObject.activeSelf) return;
-        ObjectPooling.Instance.ReturnBullet(gameObject);
+        ObjectPooling.Instance.ReturnGameObject(gameObject, ObjectType.Bullet);
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.TryGetComponent(out Character character))
         {
-            SourceFireCharacter.CharactersTargeted.Remove(character);
+            SourceFireCharacter.CharactersTargeted.Remove(character); // remove character from source
             Vector3 oriScale = SourceFireCharacter.transform.localScale;
             SourceFireCharacter.transform.localScale = oriScale + (Vector3.one * scalePerKill);
             character.OnDespawn();

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4966466691454199227}
   - component: {fileID: 2000288008462832832}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Avatar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,10 +94,8 @@ GameObject:
   m_Component:
   - component: {fileID: 323425292544789977}
   - component: {fileID: 323425292544789957}
-  - component: {fileID: 323425292544789959}
-  - component: {fileID: 323425292544789955}
-  m_Layer: 8
-  m_Name: Attack Range
+  m_Layer: 0
+  m_Name: Range Avatar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -170,31 +168,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!135 &323425292544789959
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 323425292544789976}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 2.5600007
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &323425292544789955
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 323425292544789976}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cfd6246560f6a9748af1eef5eb74678a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &323425293274888856
 GameObject:
   m_ObjectHideFlags: 0
@@ -298,16 +271,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79578f915d0cf8f40836e0e91beb7de6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  avatar: {fileID: 2451457121159302596}
   firePoint: {fileID: 5680831552801674267}
+  attackRange: {fileID: 2020934959447389389}
   charactersTargeted: []
   targetNearest: {fileID: 0}
   timeResetAttack: 1
   isAttack: 0
   timeDelayDead: 2
   isDead: 0
+  anim: {fileID: 7965372027816281121}
   aimed: {fileID: 1432887701538854761}
   currentTarget: {fileID: 0}
+  currentPos: {fileID: 0}
 --- !u!1 &1432887701538854761
 GameObject:
   m_ObjectHideFlags: 0
@@ -317,7 +292,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7093812574891189767}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Aimed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -349,7 +324,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9125667477485345787}
-  m_Layer: 7
+  - component: {fileID: 8081354408263020149}
+  - component: {fileID: 847203858204686427}
+  m_Layer: 8
   m_Name: Attack Range
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -372,6 +349,31 @@ Transform:
   m_Father: {fileID: 323425293274888857}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &8081354408263020149
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2020934959447389389}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 6.5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &847203858204686427
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2020934959447389389}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfd6246560f6a9748af1eef5eb74678a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8841979167937287703
 GameObject:
   m_ObjectHideFlags: 0
@@ -381,7 +383,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5680831552801674267}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Fire Point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -469,3 +471,28 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 93b6444b4be9ecc44a98a83cef570ca8, type: 3}
   m_PrefabInstance: {fileID: 2706639453458278959}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2976461470327183230 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 93b6444b4be9ecc44a98a83cef570ca8, type: 3}
+  m_PrefabInstance: {fileID: 2706639453458278959}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &7965372027816281121
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2976461470327183230}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: bf22c23f3f7e75744b84950a3a08fbd1, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

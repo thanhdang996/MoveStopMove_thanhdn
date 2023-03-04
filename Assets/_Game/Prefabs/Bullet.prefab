@@ -77,8 +77,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d66b979b26dd3147886e706e383e886, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 20
-  timeDestroy: 0.5
+  speed: 10
+  timeDestroy: 0.7
+  scalePerKill: 0.1
 --- !u!1 &249149106483276303
 GameObject:
   m_ObjectHideFlags: 0
