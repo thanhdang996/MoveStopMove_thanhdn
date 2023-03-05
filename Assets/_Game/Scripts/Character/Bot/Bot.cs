@@ -13,29 +13,40 @@ public class Bot : Character
     private NavMeshAgent navMeshAgent;
     private IState currentState;
 
-    //public Transform currentPos;
 
+    [SerializeField] Vector3 currentPosTarget;
+    public Vector3 CurrentPosTarget { get => currentPosTarget; set => currentPosTarget = value; }
 
     protected override void Awake()
     {
         base.Awake();
         navMeshAgent = GetComponent<NavMeshAgent>();
         navMeshAgent.stoppingDistance = 3;
-        ChangeState(new IdleState());
     }
 
     private void Start()
     {
-        CurrentTarget = LevelManager.Instance.character;
-        //navMeshAgent.SetDestination(CurrentTarget.transform.position);
+        ChangeState(new PatrolState());
+        GetRandomPosTargetInMap();
+    }
+
+    public void GetRandomPosTargetInMap()
+    {
+        List<Vector3> listPos = LevelManager.Instance.CurrentLevel.ListSpawnPos;
+        currentPosTarget = listPos[Random.Range(0, listPos.Count)];
+        navMeshAgent.SetDestination(currentPosTarget);
+    }
+
+    public bool IsReachTarget()
+    {
+        return Vector3.Distance(CurrentPosTarget, transform.position) < 5f;
     }
 
     public override void OnInit()
     {
         base.OnInit();
         currentTarget = null;
-        aimed.SetActive(true);
-        navMeshAgent.enabled = true;
+        StartMoving();
     }
 
     public override void OnDespawn()
@@ -75,7 +86,7 @@ public class Bot : Character
 
     public void MoveToTarget()
     {
-        navMeshAgent.SetDestination(CurrentTarget.transform.position);
+        navMeshAgent.SetDestination(currentPosTarget);
     }
 
     public void ChangeState(IState newState)
@@ -106,15 +117,20 @@ public class Bot : Character
     }
     private void HandleAnim()
     {
-        if (IsAttack)
+        if (IsDead)
         {
-            ChangeAnim("Attack");
+            ChangeAnim("Death");
             return;
         }
 
         if (!navMeshAgent.isStopped)
         {
             ChangeAnim("Run");
+            return;
+        }
+        if (IsAttack)
+        {
+            ChangeAnim("Attack");
             return;
         }
         if (navMeshAgent.isStopped)

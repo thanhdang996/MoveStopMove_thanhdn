@@ -15,7 +15,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        rb.velocity = new Vector3(joystick.Horizontal * speed, rb.velocity.y, joystick.Vertical * speed);
+        rb.velocity = new Vector3(joystick.Horizontal * speed, 0, joystick.Vertical * speed);
         if (rb.velocity != Vector3.zero)
         {
             transform.rotation = Quaternion.LookRotation(rb.velocity);
@@ -25,5 +25,10 @@ public class PlayerMovement : MonoBehaviour
     public bool IsMoving()
     {
         return Mathf.Abs(joystick.Horizontal) > 0.01f || Mathf.Abs(joystick.Vertical) > 0.01f;
+    }
+
+    public void StopMoving()
+    {
+        rb.velocity = Vector3.zero;
     }
 }

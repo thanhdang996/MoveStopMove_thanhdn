@@ -23,8 +23,10 @@ public class Player : Character
 
     public override void OnDespawn()
     {
-        base.OnDespawn();
-        playerMovement.enabled = false;
+        //(TargetNearest as Bot)?.HideAim();
+        //base.OnDespawn();
+        //playerMovement.StopMoving();
+        //playerMovement.enabled = false;
     }
 
     private void Update()
@@ -67,9 +69,9 @@ public class Player : Character
 
     private void HandleAnim()
     {
-        if (IsAttack)
+        if(IsDead)
         {
-            ChangeAnim("Attack");
+            ChangeAnim("Death");
             return;
         }
 
@@ -78,7 +80,12 @@ public class Player : Character
             ChangeAnim("Run");
             return;
         }
-        if (!PlayerMovement.IsMoving())
+        if (IsAttack)
+        {
+            ChangeAnim("Attack");
+            return;
+        }
+        else if (!PlayerMovement.IsMoving())
         {
             ChangeAnim("Idle");
             return;

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,7 +6,7 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     [SerializeField] private float speed = 20;
-    [SerializeField] private float timeDestroy = 0.5f;
+    [SerializeField] private float timeDestroy = 0.8f;
     [SerializeField] private float scalePerKill = 0.1f;
     private Character sourceFireCharacter;
     public Character SourceFireCharacter { get => sourceFireCharacter; set => sourceFireCharacter = value; }

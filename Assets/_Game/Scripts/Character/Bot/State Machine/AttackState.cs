@@ -5,7 +5,7 @@ using UnityEngine;
 public class AttackState : IState
 {
     private float timer;
-    private float timerToPatrol = 1.5f;
+    private float timerToPatrol = 1f;
     public void OnEnter(Bot bot)
     {
         bot.StopMoving();

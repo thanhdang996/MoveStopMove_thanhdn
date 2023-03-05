@@ -78,7 +78,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
-  timeDestroy: 0.7
+  timeDestroy: 1
   scalePerKill: 0.1
 --- !u!1 &249149106483276303
 GameObject:

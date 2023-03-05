@@ -9,7 +9,7 @@ public class IdleState : IState
     public void OnEnter(Bot bot)
     {
         timer = 0;
-        randomTime = Random.Range(2f, 4f);
+        randomTime = Random.Range(1f, 3f);
         bot.StopMoving();
     }
 
