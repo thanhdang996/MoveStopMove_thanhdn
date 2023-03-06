@@ -15,7 +15,8 @@ public class TriggerAttack : MonoBehaviour
     {
         if (other.TryGetComponent(out Character character))
         {
-            characterParent.CharactersTargeted.Add(character);
+            characterParent.ListTarget.Add(character);
+            character.ListBeAimed.Add(characterParent);
         }
     }
 
@@ -23,7 +24,8 @@ public class TriggerAttack : MonoBehaviour
     {
         if (other.TryGetComponent(out Character character))
         {
-            characterParent.CharactersTargeted.Remove(character);
+            characterParent.ListTarget.Remove(character);
+            character.ListBeAimed.Remove(characterParent);
         }
     }
 }

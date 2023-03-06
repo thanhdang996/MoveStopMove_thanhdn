@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Character : MonoBehaviour
@@ -10,8 +11,15 @@ public class Character : MonoBehaviour
     [SerializeField] protected Transform firePoint;
     [SerializeField] private GameObject attackRange;
 
-    [SerializeField] private List<Character> charactersTargeted = new List<Character>();
-    public List<Character> CharactersTargeted { get => charactersTargeted; set => charactersTargeted = value; }
+    [SerializeField] private List<Character> listTarget = new List<Character>();
+    public List<Character> ListTarget { get => listTarget; set => listTarget = value; }
+
+
+    [SerializeField] private List<Character> listBeAimed = new List<Character>();
+    public List<Character> ListBeAimed { get => listBeAimed; set => listBeAimed = value; }
+
+    [SerializeField] private List<SpawnPosTrigger> listInSpawnPos = new List<SpawnPosTrigger>();
+    public List<SpawnPosTrigger> ListInSpawnPos { get => listInSpawnPos; set => listInSpawnPos = value; }
 
 
     [SerializeField] private Character targetNearest;
@@ -26,6 +34,10 @@ public class Character : MonoBehaviour
     [SerializeField] private bool isDead;
     public bool IsDead { get => isDead; private set => isDead = value; }
 
+    [SerializeField] private float scalePerKill = 0.05f;
+    public float ScalePerKill { get => scalePerKill; set => scalePerKill = value; }
+
+
     // anim
     private string currentAnimName;
     [SerializeField] private Animator anim;
@@ -33,8 +45,6 @@ public class Character : MonoBehaviour
     //id
     [SerializeField] private int id;
     public int Id { get => id; set => id = value; }
-
-
 
     protected virtual void Awake()
     {
@@ -55,20 +65,35 @@ public class Character : MonoBehaviour
         capsuleCollider.enabled = false;
         attackRange.SetActive(false);
         targetNearest = null;
-        // remove all tartget in other character
-        foreach (Character target in CharactersTargeted)
-        {
-            target.CharactersTargeted.Remove(this);
-        }
-        CharactersTargeted.Clear();
+        RemoveAllTargetRefAfterDeath();
 
-        SpawnerManager.Instance.RandomOneBot();
         Invoke(nameof(DelayDead), timeDelayDead);
     }
 
-    private void DelayDead()
+    private void RemoveAllTargetRefAfterDeath()
     {
-        ObjectPooling.Instance.ReturnGameObject(gameObject, ObjectType.Bot);
+        foreach (Character target in ListTarget)
+        {
+            target.ListTarget.Remove(this);
+            target.ListBeAimed.Remove(this);
+        }
+        foreach (Character target in ListBeAimed)
+        {
+            target.ListBeAimed.Remove(this);
+            target.ListTarget.Remove(this);
+        }
+        foreach (SpawnPosTrigger spawnPos in ListInSpawnPos)
+        {
+            spawnPos.ListCharacterInSpawnPos.Remove(this);
+        }
+        ListTarget.Clear();
+        ListBeAimed.Clear();
+        ListInSpawnPos.Clear();
+    }
+
+    protected virtual void DelayDead()
+    {
+        
     }
 
     public virtual void AttackCharacter()
@@ -87,6 +112,7 @@ public class Character : MonoBehaviour
         bullet.SourceFireCharacter = this;
         bullet.transform.position = firePoint.position;
         bullet.transform.rotation = firePoint.rotation;
+        bullet.transform.localScale = transform.localScale;
         bullet.MoveAndAutoDestroy();
     }
     public void ResetAttack()
@@ -99,7 +125,7 @@ public class Character : MonoBehaviour
     {
         if (TargetNearest == null) return;
         Vector3 dir = (TargetNearest.transform.position - transform.position).normalized;
-        dir.y = 0;
+        dir.y = 0.01f;
         transform.rotation = Quaternion.LookRotation(dir, Vector3.up);
     }
     protected void ChangeAnim(string animName)
