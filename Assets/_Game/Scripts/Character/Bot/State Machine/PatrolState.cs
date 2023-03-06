@@ -22,7 +22,7 @@ public class PatrolState : IState
         timer += Time.deltaTime;
 
         bot.CheckTargetNearest();
-        if (bot.CharactersTargeted.Count > 0 && timer > randomTimeChangeAttackState)
+        if (bot.ListTarget.Count > 0 && timer > randomTimeChangeAttackState)
         {
             if (!bot.IsAttack)
             {

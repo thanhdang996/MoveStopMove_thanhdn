@@ -13,7 +13,6 @@ public class Bot : Character
     private NavMeshAgent navMeshAgent;
     private IState currentState;
 
-
     [SerializeField] Vector3 currentPosTarget;
     public Vector3 CurrentPosTarget { get => currentPosTarget; set => currentPosTarget = value; }
 
@@ -32,8 +31,8 @@ public class Bot : Character
 
     public void GetRandomPosTargetInMap()
     {
-        List<Vector3> listPos = LevelManager.Instance.CurrentLevel.ListSpawnPos;
-        currentPosTarget = listPos[Random.Range(0, listPos.Count)];
+        List<Transform> listPos = LevelManager.Instance.CurrentLevel.ListSpawnPos;
+        currentPosTarget = listPos[Random.Range(0, listPos.Count)].position;
         navMeshAgent.SetDestination(currentPosTarget);
     }
 
@@ -47,6 +46,7 @@ public class Bot : Character
         base.OnInit();
         currentTarget = null;
         StartMoving();
+        ChangeState(new PatrolState());
     }
 
     public override void OnDespawn()
@@ -101,13 +101,13 @@ public class Bot : Character
         float minDistance = float.MaxValue;
         Character currentTargetTmp = null;
 
-        for (int i = 0; i < CharactersTargeted.Count; i++)
+        for (int i = 0; i < ListTarget.Count; i++)
         {
-            float distance = Vector3.Distance(CharactersTargeted[i].transform.position, transform.position);
+            float distance = Vector3.Distance(ListTarget[i].transform.position, transform.position);
             if (distance < minDistance)
             {
                 minDistance = distance;
-                currentTargetTmp = CharactersTargeted[i];
+                currentTargetTmp = ListTarget[i];
             }
         }
         if (TargetNearest != currentTargetTmp)
@@ -139,5 +139,11 @@ public class Bot : Character
             return;
         }
 
+    }
+
+    protected override void DelayDead()
+    {
+        ObjectPooling.Instance.ReturnGameObject(gameObject, ObjectType.Bot);
+        SpawnerManager.Instance.RandomOneBot();
     }
 }

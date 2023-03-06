@@ -23,10 +23,10 @@ public class Player : Character
 
     public override void OnDespawn()
     {
-        //(TargetNearest as Bot)?.HideAim();
-        //base.OnDespawn();
-        //playerMovement.StopMoving();
-        //playerMovement.enabled = false;
+        (TargetNearest as Bot)?.HideAim();
+        base.OnDespawn();
+        playerMovement.StopMoving();
+        playerMovement.enabled = false;
     }
 
     private void Update()
@@ -35,7 +35,7 @@ public class Player : Character
         HandleAnim();
 
         if (PlayerMovement.IsMoving()) return;
-        if (CharactersTargeted.Count > 0)
+        if (ListTarget.Count > 0)
         {
             if (!IsAttack)
             {
@@ -49,13 +49,13 @@ public class Player : Character
         float minDistance = float.MaxValue;
         Character currentTargetTmp = null;
 
-        for (int i = 0; i < CharactersTargeted.Count; i++)
+        for (int i = 0; i < ListTarget.Count; i++)
         {
-            float distance = Vector3.Distance(CharactersTargeted[i].transform.position, transform.position);
+            float distance = Vector3.Distance(ListTarget[i].transform.position, transform.position);
             if (distance < minDistance)
             {
                 minDistance = distance;
-                currentTargetTmp = CharactersTargeted[i];
+                currentTargetTmp = ListTarget[i];
             }
         }
 
@@ -91,5 +91,11 @@ public class Player : Character
             return;
         }
 
+    }
+
+    protected override void DelayDead()
+    {
+        gameObject.SetActive(false);
+        //ObjectPooling.Instance.ReturnGameObject(gameObject, ObjectType.Player);
     }
 }

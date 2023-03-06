@@ -247,7 +247,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 8
+  m_Speed: 7
   m_Acceleration: 40
   avoidancePriority: 50
   m_AngularSpeed: 720
@@ -273,7 +273,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   firePoint: {fileID: 5680831552801674267}
   attackRange: {fileID: 2020934959447389389}
-  charactersTargeted: []
+  listTarget: []
+  listBeAimed: []
   targetNearest: {fileID: 0}
   timeResetAttack: 1
   isAttack: 0

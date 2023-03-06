@@ -7,7 +7,6 @@ public class Bullet : MonoBehaviour
 {
     [SerializeField] private float speed = 20;
     [SerializeField] private float timeDestroy = 0.8f;
-    [SerializeField] private float scalePerKill = 0.1f;
     private Character sourceFireCharacter;
     public Character SourceFireCharacter { get => sourceFireCharacter; set => sourceFireCharacter = value; }
     private Rigidbody rb;
@@ -28,7 +27,6 @@ public class Bullet : MonoBehaviour
     {
         rb.velocity= Vector3.zero;
         SourceFireCharacter = null;
-        if (!gameObject.activeSelf) return;
         ObjectPooling.Instance.ReturnGameObject(gameObject, ObjectType.Bullet);
     }
 
@@ -36,10 +34,13 @@ public class Bullet : MonoBehaviour
     {
         if (other.TryGetComponent(out Character character))
         {
-            SourceFireCharacter.CharactersTargeted.Remove(character); // remove character from source
+            // remove character cham bullet from source, h bo chuyen logic vao OnDespawn Character
+            //SourceFireCharacter.ListTarget.Remove(character); 
             Vector3 oriScale = SourceFireCharacter.transform.localScale;
-            SourceFireCharacter.transform.localScale = oriScale + (Vector3.one * scalePerKill);
+            SourceFireCharacter.transform.localScale = oriScale + (Vector3.one * SourceFireCharacter.ScalePerKill);
             character.OnDespawn();
+
+            CancelInvoke(nameof(OnDespawn));
             OnDespawn();
         }
     }

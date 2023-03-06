@@ -5,18 +5,15 @@ using UnityEngine;
 public class LevelController : MonoBehaviour
 {
     [SerializeField] private Transform spawnPos;
-    [SerializeField] private List<Vector3> listSpawnPos = new List<Vector3>();
-    public List<Vector3> ListSpawnPos => listSpawnPos;
+    [SerializeField] private List<Transform> listSpawnTf = new List<Transform>();
+    public List<Transform> ListSpawnPos => listSpawnTf;
 
 
     public void AddSpawnPosToList()
     {
         foreach (Transform t in spawnPos)
         {
-            ListSpawnPos.Add(t.position);
+            ListSpawnPos.Add(t);
         }
     }
-
-
-   
 }

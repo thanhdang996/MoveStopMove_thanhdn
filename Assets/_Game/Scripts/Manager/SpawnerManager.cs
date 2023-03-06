@@ -16,11 +16,11 @@ public class SpawnerManager : Singleton<SpawnerManager>
 
     public void RandomInitBot()
     {
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < currentLevel.ListSpawnPos.Count; i++)
         {
             GameObject botGo = ObjectPooling.Instance.GetGameObject(ObjectType.Bot);
             Bot bot = botGo.GetComponent<Bot>();
-            bot.transform.position = currentLevel.ListSpawnPos[i];
+            bot.transform.position = currentLevel.ListSpawnPos[i].position;
             bot.Id = ++GameManager.IdGlobal;
         }
     }
@@ -30,7 +30,16 @@ public class SpawnerManager : Singleton<SpawnerManager>
         GameObject botGo = ObjectPooling.Instance.GetGameObject(ObjectType.Bot);
         Bot bot = botGo.GetComponent<Bot>();
         bot.OnInit();
-        bot.transform.position = currentLevel.ListSpawnPos[Random.Range(0, currentLevel.ListSpawnPos.Count)];
+        for (int i = 0; i < 50; i++)
+        {
+            Transform t = currentLevel.ListSpawnPos[Random.Range(0, currentLevel.ListSpawnPos.Count)];
+            if (!t.GetComponent<SpawnPosTrigger>().IsEmty)
+            {
+                continue;
+            }
+            bot.transform.position = t.position; break;
+        }
+        //bot.transform.position = currentLevel.ListSpawnPos[Random.Range(0, currentLevel.ListSpawnPos.Count)];
         bot.Id = ++GameManager.IdGlobal;
     }
 }
