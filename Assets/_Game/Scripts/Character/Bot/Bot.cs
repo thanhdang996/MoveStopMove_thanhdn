@@ -7,9 +7,6 @@ public class Bot : Character
 {
     [SerializeField] private GameObject aimed;
 
-    [SerializeField] Character currentTarget;
-    public Character CurrentTarget { get => currentTarget; set => currentTarget = value; }
-
     private NavMeshAgent navMeshAgent;
     private IState currentState;
 
@@ -44,7 +41,6 @@ public class Bot : Character
     public override void OnInit()
     {
         base.OnInit();
-        currentTarget = null;
         StartMoving();
         ChangeState(new PatrolState());
     }
