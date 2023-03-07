@@ -2,18 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum ObjectType { Player, Bot, Bullet }
+public enum ObjectType { Player, Bot, Bullet, Boomerang }
 
 public class ObjectPooling : Singleton<ObjectPooling>
 {
     [SerializeField] private GameObject playerPrefab;
     [SerializeField] private GameObject botPrefab;
     [SerializeField] private GameObject bulletPrefab;
+    [SerializeField] private GameObject boomerangPrefab;
 
 
     [SerializeField] private GameObject parentPlayer;
     [SerializeField] private GameObject parentBot;
-    [SerializeField] private GameObject parentBullet;
+    [SerializeField] private GameObject parentWeapon;
 
     private Dictionary<ObjectType, List<GameObject>> dicGameObject = new Dictionary<ObjectType, List<GameObject>>();
 
@@ -27,6 +28,8 @@ public class ObjectPooling : Singleton<ObjectPooling>
                 return botPrefab;
             case ObjectType.Bullet:
                 return bulletPrefab;
+            case ObjectType.Boomerang:
+                return boomerangPrefab;
             default:
                 return null;
         }
@@ -41,7 +44,9 @@ public class ObjectPooling : Singleton<ObjectPooling>
             case ObjectType.Bot:
                 return parentBot;
             case ObjectType.Bullet:
-                return parentBullet;
+                return parentWeapon;
+            case ObjectType.Boomerang:
+                return parentWeapon;
             default:
                 return null;
         }

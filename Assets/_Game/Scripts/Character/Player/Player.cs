@@ -23,10 +23,10 @@ public class Player : Character
 
     public override void OnDespawn()
     {
-        (TargetNearest as Bot)?.HideAim();
-        base.OnDespawn();
-        playerMovement.StopMoving();
-        playerMovement.enabled = false;
+        //(TargetNearest as Bot)?.HideAim();
+        //base.OnDespawn();
+        //playerMovement.StopMoving();
+        //playerMovement.enabled = false;
     }
 
     private void Update()

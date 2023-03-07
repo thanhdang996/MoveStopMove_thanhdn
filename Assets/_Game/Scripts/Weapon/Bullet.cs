@@ -3,22 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bullet : MonoBehaviour
+public class Bullet : Weapon
 {
-    [SerializeField] private float speed = 20;
-    [SerializeField] private float timeDestroy = 0.8f;
-    private Character sourceFireCharacter;
-    public Character SourceFireCharacter { get => sourceFireCharacter; set => sourceFireCharacter = value; }
-    private Rigidbody rb;
-
-
-    private void Awake()
-    {
-        rb = GetComponent<Rigidbody>();
-    }
-
+    private float timeDestroy;
     public void MoveAndAutoDestroy()
     {
+        timeDestroy = SourceFireCharacter.GetTimeSecondToStopWeapon(speed);
         rb.AddForce(speed * transform.forward, ForceMode.Impulse);
         Invoke(nameof(OnDespawn), timeDestroy);
     }
@@ -34,8 +24,7 @@ public class Bullet : MonoBehaviour
     {
         if (other.TryGetComponent(out Character character))
         {
-            // remove character cham bullet from source, h bo chuyen logic vao OnDespawn Character
-            //SourceFireCharacter.ListTarget.Remove(character); 
+            if (character == SourceFireCharacter) return;
             Vector3 oriScale = SourceFireCharacter.transform.localScale;
             SourceFireCharacter.transform.localScale = oriScale + (Vector3.one * SourceFireCharacter.ScalePerKill);
             character.OnDespawn();

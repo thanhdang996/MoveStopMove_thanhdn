@@ -39,7 +39,6 @@ public class SpawnerManager : Singleton<SpawnerManager>
             }
             bot.transform.position = t.position; break;
         }
-        //bot.transform.position = currentLevel.ListSpawnPos[Random.Range(0, currentLevel.ListSpawnPos.Count)];
         bot.Id = ++GameManager.IdGlobal;
     }
 }
