@@ -8,6 +8,6 @@ public class RotationSelf : MonoBehaviour
 
     private void Update()
     {
-        transform.Rotate(0, 5, 0);
+        transform.Rotate(0, rotateSpeed, 0);
     }
 }

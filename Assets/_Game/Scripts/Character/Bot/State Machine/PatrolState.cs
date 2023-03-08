@@ -5,12 +5,12 @@ using UnityEngine;
 public class PatrolState : IState
 {
     private float timer;
-    private float randomTime;
+    private float randomTimePatrol;
     private float randomTimeChangeAttackState;
     public void OnEnter(Bot bot)
     {
         timer = 0;
-        randomTime = Random.Range(5f, 8f);
+        randomTimePatrol = Random.Range(5f, 8f);
         randomTimeChangeAttackState = Random.Range(0.2f, 0.8f);
 
         bot.StartMoving();
@@ -30,7 +30,7 @@ public class PatrolState : IState
             }
         }
 
-        if (timer > randomTime)
+        if (timer > randomTimePatrol)
         {
             bot.ChangeState(new IdleState());
         }
