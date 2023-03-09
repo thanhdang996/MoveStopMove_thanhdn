@@ -235,7 +235,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 4
   m_CollisionDetection: 0
 --- !u!195 &1878824724867441829
 NavMeshAgent:
@@ -280,10 +280,11 @@ MonoBehaviour:
   timeResetAttack: 1
   isAttack: 0
   isDead: 0
-  scalePerKill: 0.05
-  pointRange: {fileID: 1062660485562202961}
+  scalePerKill: 0.1
+  pointRangeWeapon: {fileID: 1062660485562202961}
   anim: {fileID: 7965372027816281121}
   id: 0
+  currentWeaponType: 0
   aimed: {fileID: 1432887701538854761}
   currentPosTarget: {x: 0, y: 0, z: 0}
 --- !u!1 &1432887701538854761

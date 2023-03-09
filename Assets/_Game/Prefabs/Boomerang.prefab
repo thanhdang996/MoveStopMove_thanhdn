@@ -206,4 +206,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 20
+  weaponType: 1
   speedBoomerangReturn: 20
