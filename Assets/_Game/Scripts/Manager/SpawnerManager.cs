@@ -18,7 +18,7 @@ public class SpawnerManager : Singleton<SpawnerManager>
     {
         for (int i = 0; i < currentLevel.ListSpawnPos.Count; i++)
         {
-            GameObject botGo = ObjectPooling.Instance.GetGameObject(ObjectType.Bot);
+            GameObject botGo = ObjectPooling.Instance.GetGameObject(PoolType.Bot);
             Bot bot = botGo.GetComponent<Bot>();
             bot.transform.position = currentLevel.ListSpawnPos[i].position;
             bot.Id = ++GameManager.IdGlobal;
@@ -27,7 +27,7 @@ public class SpawnerManager : Singleton<SpawnerManager>
 
     public void RandomOneBot()
     {
-        GameObject botGo = ObjectPooling.Instance.GetGameObject(ObjectType.Bot);
+        GameObject botGo = ObjectPooling.Instance.GetGameObject(PoolType.Bot);
         Bot bot = botGo.GetComponent<Bot>();
         bot.OnInit();
         for (int i = 0; i < 50; i++)

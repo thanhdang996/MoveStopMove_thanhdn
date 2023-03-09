@@ -5,29 +5,21 @@ using UnityEngine;
 
 public class Bullet : Weapon
 {
-    private float timeDestroy;
-    public void MoveAndAutoDestroy()
+    public override void Launch()
     {
-        timeDestroy = SourceFireCharacter.GetTimeSecondToStopWeapon(speed);
-        rb.AddForce(speed * transform.forward, ForceMode.Impulse);
-        Invoke(nameof(OnDespawn), timeDestroy);
+        base.Launch();
+        Invoke(nameof(OnDespawn), timeStop);
     }
 
-    private void OnDespawn()
-    {
-        rb.velocity= Vector3.zero;
-        SourceFireCharacter = null;
-        ObjectPooling.Instance.ReturnGameObject(gameObject, ObjectType.Bullet);
-    }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.TryGetComponent(out Character character))
         {
             if (character == SourceFireCharacter) return;
-            Vector3 oriScale = SourceFireCharacter.transform.localScale;
-            SourceFireCharacter.transform.localScale = oriScale + (Vector3.one * SourceFireCharacter.ScalePerKill);
+
             character.OnDespawn();
+            SourceFireCharacter.ChangeScalePerKill();
 
             CancelInvoke(nameof(OnDespawn));
             OnDespawn();

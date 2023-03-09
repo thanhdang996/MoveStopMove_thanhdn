@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -34,7 +35,7 @@ public class Character : MonoBehaviour
     [SerializeField] private float scalePerKill = 0.05f;
     public float ScalePerKill { get => scalePerKill; set => scalePerKill = value; }
 
-    [SerializeField] private Transform pointRange;
+    [SerializeField] private Transform pointRangeWeapon;
 
     // anim
     private string currentAnimName;
@@ -43,6 +44,10 @@ public class Character : MonoBehaviour
     //id
     [SerializeField] private int id;
     public int Id { get => id; set => id = value; }
+
+    //Current Weapon
+    [SerializeField] private WeaponType currentWeaponType;
+
 
     protected virtual void Awake()
     {
@@ -91,7 +96,7 @@ public class Character : MonoBehaviour
 
     protected virtual void DelayDead()
     {
-        
+
     }
 
     public virtual void AttackCharacter()
@@ -105,45 +110,12 @@ public class Character : MonoBehaviour
 
     public virtual void Attack() // call from animEvent
     {
-
-        // bullet, axe...
-        //GameObject bulletObj = ObjectPooling.Instance.GetGameObject(ObjectType.Bullet);
-        //Bullet bullet = bulletObj.GetComponent<Bullet>();
-        //bullet.SourceFireCharacter = this;
-        //bullet.transform.position = firePoint.position;
-        //bullet.transform.rotation = firePoint.rotation;
-        //bullet.transform.localScale = transform.localScale;
-        //bullet.MoveAndAutoDestroy();
-
-        // boomerang
-        GameObject boomerangObj = ObjectPooling.Instance.GetGameObject(ObjectType.Boomerang);
-        Boomerang boomerang = boomerangObj.GetComponent<Boomerang>();
-        boomerang.SourceFireCharacter = this;
-        boomerang.transform.position = firePoint.position;
-        boomerang.transform.rotation = firePoint.rotation;
-        boomerang.transform.localScale = transform.localScale;
-        boomerang.MoveAndAutoDestroy();
-
-
-        // Hammer
-        //if (TargetNearest == null) return;
-        //List<Character> listTmp = new List<Character>();
-        //foreach (Character target in ListTarget)
-        //{
-        //    Vector3 dir = Vector3.Normalize(target.transform.position - transform.position);
-        //    float res = Vector3.Dot(transform.forward, dir);
-        //    if (res > 0.25f)
-        //    {
-        //        listTmp.Add(target);
-        //    }
-        //}
-
-        //foreach (Character item in listTmp)
-        //{
-        //    if (item is Player) continue;
-        //    item.OnDespawn();
-        //}
-
+        GameObject obj = ObjectPooling.Instance.GetGameObject(Constant.ConvertWeaponTypeeToObjectType(currentWeaponType));
+        Weapon weapon = obj.GetComponent<Weapon>();
+        weapon.SourceFireCharacter = this;
+        weapon.transform.SetPositionAndRotation(firePoint.position, firePoint.rotation);
+        weapon.transform.localScale = transform.localScale;
+        weapon.Launch();
     }
     public void ResetAttack()
     {
@@ -159,10 +131,21 @@ public class Character : MonoBehaviour
         transform.rotation = Quaternion.LookRotation(dir, Vector3.up);
     }
 
+
     public float GetTimeSecondToStopWeapon(float speedWeapon)
     {
-        float distance = Vector3.Distance(transform.position, pointRange.position);
+        float distance = Vector3.Distance(transform.position, pointRangeWeapon.position);
         return distance / speedWeapon;
+    }
+
+    public void ChangeScalePerKill()
+    {
+        Vector3 oriScale = transform.localScale;
+        transform.localScale = oriScale + (Vector3.one * ScalePerKill);
+        if(this is Player)
+        {
+            Camera.main.transform.GetComponent<CameraFollow>().ChangeOffSetBaseScale();
+        }
     }
 
     protected void ChangeAnim(string animName)

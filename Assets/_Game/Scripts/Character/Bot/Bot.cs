@@ -139,7 +139,7 @@ public class Bot : Character
 
     protected override void DelayDead()
     {
-        ObjectPooling.Instance.ReturnGameObject(gameObject, ObjectType.Bot);
+        ObjectPooling.Instance.ReturnGameObject(gameObject, PoolType.Bot);
         SpawnerManager.Instance.RandomOneBot();
     }
 }

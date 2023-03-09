@@ -1,27 +1,19 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Boomerang : Weapon
 {
-    private float timeStop;
-    [SerializeField] private float speedBoomerangReturn = 20f;
+    [SerializeField] private float speedReturn = 20f;
 
-
-    public void MoveAndAutoDestroy()
+    public override void Launch()
     {
-        timeStop = SourceFireCharacter.GetTimeSecondToStopWeapon(speed);
-        rb.AddForce(speed * transform.forward, ForceMode.Impulse);
+        base.Launch();
         StartCoroutine(Return());
     }
 
-    private void OnDespawn()
-    {
-        rb.velocity = Vector3.zero;
-        SourceFireCharacter = null;
-        ObjectPooling.Instance.ReturnGameObject(gameObject, ObjectType.Boomerang);
-    }
 
     private IEnumerator Return()
     {
@@ -31,7 +23,7 @@ public class Boomerang : Weapon
 
         while (Vector3.Distance(transform.position, SourceFireCharacter.transform.position) > 3f)
         {
-            transform.position = Vector3.MoveTowards(transform.position, SourceFireCharacter.transform.position, speedBoomerangReturn * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, SourceFireCharacter.transform.position, speedReturn * Time.deltaTime);
             yield return null;
         }
         OnDespawn();
@@ -42,9 +34,9 @@ public class Boomerang : Weapon
         if (other.TryGetComponent(out Character character))
         {
             if (character == SourceFireCharacter) return;
-            Vector3 oriScale = SourceFireCharacter.transform.localScale;
-            SourceFireCharacter.transform.localScale = oriScale + (Vector3.one * SourceFireCharacter.ScalePerKill);
+
             character.OnDespawn();
+            SourceFireCharacter.ChangeScalePerKill();
 
             StopCoroutine(Return());
             OnDespawn();
