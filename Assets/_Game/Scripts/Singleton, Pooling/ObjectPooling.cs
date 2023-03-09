@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum ObjectType { Player, Bot, Bullet, Boomerang }
+public enum PoolType {None, Player, Bot, Bullet, Boomerang }
 
 public class ObjectPooling : Singleton<ObjectPooling>
 {
@@ -16,36 +16,36 @@ public class ObjectPooling : Singleton<ObjectPooling>
     [SerializeField] private GameObject parentBot;
     [SerializeField] private GameObject parentWeapon;
 
-    private Dictionary<ObjectType, List<GameObject>> dicGameObject = new Dictionary<ObjectType, List<GameObject>>();
+    private Dictionary<PoolType, List<GameObject>> dicGameObject = new Dictionary<PoolType, List<GameObject>>();
 
-    private GameObject GetPrefab(ObjectType type)
+    private GameObject GetPrefab(PoolType type)
     {
         switch (type)
         {
-            case ObjectType.Player:
+            case PoolType.Player:
                 return playerPrefab;
-            case ObjectType.Bot:
+            case PoolType.Bot:
                 return botPrefab;
-            case ObjectType.Bullet:
+            case PoolType.Bullet:
                 return bulletPrefab;
-            case ObjectType.Boomerang:
+            case PoolType.Boomerang:
                 return boomerangPrefab;
             default:
                 return null;
         }
     }
 
-    private GameObject GetParent(ObjectType type)
+    private GameObject GetParent(PoolType type)
     {
         switch (type)
         {
-            case ObjectType.Player:
+            case PoolType.Player:
                 return parentPlayer;
-            case ObjectType.Bot:
+            case PoolType.Bot:
                 return parentBot;
-            case ObjectType.Bullet:
+            case PoolType.Bullet:
                 return parentWeapon;
-            case ObjectType.Boomerang:
+            case PoolType.Boomerang:
                 return parentWeapon;
             default:
                 return null;
@@ -53,7 +53,7 @@ public class ObjectPooling : Singleton<ObjectPooling>
     }
 
 
-    public GameObject GetGameObject(ObjectType typePrefab)
+    public GameObject GetGameObject(PoolType typePrefab)
     {
         List<GameObject> _itemPools = new List<GameObject>();
         if (!dicGameObject.ContainsKey(typePrefab))
@@ -79,7 +79,7 @@ public class ObjectPooling : Singleton<ObjectPooling>
         }
     }
 
-    public void ReturnGameObject(GameObject go, ObjectType typePrefab)
+    public void ReturnGameObject(GameObject go, PoolType typePrefab)
     {
         dicGameObject[typePrefab].Add(go);
         go.SetActive(false);
