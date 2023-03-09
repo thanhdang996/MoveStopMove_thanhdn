@@ -47,6 +47,7 @@ public class Character : MonoBehaviour
 
     //Current Weapon
     [SerializeField] private WeaponType currentWeaponType;
+    [SerializeField] private GameObject currentWeaponAvatar;
 
 
     protected virtual void Awake()
@@ -110,6 +111,30 @@ public class Character : MonoBehaviour
 
     public virtual void Attack() // call from animEvent
     {
+        currentWeaponAvatar.SetActive(false);
+
+        if (currentWeaponType == WeaponType.Hammer)
+        {
+            List<Character> listTmp = new List<Character>();
+            foreach (Character target in ListTarget)
+            {
+                Vector3 dir = Vector3.Normalize(target.transform.position - transform.position);
+                float res = Vector3.Dot(transform.forward, dir);
+                if (res > 0.25f)
+                {
+                    listTmp.Add(target);
+                }
+            }
+
+            foreach (Character character in listTmp)
+            {
+                if (character is Player) continue;
+                ChangeScalePerKill();
+                character.OnDespawn();
+            }
+            return;
+        }
+
         GameObject obj = ObjectPooling.Instance.GetGameObject(Constant.ConvertWeaponTypeeToObjectType(currentWeaponType));
         Weapon weapon = obj.GetComponent<Weapon>();
         weapon.SourceFireCharacter = this;
@@ -120,6 +145,7 @@ public class Character : MonoBehaviour
     public void ResetAttack()
     {
         IsAttack = false;
+        currentWeaponAvatar.SetActive(true);
     }
 
     // xoay aim toi TargetNearest
