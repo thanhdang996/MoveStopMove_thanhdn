@@ -5,18 +5,18 @@ using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
-    [SerializeField] private Transform target;
+    private Transform cameraMain;
     [SerializeField] private Vector3 offset;
     public Vector3 Offset => offset;
 
-    //private void Awake()
-    //{
-    //    offset = transform.position - target.position;
-    //}
+    private void Awake()
+    {
+        cameraMain = Camera.main.transform;
+    }
 
     private void LateUpdate()
     {
-        transform.position = target.position + Offset;
+        cameraMain.position = transform.position + Offset;
     }
 
     public void ChangeOffSetBaseScale()

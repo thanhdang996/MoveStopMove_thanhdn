@@ -207,4 +207,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 20
   weaponType: 1
-  speedReturn: 20
+  speedReturn: 10
