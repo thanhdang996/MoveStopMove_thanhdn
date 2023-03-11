@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class Character : MonoBehaviour
@@ -28,7 +29,7 @@ public class Character : MonoBehaviour
     [SerializeField] private bool isAttack;
     public bool IsAttack { get => isAttack; set => isAttack = value; }
 
-    protected float timeDelayDead = 4f;
+    protected float timeDelayRespawn = 4f;
     [SerializeField] private bool isDead;
     public bool IsDead { get => isDead; private set => isDead = value; }
 
@@ -47,7 +48,10 @@ public class Character : MonoBehaviour
 
     //Current Weapon
     [SerializeField] private WeaponType currentWeaponType;
-    [SerializeField] private GameObject currentWeaponAvatar;
+    public WeaponType CurrentWeaponType { get => currentWeaponType; set => currentWeaponType = value; }
+
+    [SerializeField] private Transform weaponHolder;
+    private GameObject currentWeaponAvatar;
 
 
     protected virtual void Awake()
@@ -63,15 +67,28 @@ public class Character : MonoBehaviour
         IsAttack = false;
     }
 
+    public void ActiveCurretnWeapon(bool randomWeapon = false)
+    {
+        if(randomWeapon)
+        {
+            int numberOfWeapon = Enum.GetNames(typeof(WeaponType)).Length;
+            currentWeaponType = (WeaponType)UnityEngine.Random.Range(0, numberOfWeapon);
+        }
+        int indexWeapon = (int)currentWeaponType;
+        currentWeaponAvatar = weaponHolder.GetChild(indexWeapon).gameObject;
+        currentWeaponAvatar.SetActive(true);
+    }
+
     public virtual void OnDespawn()
     {
         IsDead = true;
         capsuleCollider.enabled = false;
         attackRange.SetActive(false);
+        currentWeaponAvatar.SetActive(false);
         targetNearest = null;
         RemoveAllTargetRefAfterDeath();
 
-        Invoke(nameof(DelayDead), timeDelayDead);
+        Invoke(nameof(DelayRespawn), timeDelayRespawn);
     }
 
     private void RemoveAllTargetRefAfterDeath()
@@ -95,7 +112,7 @@ public class Character : MonoBehaviour
         ListInSpawnPos.Clear();
     }
 
-    protected virtual void DelayDead()
+    protected virtual void DelayRespawn()
     {
 
     }
@@ -111,8 +128,6 @@ public class Character : MonoBehaviour
 
     public virtual void Attack() // call from animEvent
     {
-        currentWeaponAvatar.SetActive(false);
-
         if (currentWeaponType == WeaponType.Hammer)
         {
             List<Character> listTmp = new List<Character>();
@@ -128,12 +143,14 @@ public class Character : MonoBehaviour
 
             foreach (Character character in listTmp)
             {
-                if (character is Player) continue;
                 ChangeScalePerKill();
                 character.OnDespawn();
             }
             return;
         }
+
+        // bullet and boomerang
+        currentWeaponAvatar.SetActive(false);
 
         GameObject obj = ObjectPooling.Instance.GetGameObject(Constant.ConvertWeaponTypeeToObjectType(currentWeaponType));
         Weapon weapon = obj.GetComponent<Weapon>();
@@ -144,6 +161,7 @@ public class Character : MonoBehaviour
     }
     public void ResetAttack()
     {
+        if(isDead) return;
         IsAttack = false;
         currentWeaponAvatar.SetActive(true);
     }
@@ -170,7 +188,8 @@ public class Character : MonoBehaviour
         transform.localScale = oriScale + (Vector3.one * ScalePerKill);
         if(this is Player)
         {
-            Camera.main.transform.GetComponent<CameraFollow>().ChangeOffSetBaseScale();
+            SaveManager.Instance.LoadPlayer().Gold++;
+            GetComponent<CameraFollow>().ChangeOffSetBaseScale();
         }
     }
 

@@ -137,7 +137,7 @@ public class Bot : Character
 
     }
 
-    protected override void DelayDead()
+    protected override void DelayRespawn()
     {
         ObjectPooling.Instance.ReturnGameObject(gameObject, PoolType.Bot);
         SpawnerManager.Instance.RandomOneBot();

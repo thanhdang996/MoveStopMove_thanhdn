@@ -23,10 +23,10 @@ public class Player : Character
 
     public override void OnDespawn()
     {
-        //(TargetNearest as Bot)?.HideAim();
-        //base.OnDespawn();
-        //playerMovement.StopMoving();
-        //playerMovement.enabled = false;
+        (TargetNearest as Bot)?.HideAim();
+        base.OnDespawn();
+        playerMovement.StopMoving();
+        playerMovement.enabled = false;
     }
 
     private void Update()
@@ -93,9 +93,9 @@ public class Player : Character
 
     }
 
-    protected override void DelayDead()
+    protected override void DelayRespawn()
     {
-        gameObject.SetActive(false);
-        //ObjectPooling.Instance.ReturnGameObject(gameObject, ObjectType.Player);
+        ObjectPooling.Instance.ReturnGameObject(gameObject, PoolType.Player);
+        SpawnerManager.Instance.SpawnPlayer();
     }
 }

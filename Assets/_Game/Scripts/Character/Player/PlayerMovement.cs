@@ -5,12 +5,17 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     private Rigidbody rb;
-    [SerializeField] private FixedJoystick joystick;
+    private FixedJoystick joystick;
     [SerializeField] private float speed = 8f;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
+    }
+
+    public void SetJoystick(FixedJoystick joystick)
+    {
+        this.joystick = joystick;
     }
 
     private void FixedUpdate()
