@@ -8,8 +8,8 @@ public class Constant : MonoBehaviour
     {
         switch (weaponType)
         {
-            case WeaponType.Bullet:
-                return PoolType.Bullet;
+            case WeaponType.Axe:
+                return PoolType.Axe;
             case WeaponType.Boomerang:
                 return PoolType.Boomerang;
             default:
