@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum WeaponType {Axe, Boomerang, Hammer}
 public class Weapon : MonoBehaviour
 {
     protected float timeStop;
