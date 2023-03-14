@@ -20,7 +20,6 @@ public class PatrolState : IState
     public void OnExecute(Bot bot)
     {
         timer += Time.deltaTime;
-
         bot.CheckTargetNearest();
         if (bot.ListTarget.Count > 0 && timer > randomTimeChangeAttackState)
         {

@@ -24,6 +24,8 @@ public class GameManager : Singleton<GameManager>
     private void Start()
     {
         LoadData();
+        LevelManager.Instance.LoadMapAtCurrentLevel();
+
         currentPlayer = LevelManager.Instance.CurrentLevel.SpawnInitPlayer();
     }
 

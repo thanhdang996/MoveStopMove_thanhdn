@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class LevelController : MonoBehaviour
 {
-    [SerializeField] private FixedJoystick joystick;
     [SerializeField] private Transform spawnPosForPlayer;
 
     [SerializeField] private Transform spawnPosForBot;
@@ -32,7 +31,7 @@ public class LevelController : MonoBehaviour
         playerGo.transform.position = spawnPosForPlayer.position;
 
         PlayerMovement playerMovement = playerGo.GetComponent<PlayerMovement>();
-        playerMovement.SetJoystick(joystick);
+        playerMovement.SetJoystick(UIManager.Instance.Joystick);
 
         Player player = playerGo.GetComponent<Player>();
         player.CreateAllWeaponPlayerOwner();
