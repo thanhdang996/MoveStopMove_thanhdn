@@ -96,6 +96,21 @@ public class Player : Character
     protected override void DelayRespawn()
     {
         ObjectPooling.Instance.ReturnGameObject(gameObject, PoolType.Player);
-        SpawnerManager.Instance.SpawnPlayer();
+        LevelManager.Instance.CurrentLevel.SpawnPlayer();
+    }
+
+    public void CreateAllWeaponPlayerOwner()
+    {
+        List<int> listWeaponOwner = GameManager.Instance.Data.WeaponOwner;
+        foreach (int indexWeapon in listWeaponOwner)
+        {
+            Instantiate(weaponSO.listWeaponAvatarPrefabs[indexWeapon], weaponHolder).SetActive(false);
+        }
+    }
+
+    public void ActiveCurrentWeapon()
+    {
+        currentWeaponType = (WeaponType)GameManager.Instance.Data.CurrentWeapon;
+        currentWeaponAvatar = weaponHolder.GetChild((int)currentWeaponType).gameObject;
     }
 }

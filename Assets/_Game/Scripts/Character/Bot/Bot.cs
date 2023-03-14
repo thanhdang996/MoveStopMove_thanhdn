@@ -140,6 +140,22 @@ public class Bot : Character
     protected override void DelayRespawn()
     {
         ObjectPooling.Instance.ReturnGameObject(gameObject, PoolType.Bot);
-        SpawnerManager.Instance.RandomOneBot();
+        LevelManager.Instance.CurrentLevel.RandomOneBot();
+    }
+
+    public void CreateWeaponBotBaseOnPlayerOwner()
+    {
+        List<int> listWeaponOwner = GameManager.Instance.Data.WeaponOwner;
+        foreach (int indexWeapon in listWeaponOwner)
+        {
+            Instantiate(weaponSO.listWeaponAvatarPrefabs[indexWeapon], weaponHolder).SetActive(false);
+        }
+    }
+
+    public void ActiveRandomWeapon()
+    {
+        int indexWeaponHolder = Random.Range(0, weaponHolder.childCount);
+        currentWeaponType = (WeaponType)indexWeaponHolder;
+        currentWeaponAvatar = weaponHolder.GetChild(indexWeaponHolder).gameObject;
     }
 }

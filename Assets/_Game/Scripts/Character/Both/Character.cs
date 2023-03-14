@@ -47,11 +47,12 @@ public class Character : MonoBehaviour
     public int Id { get => id; set => id = value; }
 
     //Current Weapon
-    [SerializeField] private WeaponType currentWeaponType;
+    [SerializeField] protected WeaponSO weaponSO;
+    [SerializeField] protected WeaponType currentWeaponType;
     public WeaponType CurrentWeaponType { get => currentWeaponType; set => currentWeaponType = value; }
 
-    [SerializeField] private Transform weaponHolder;
-    private GameObject currentWeaponAvatar;
+    [SerializeField] protected Transform weaponHolder;
+    protected GameObject currentWeaponAvatar;
 
 
     protected virtual void Awake()
@@ -62,21 +63,10 @@ public class Character : MonoBehaviour
     public virtual void OnInit()
     {
         capsuleCollider.enabled = true;
+        currentWeaponAvatar.SetActive(true);
         attackRange.SetActive(true);
         IsDead = false;
         IsAttack = false;
-    }
-
-    public void ActiveCurretnWeapon(bool randomWeapon = false)
-    {
-        if(randomWeapon)
-        {
-            int numberOfWeapon = Enum.GetNames(typeof(WeaponType)).Length;
-            currentWeaponType = (WeaponType)UnityEngine.Random.Range(0, numberOfWeapon);
-        }
-        int indexWeapon = (int)currentWeaponType;
-        currentWeaponAvatar = weaponHolder.GetChild(indexWeapon).gameObject;
-        currentWeaponAvatar.SetActive(true);
     }
 
     public virtual void OnDespawn()
@@ -188,7 +178,7 @@ public class Character : MonoBehaviour
         transform.localScale = oriScale + (Vector3.one * ScalePerKill);
         if(this is Player)
         {
-            SaveManager.Instance.LoadPlayer().Gold++;
+            GameManager.Instance.Data.Gold++;
             GetComponent<CameraFollow>().ChangeOffSetBaseScale();
         }
     }
