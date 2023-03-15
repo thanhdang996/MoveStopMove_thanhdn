@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum PoolType {None, Player, Bot, Axe, Boomerang }
+public enum PoolType {None, Player, Bot, Axe, Boomerang, Cream }
 
 public class ObjectPooling : Singleton<ObjectPooling>
 {
@@ -10,6 +10,7 @@ public class ObjectPooling : Singleton<ObjectPooling>
     [SerializeField] private GameObject botPrefab;
     [SerializeField] private GameObject axePrefab;
     [SerializeField] private GameObject boomerangPrefab;
+    [SerializeField] private GameObject creamPrefab;
 
 
     [SerializeField] private GameObject parentPlayer;
@@ -30,6 +31,8 @@ public class ObjectPooling : Singleton<ObjectPooling>
                 return axePrefab;
             case PoolType.Boomerang:
                 return boomerangPrefab;
+            case PoolType.Cream:
+                return creamPrefab;
             default:
                 return null;
         }
@@ -46,6 +49,8 @@ public class ObjectPooling : Singleton<ObjectPooling>
             case PoolType.Axe:
                 return parentWeapon;
             case PoolType.Boomerang:
+                return parentWeapon;
+            case PoolType.Cream:
                 return parentWeapon;
             default:
                 return null;

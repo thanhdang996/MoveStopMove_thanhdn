@@ -12,6 +12,8 @@ public class Constant : MonoBehaviour
                 return PoolType.Axe;
             case WeaponType.Boomerang:
                 return PoolType.Boomerang;
+            case WeaponType.Cream:
+                return PoolType.Cream;
             default:
                 return PoolType.None;
         }

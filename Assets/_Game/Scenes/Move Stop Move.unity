@@ -333,6 +333,7 @@ MonoBehaviour:
   botPrefab: {fileID: 323425293274888856, guid: 44fdae529ffda574f81b271d6fc53b34, type: 3}
   axePrefab: {fileID: 249149105656339257, guid: 94a28ca53bd9d6542a1b8cb289a792be, type: 3}
   boomerangPrefab: {fileID: 8379131706145689060, guid: 0e8a08520d2967c44869d89581cf78f6, type: 3}
+  creamPrefab: {fileID: 3777738539942493345, guid: 478f849fd3920e242a811c7287c99770, type: 3}
   parentPlayer: {fileID: 1854014315}
   parentBot: {fileID: 999773644}
   parentWeapon: {fileID: 1112811919}
