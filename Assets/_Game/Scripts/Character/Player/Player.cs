@@ -110,7 +110,11 @@ public class Player : Character
 
     public void ActiveCurrentWeapon()
     {
-        currentWeaponType = (WeaponType)GameManager.Instance.Data.CurrentWeapon;
-        currentWeaponAvatar = weaponHolder.GetChild((int)currentWeaponType).gameObject;
+        List<int> listWeaponOwner = GameManager.Instance.Data.WeaponOwner;
+        int indexcurrentWeapon = GameManager.Instance.Data.CurrentWeapon;
+        int indexInWeaponHolder = listWeaponOwner.IndexOf(indexcurrentWeapon);
+
+        currentWeaponType = (WeaponType)indexcurrentWeapon;
+        currentWeaponAvatar = weaponHolder.GetChild(indexInWeaponHolder).gameObject;
     }
 }

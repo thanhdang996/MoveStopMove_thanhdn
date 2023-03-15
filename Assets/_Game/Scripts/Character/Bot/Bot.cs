@@ -154,8 +154,11 @@ public class Bot : Character
 
     public void ActiveRandomWeapon()
     {
-        int indexWeaponHolder = Random.Range(0, weaponHolder.childCount);
-        currentWeaponType = (WeaponType)indexWeaponHolder;
-        currentWeaponAvatar = weaponHolder.GetChild(indexWeaponHolder).gameObject;
+        List<int> listWeaponOwner = GameManager.Instance.Data.WeaponOwner;
+        int indexWeaponTypeHolder = listWeaponOwner[Random.Range(0, listWeaponOwner.Count)];
+        int indexInWeaponHolder = listWeaponOwner.IndexOf(indexWeaponTypeHolder);
+
+        currentWeaponType = (WeaponType)indexWeaponTypeHolder;
+        currentWeaponAvatar = weaponHolder.GetChild(indexInWeaponHolder).gameObject;
     }
 }
