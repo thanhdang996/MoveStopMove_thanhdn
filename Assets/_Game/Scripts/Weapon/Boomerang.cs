@@ -36,7 +36,7 @@ public class Boomerang : Weapon
             if (character == SourceFireCharacter) return;
 
             character.OnDespawn();
-            SourceFireCharacter.ChangeScalePerKill();
+            SourceFireCharacter.ChangeScalePerKillAndIncreaseLevel();
 
             StopCoroutine(Return());
             OnDespawn();

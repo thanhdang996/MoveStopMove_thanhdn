@@ -19,7 +19,7 @@ public class Bullet : Weapon
             if (character == SourceFireCharacter) return;
 
             character.OnDespawn();
-            SourceFireCharacter.ChangeScalePerKill();
+            SourceFireCharacter.ChangeScalePerKillAndIncreaseLevel();
 
             CancelInvoke(nameof(OnDespawn));
             OnDespawn();

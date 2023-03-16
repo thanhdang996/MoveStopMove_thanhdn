@@ -10,6 +10,10 @@ public class LevelController : MonoBehaviour
     [SerializeField] private List<Transform> listSpawnTf = new List<Transform>();
     public List<Transform> ListSpawnPos => listSpawnTf;
 
+
+    [SerializeField] private int totalEnemy = 100;
+    public int TotalEnemy { get => totalEnemy; set => totalEnemy = value; }
+
     private void Start()
     {
         AddSpawnPosToListSpawnPos();
@@ -37,6 +41,8 @@ public class LevelController : MonoBehaviour
         player.CreateAllWeaponPlayerOwner();
         player.ActiveCurrentWeapon();
         player.OnInit();
+        player.HandleAttackRangeBaseOnRangeWeapon();
+        player.HandleCamPlayerBaseOnRangeWeapon();
 
         return player;
     }

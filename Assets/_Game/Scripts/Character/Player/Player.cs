@@ -69,7 +69,7 @@ public class Player : Character
 
     private void HandleAnim()
     {
-        if(IsDead)
+        if (IsDead)
         {
             ChangeAnim("Death");
             return;
@@ -104,7 +104,7 @@ public class Player : Character
         List<int> listWeaponOwner = GameManager.Instance.Data.WeaponOwner;
         foreach (int indexWeapon in listWeaponOwner)
         {
-            Instantiate(weaponSO.listWeaponAvatarPrefabs[indexWeapon], weaponHolder).SetActive(false);
+            Instantiate(weaponSO.propWeapons[indexWeapon].weaponAvatarPrefabs, weaponHolder).SetActive(false);
         }
     }
 
@@ -116,5 +116,26 @@ public class Player : Character
 
         currentWeaponType = (WeaponType)indexcurrentWeapon;
         currentWeaponAvatar = weaponHolder.GetChild(indexInWeaponHolder).gameObject;
+    }
+
+    public void HandleCamPlayerBaseOnRangeWeapon()
+    {
+        GetComponent<CameraFollow>().ChangeOffSetBaseRangeWeapon(attackRangeCurrentWeapon);
+    }
+
+    public override void ChangeScalePerKillAndIncreaseLevel()
+    {
+        base.ChangeScalePerKillAndIncreaseLevel();
+
+        HandleUpdateCoin();
+        GetComponent<CameraFollow>().ChangeOffSetBaseScale();
+    }
+
+    private void HandleUpdateCoin()
+    {
+        GameManager.Instance.AddCointText();
+        GameManager.Instance.SaveData();
+
+        UIManager.Instance.UpdateCoinText();
     }
 }

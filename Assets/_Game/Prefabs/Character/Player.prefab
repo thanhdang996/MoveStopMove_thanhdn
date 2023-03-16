@@ -2241,8 +2241,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firePoint: {fileID: 7856952879767797707}
-  avatarNew: {fileID: 3231077947019693541}
-  attackRange: {fileID: 7856952879483283715}
+  avatarNewGO: {fileID: 3231077947019693541}
+  attackRangeGO: {fileID: 7856952879483283715}
   listTarget: []
   listBeAimed: []
   listInSpawnPos: []
@@ -2257,7 +2257,7 @@ MonoBehaviour:
   weaponSO: {fileID: 11400000, guid: 41ee8cc0b205f854b94fb8419e8f7cff, type: 2}
   currentWeaponType: 2
   weaponHolder: {fileID: 1179914792605724733}
-  level: 0
+  levelCharacter: 0
 --- !u!1 &7856952880351969358
 GameObject:
   m_ObjectHideFlags: 0

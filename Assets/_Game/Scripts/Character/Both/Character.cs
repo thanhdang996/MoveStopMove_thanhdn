@@ -8,8 +8,12 @@ public class Character : MonoBehaviour
     private CapsuleCollider capsuleCollider;
 
     [SerializeField] protected Transform firePoint;
-    [SerializeField] private GameObject attackRange;
 
+    [SerializeField] private GameObject avatarNewGO;
+    [SerializeField] private GameObject attackRangeGO;
+
+
+    // target
     [SerializeField] private List<Character> listTarget = new List<Character>();
     public List<Character> ListTarget { get => listTarget; set => listTarget = value; }
 
@@ -25,6 +29,7 @@ public class Character : MonoBehaviour
     public Character TargetNearest { get => targetNearest; set => targetNearest = value; }
 
 
+    // prop
     [SerializeField] protected float timeResetAttack = 1f;
     [SerializeField] private bool isAttack;
     public bool IsAttack { get => isAttack; set => isAttack = value; }
@@ -33,10 +38,8 @@ public class Character : MonoBehaviour
     [SerializeField] private bool isDead;
     public bool IsDead { get => isDead; private set => isDead = value; }
 
-    [SerializeField] private float scalePerKill = 0.05f;
-    public float ScalePerKill { get => scalePerKill; set => scalePerKill = value; }
+    private const float scalePerKill = 0.05f;
 
-    [SerializeField] private Transform pointRangeWeapon;
 
     // anim
     private string currentAnimName;
@@ -53,6 +56,12 @@ public class Character : MonoBehaviour
 
     [SerializeField] protected Transform weaponHolder;
     protected GameObject currentWeaponAvatar;
+    protected int attackRangeCurrentWeapon;
+    [SerializeField] private Transform pointRangeWeapon;
+
+
+    //Current Level Character
+    [SerializeField] private int levelCharacter = 0;
 
 
     protected virtual void Awake()
@@ -64,16 +73,24 @@ public class Character : MonoBehaviour
     {
         capsuleCollider.enabled = true;
         currentWeaponAvatar.SetActive(true);
-        attackRange.SetActive(true);
+        attackRangeGO.SetActive(true);
         IsDead = false;
         IsAttack = false;
+    }
+
+    public void HandleAttackRangeBaseOnRangeWeapon()
+    {
+        attackRangeCurrentWeapon = weaponSO.ReturnAttackRangeOfWeapon(CurrentWeaponType);
+        float scaleAdjust = attackRangeCurrentWeapon / 10f;
+        attackRangeGO.transform.localScale = (Vector3.one * scaleAdjust) + (Vector3.one * scalePerKill * levelCharacter);
+        avatarNewGO.transform.localScale = Vector3.one + (Vector3.one * scalePerKill * levelCharacter);
     }
 
     public virtual void OnDespawn()
     {
         IsDead = true;
         capsuleCollider.enabled = false;
-        attackRange.SetActive(false);
+        attackRangeGO.SetActive(false);
         currentWeaponAvatar.SetActive(false);
         targetNearest = null;
         RemoveAllTargetRefAfterDeath();
@@ -133,7 +150,7 @@ public class Character : MonoBehaviour
 
             foreach (Character character in listTmp)
             {
-                ChangeScalePerKill();
+                ChangeScalePerKillAndIncreaseLevel();
                 character.OnDespawn();
             }
             return;
@@ -146,12 +163,12 @@ public class Character : MonoBehaviour
         Weapon weapon = obj.GetComponent<Weapon>();
         weapon.SourceFireCharacter = this;
         weapon.transform.SetPositionAndRotation(firePoint.position, firePoint.rotation);
-        weapon.transform.localScale = transform.localScale;
+        weapon.transform.localScale = avatarNewGO.transform.localScale;
         weapon.Launch();
     }
     public void ResetAttack()
     {
-        if(isDead) return;
+        if (isDead) return;
         IsAttack = false;
         currentWeaponAvatar.SetActive(true);
     }
@@ -172,17 +189,16 @@ public class Character : MonoBehaviour
         return distance / speedWeapon;
     }
 
-    public void ChangeScalePerKill()
+    public virtual void ChangeScalePerKillAndIncreaseLevel()
     {
-        Vector3 oriScale = transform.localScale;
-        transform.localScale = oriScale + (Vector3.one * ScalePerKill);
-        if(this is Player)
-        {
-            GameManager.Instance.Data.Gold++;
-            GetComponent<CameraFollow>().ChangeOffSetBaseScale();
-        }
-    }
+        Vector3 oriScaleAvatarNew = avatarNewGO.transform.localScale;
+        avatarNewGO.transform.localScale = oriScaleAvatarNew + (Vector3.one * scalePerKill);
 
+        Vector3 oriScaleAttackRange = attackRangeGO.transform.localScale;
+        attackRangeGO.transform.localScale = oriScaleAttackRange + (Vector3.one * scalePerKill);
+
+        levelCharacter++;
+    }
     protected void ChangeAnim(string animName)
     {
         if (currentAnimName != animName)

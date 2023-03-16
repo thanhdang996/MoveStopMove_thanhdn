@@ -43,10 +43,14 @@ public class Bot : Character
         base.OnInit();
         StartMoving();
         ChangeState(new PatrolState());
+        HandleAttackRangeBaseOnRangeWeapon();
     }
+
 
     public override void OnDespawn()
     {
+        LevelManager.Instance.CurrentLevel.TotalEnemy--;
+
         StopMoving();
         base.OnDespawn();
     }
@@ -148,7 +152,7 @@ public class Bot : Character
         List<int> listWeaponOwner = GameManager.Instance.Data.WeaponOwner;
         foreach (int indexWeapon in listWeaponOwner)
         {
-            Instantiate(weaponSO.listWeaponAvatarPrefabs[indexWeapon], weaponHolder).SetActive(false);
+            Instantiate(weaponSO.propWeapons[indexWeapon].weaponAvatarPrefabs, weaponHolder).SetActive(false);
         }
     }
 
