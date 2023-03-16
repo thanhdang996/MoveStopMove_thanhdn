@@ -5,7 +5,7 @@ using UnityEngine;
 public class AttackState : IState
 {
     private float timer;
-    private float timerToPatrol = 1f; // nen bang time reset attack
+    private float timerToPatrol = 0.8f; // nen bang time reset attack, de thap tan cong nhanh hon
     public void OnEnter(Bot bot)
     {
         bot.StopMoving();

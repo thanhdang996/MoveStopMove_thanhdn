@@ -6,12 +6,12 @@ public class PatrolState : IState
 {
     private float timer;
     private float randomTimePatrol;
-    private float randomTimeChangeAttackState;
+    //private float randomTimeChangeAttackState;
     public void OnEnter(Bot bot)
     {
         timer = 0;
-        randomTimePatrol = Random.Range(5f, 8f);
-        randomTimeChangeAttackState = Random.Range(0.2f, 0.8f);
+        randomTimePatrol = Random.Range(3f, 4f);
+        //randomTimeChangeAttackState = Random.Range(0.05f, 0.1f);
 
         bot.StartMoving();
         bot.MoveToTarget();
@@ -21,7 +21,7 @@ public class PatrolState : IState
     {
         timer += Time.deltaTime;
         bot.CheckTargetNearest();
-        if (bot.ListTarget.Count > 0 && timer > randomTimeChangeAttackState)
+        if (bot.ListTarget.Count > 0)
         {
             if (!bot.IsAttack)
             {
