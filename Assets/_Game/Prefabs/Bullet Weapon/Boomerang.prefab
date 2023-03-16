@@ -129,6 +129,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotateSpeed: 10
+  isRotateZ: 0
 --- !u!1 &8379131706145689060
 GameObject:
   m_ObjectHideFlags: 0
@@ -205,6 +206,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a49115ae60780047be14eb2e2f1146b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 20
+  speed: 15
   weaponType: 1
-  speedReturn: 10
+  speedReturn: 15
