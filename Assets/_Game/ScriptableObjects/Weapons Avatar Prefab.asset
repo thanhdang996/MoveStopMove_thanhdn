@@ -12,8 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52647863debb64a4d9eb9c55716d26dd, type: 3}
   m_Name: Weapons Avatar Prefab
   m_EditorClassIdentifier: 
-  listWeaponAvatarPrefabs:
-  - {fileID: 249149105656339257, guid: 7dbf7ee99dd81004d986974e54dfda49, type: 3}
-  - {fileID: 8379131706145689060, guid: d65b36fb388730440929db29ab5f8544, type: 3}
-  - {fileID: 4405965863068892946, guid: a8e0c1da900a7d349a67d00d23b1f98e, type: 3}
-  - {fileID: 3777738539942493345, guid: 4e5a73ca2c050a4428655081788dde46, type: 3}
+  propWeapons:
+  - weaponAvatarPrefabs: {fileID: 249149105656339257, guid: 7dbf7ee99dd81004d986974e54dfda49, type: 3}
+    attackRangeWeapons: 8
+    weaponType: 0
+  - weaponAvatarPrefabs: {fileID: 8379131706145689060, guid: d65b36fb388730440929db29ab5f8544, type: 3}
+    attackRangeWeapons: 9
+    weaponType: 1
+  - weaponAvatarPrefabs: {fileID: 4405965863068892946, guid: a8e0c1da900a7d349a67d00d23b1f98e, type: 3}
+    attackRangeWeapons: 5
+    weaponType: 2
+  - weaponAvatarPrefabs: {fileID: 3777738539942493345, guid: 4e5a73ca2c050a4428655081788dde46, type: 3}
+    attackRangeWeapons: 7
+    weaponType: 3
