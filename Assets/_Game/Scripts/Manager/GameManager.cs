@@ -58,6 +58,11 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
+    public void AddCointText()
+    {
+        Data.Coin++;
+    }
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.S))

@@ -444,7 +444,7 @@ Transform:
   m_GameObject: {fileID: 5829308429905469125}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 10, y: 10, z: 10}
+  m_LocalScale: {x: 7, y: 7, z: 7}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 5829308429707329160}
@@ -481,7 +481,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: db84811c61043a149b5ae5d51e2bc8f6, type: 2}
+  - {fileID: 2100000, guid: 067436e16927fe444a7b098dc05a5219, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -944,7 +944,7 @@ GameObject:
   - component: {fileID: 5829308430716013997}
   - component: {fileID: 5829308430716013996}
   m_Layer: 0
-  m_Name: Level 1
+  m_Name: Level 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -981,7 +981,7 @@ MonoBehaviour:
   spawnPosForPlayer: {fileID: 5829308430436609812}
   spawnPosForBot: {fileID: 5829308429887114712}
   listSpawnTf: []
-  totalEnemy: 50
+  totalEnemy: 11
 --- !u!1 &5829308430725940422
 GameObject:
   m_ObjectHideFlags: 0
