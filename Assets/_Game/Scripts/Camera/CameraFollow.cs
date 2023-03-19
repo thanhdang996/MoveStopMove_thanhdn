@@ -7,6 +7,7 @@ public class CameraFollow : MonoBehaviour
 {
     private Transform cameraMain;
     private int standardRange = 10;
+    private Vector3 standarVector3 = new Vector3(0, 25, -25);
 
     [SerializeField] private Vector3 offset;
     public Vector3 Offset => offset;
@@ -28,7 +29,7 @@ public class CameraFollow : MonoBehaviour
     }
     public void ChangeOffSetBaseRangeWeapon(int rangeWeapon)
     {
-        Vector3 oriOffset = offset;
+        Vector3 oriOffset = standarVector3;
         if(rangeWeapon == standardRange)
         {
             offset = oriOffset;

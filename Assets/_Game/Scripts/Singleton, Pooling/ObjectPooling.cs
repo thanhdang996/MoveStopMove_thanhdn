@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum PoolType {None, Player, Bot, Axe, Boomerang, Cream }
+public enum PoolType { None, Player, Bot, Axe, Boomerang, Cream }
 
 public class ObjectPooling : Singleton<ObjectPooling>
 {
