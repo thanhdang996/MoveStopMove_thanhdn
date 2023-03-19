@@ -9,24 +9,50 @@ public class Player : Character
     private PlayerMovement playerMovement;
     public PlayerMovement PlayerMovement => playerMovement;
 
+
+    private bool isWin;
+    public bool IsWin { get => isWin; set => isWin = value; }
+
     protected override void Awake()
     {
         base.Awake();
         playerMovement = GetComponent<PlayerMovement>();
     }
 
+    private void Start()
+    {
+        UIManager.Instance.OnRetryButton += SpawnPlayer;
+    }
+
     public override void OnInit()
     {
         base.OnInit();
         playerMovement.enabled = true;
+        IsWin = false;
     }
 
-    public override void OnDespawn()
+    public override void OnDespawn() // check lose
     {
         (TargetNearest as Bot)?.HideAim();
         base.OnDespawn();
+        DisablePlayerMovement();
+        if (!IsWin)
+        {
+            UIManager.Instance.ShowPanelLose();
+        }
+    }
+
+    public void DisablePlayerMovement()
+    {
         playerMovement.StopMoving();
         playerMovement.enabled = false;
+    }
+
+    private void SpawnPlayer()
+    {
+        ObjectPooling.Instance.ReturnGameObject(gameObject, PoolType.Player);
+        LevelManager.Instance.CurrentLevel.SpawnPlayer();
+        CheckConditonToWin();
     }
 
     private void Update()
@@ -69,6 +95,12 @@ public class Player : Character
 
     private void HandleAnim()
     {
+        if (IsWin)
+        {
+            ChangeAnim("Dance");
+            return;
+        }
+
         if (IsDead)
         {
             ChangeAnim("Death");
@@ -93,11 +125,7 @@ public class Player : Character
 
     }
 
-    protected override void DelayRespawn()
-    {
-        ObjectPooling.Instance.ReturnGameObject(gameObject, PoolType.Player);
-        LevelManager.Instance.CurrentLevel.SpawnPlayer();
-    }
+
 
     public void CreateAllWeaponPlayerOwner()
     {
@@ -106,6 +134,11 @@ public class Player : Character
         {
             Instantiate(weaponSO.propWeapons[indexWeapon].weaponAvatarPrefabs, weaponHolder).SetActive(false);
         }
+    }
+
+    public void AddNewWeapon(int lastIndexItem)
+    {
+        Instantiate(weaponSO.propWeapons[lastIndexItem].weaponAvatarPrefabs, weaponHolder).SetActive(false);
     }
 
     public void ActiveCurrentWeapon()
@@ -126,16 +159,20 @@ public class Player : Character
     public override void ChangeScalePerKillAndIncreaseLevel()
     {
         base.ChangeScalePerKillAndIncreaseLevel();
-
-        HandleUpdateCoin();
         GetComponent<CameraFollow>().ChangeOffSetBaseScale();
+
+        UIManager.Instance.HandUpdateCoinAndText();
+
+        CheckConditonToWin();
     }
 
-    private void HandleUpdateCoin()
+    private void CheckConditonToWin()
     {
-        GameManager.Instance.AddCointText();
-        GameManager.Instance.SaveData();
-
-        UIManager.Instance.UpdateCoinText();
+        if (LevelManager.Instance.CurrentLevel.NoMoreEnemy && !IsDead)
+        {
+            UIManager.Instance.ShowPanelWin();
+            DisablePlayerMovement();
+            IsWin = true;
+        }
     }
 }
