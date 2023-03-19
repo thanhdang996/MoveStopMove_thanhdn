@@ -20,12 +20,6 @@ public class Bot : Character
         navMeshAgent.stoppingDistance = 3;
     }
 
-    private void Start()
-    {
-        ChangeState(new PatrolState());
-        GetRandomPosTargetInMap();
-    }
-
     public void GetRandomPosTargetInMap()
     {
         List<Transform> listPos = LevelManager.Instance.CurrentLevel.ListSpawnPos;
@@ -41,7 +35,13 @@ public class Bot : Character
     public override void OnInit()
     {
         base.OnInit();
+        int levelPlayer = GameManager.Instance.CurrentPlayer.LevelCharacter;
+        levelCharacter = Random.Range(levelPlayer, levelPlayer + 3);
         StartMoving();
+        navMeshAgent.ResetPath();
+        GetRandomPosTargetInMap();
+
+        //ChangeAnim("Idle");
         ChangeState(new PatrolState());
         HandleAttackRangeBaseOnRangeWeapon();
     }
@@ -49,11 +49,13 @@ public class Bot : Character
 
     public override void OnDespawn()
     {
-        LevelManager.Instance.CurrentLevel.TotalEnemy--;
-
         StopMoving();
+
         base.OnDespawn();
+        UIManager.Instance.UpdateTotalEnemyAndText();
+        CheckConditionEnemyRemainToSpawn();
     }
+
 
     private void Update()
     {
@@ -63,6 +65,7 @@ public class Bot : Character
             currentState?.OnExecute(this);
         }
     }
+
 
     public void StopMoving()
     {
@@ -141,12 +144,6 @@ public class Bot : Character
 
     }
 
-    protected override void DelayRespawn()
-    {
-        ObjectPooling.Instance.ReturnGameObject(gameObject, PoolType.Bot);
-        LevelManager.Instance.CurrentLevel.RandomOneBot();
-    }
-
     public void CreateWeaponBotBaseOnPlayerOwner()
     {
         List<int> listWeaponOwner = GameManager.Instance.Data.WeaponOwner;
@@ -161,8 +158,35 @@ public class Bot : Character
         List<int> listWeaponOwner = GameManager.Instance.Data.WeaponOwner;
         int indexWeaponTypeHolder = listWeaponOwner[Random.Range(0, listWeaponOwner.Count)];
         int indexInWeaponHolder = listWeaponOwner.IndexOf(indexWeaponTypeHolder);
-
+        // neu chua co thi instantiate
         currentWeaponType = (WeaponType)indexWeaponTypeHolder;
+
+        if(indexInWeaponHolder > weaponHolder.childCount-1)
+        {
+            Instantiate(weaponSO.propWeapons[indexWeaponTypeHolder].weaponAvatarPrefabs, weaponHolder).SetActive(false);
+        }
         currentWeaponAvatar = weaponHolder.GetChild(indexInWeaponHolder).gameObject;
+    }
+
+
+    private void CheckConditionEnemyRemainToSpawn()
+    {
+        if (LevelManager.Instance.CurrentLevel.TotalEnemy - LevelManager.Instance.CurrentLevel.NumberBotSpawnInit >= 0)
+        {
+            Invoke(nameof(SpawnBot), timeDelayRespawn);
+        }
+        else
+        {
+            Invoke(nameof(ReturnBotToPool), timeDelayRespawn);
+        }
+    }
+    private void SpawnBot()
+    {
+        ObjectPooling.Instance.ReturnGameObject(gameObject, PoolType.Bot);
+        LevelManager.Instance.CurrentLevel.RandomOneBot();
+    }
+    private void ReturnBotToPool()
+    {
+        ObjectPooling.Instance.ReturnGameObject(gameObject, PoolType.Bot);
     }
 }
