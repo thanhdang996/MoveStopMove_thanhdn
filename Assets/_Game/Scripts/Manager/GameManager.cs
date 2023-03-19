@@ -12,7 +12,10 @@ public class GameManager : Singleton<GameManager>
 
 
     private Player currentPlayer;
+    public Player CurrentPlayer => currentPlayer;
     public static int IdGlobal = 0;
+
+    public int MaxLevel { get; set; } = 2;
 
 
     public override void Awake()
@@ -23,10 +26,20 @@ public class GameManager : Singleton<GameManager>
 
     private void Start()
     {
+        UIManager.Instance.OnNextButton += OnInitLoad;
+        //OnInitLoad();
         LoadData();
         LevelManager.Instance.LoadMapAtCurrentLevel();
-
+        UIManager.Instance.OnInitLoadUI();
         currentPlayer = LevelManager.Instance.CurrentLevel.SpawnInitPlayer();
+    }
+
+    private void OnInitLoad()
+    {
+        LoadData();
+        LevelManager.Instance.LoadMapAtCurrentLevel();
+        UIManager.Instance.OnInitLoadUI();
+        currentPlayer = LevelManager.Instance.CurrentLevel.SpawnPlayerNextLevel(CurrentPlayer);
     }
 
     public void SaveData()
@@ -58,9 +71,24 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
-    public void AddCointText()
+    public void AddCoin()
     {
         Data.Coin++;
+    }
+
+    public void AddLevel()
+    {
+        Data.LevelId++;
+    }
+
+    public void AddNewItemToData(int indexWeapon)
+    {
+        Data.WeaponOwner.Add(indexWeapon);
+        SaveData();
+
+        List<int> listWeaponOwner = Data.WeaponOwner;
+        int lastIndexItem = listWeaponOwner[listWeaponOwner.Count - 1];
+        currentPlayer.AddNewWeapon(lastIndexItem);
     }
 
     private void Update()
