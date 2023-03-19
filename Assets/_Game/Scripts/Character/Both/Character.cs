@@ -42,7 +42,7 @@ public class Character : MonoBehaviour
 
 
     // anim
-    private string currentAnimName;
+    [SerializeField] private string currentAnimName;
     [SerializeField] private Animator anim;
 
     //id
@@ -55,13 +55,15 @@ public class Character : MonoBehaviour
     public WeaponType CurrentWeaponType { get => currentWeaponType; set => currentWeaponType = value; }
 
     [SerializeField] protected Transform weaponHolder;
+    public Transform WeaponHolder => weaponHolder;
     protected GameObject currentWeaponAvatar;
     protected int attackRangeCurrentWeapon;
     [SerializeField] private Transform pointRangeWeapon;
 
 
     //Current Level Character
-    [SerializeField] private int levelCharacter = 0;
+    [SerializeField] protected int levelCharacter = 0;
+    public int LevelCharacter => levelCharacter;
 
 
     protected virtual void Awake()
@@ -78,24 +80,37 @@ public class Character : MonoBehaviour
         IsAttack = false;
     }
 
+    public void ResetLevelCharacter()
+    {
+        levelCharacter = 0;
+    }
+
     public void HandleAttackRangeBaseOnRangeWeapon()
     {
         attackRangeCurrentWeapon = weaponSO.ReturnAttackRangeOfWeapon(CurrentWeaponType);
         float scaleAdjust = attackRangeCurrentWeapon / 10f;
+
+        // attack range base on weaponrange and level
         attackRangeGO.transform.localScale = (Vector3.one * scaleAdjust) + (Vector3.one * scalePerKill * levelCharacter);
+
+        // avatar base on level
         avatarNewGO.transform.localScale = Vector3.one + (Vector3.one * scalePerKill * levelCharacter);
     }
 
     public virtual void OnDespawn()
     {
+        SetPropWhenDeath();
+    }
+
+    public virtual void SetPropWhenDeath()
+    {
+        CancelInvoke(); // khi chet cancel invoke het, tu thoi gian ResetAttack
         IsDead = true;
         capsuleCollider.enabled = false;
         attackRangeGO.SetActive(false);
         currentWeaponAvatar.SetActive(false);
         targetNearest = null;
         RemoveAllTargetRefAfterDeath();
-
-        Invoke(nameof(DelayRespawn), timeDelayRespawn);
     }
 
     private void RemoveAllTargetRefAfterDeath()
@@ -119,10 +134,6 @@ public class Character : MonoBehaviour
         ListInSpawnPos.Clear();
     }
 
-    protected virtual void DelayRespawn()
-    {
-
-    }
 
     public virtual void AttackCharacter()
     {
@@ -162,13 +173,14 @@ public class Character : MonoBehaviour
         GameObject obj = ObjectPooling.Instance.GetGameObject(Constant.ConvertWeaponTypeeToObjectType(currentWeaponType));
         Weapon weapon = obj.GetComponent<Weapon>();
         weapon.SourceFireCharacter = this;
-        weapon.transform.SetPositionAndRotation(firePoint.position, firePoint.rotation);
+        Vector3 firePointNew = new Vector3(firePoint.position.x, firePoint.position.y + 1f, firePoint.position.z);
+        weapon.transform.SetPositionAndRotation(firePointNew, firePoint.rotation);
         weapon.transform.localScale = avatarNewGO.transform.localScale;
         weapon.Launch();
     }
     public void ResetAttack()
     {
-        if (isDead) return;
+        //if (isDead) return;
         IsAttack = false;
         currentWeaponAvatar.SetActive(true);
     }
