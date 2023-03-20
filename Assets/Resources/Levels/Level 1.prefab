@@ -428,6 +428,7 @@ GameObject:
   - component: {fileID: 5829308429905469122}
   - component: {fileID: 5829308429905469123}
   - component: {fileID: 5829308429905469124}
+  - component: {fileID: 2073350962359612874}
   m_Layer: 3
   m_Name: Plane
   m_TagString: Untagged
@@ -517,6 +518,19 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &2073350962359612874
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5829308429905469125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de7a3c17bd34d874595e422c7a5ea9d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_NavMeshData: {fileID: 23800000, guid: 581962d880faa5e44a494f21662af498, type: 2}
 --- !u!1 &5829308429973981243
 GameObject:
   m_ObjectHideFlags: 0
@@ -981,7 +995,8 @@ MonoBehaviour:
   spawnPosForPlayer: {fileID: 5829308430436609812}
   spawnPosForBot: {fileID: 5829308429887114712}
   listSpawnTf: []
-  totalEnemy: 50
+  listBot: []
+  totalEnemy: 100
 --- !u!1 &5829308430725940422
 GameObject:
   m_ObjectHideFlags: 0
