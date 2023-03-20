@@ -37,13 +37,11 @@ public class Bot : Character
         base.OnInit();
         int levelPlayer = GameManager.Instance.CurrentPlayer.LevelCharacter;
         levelCharacter = Random.Range(levelPlayer, levelPlayer + 3);
+
         StartMoving();
         navMeshAgent.ResetPath();
         GetRandomPosTargetInMap();
-
-        //ChangeAnim("Idle");
         ChangeState(new PatrolState());
-        HandleAttackRangeBaseOnRangeWeapon();
     }
 
 
@@ -147,25 +145,26 @@ public class Bot : Character
     public void CreateWeaponBotBaseOnPlayerOwner()
     {
         List<int> listWeaponOwner = GameManager.Instance.Data.WeaponOwner;
-        foreach (int indexWeapon in listWeaponOwner)
+        foreach (int weapon in listWeaponOwner)
         {
-            Instantiate(weaponSO.propWeapons[indexWeapon].weaponAvatarPrefabs, weaponHolder).SetActive(false);
+            Instantiate(weaponSO.propWeapons[weapon].weaponAvatarPrefabs, weaponHolder).SetActive(false);
         }
     }
 
     public void ActiveRandomWeapon()
     {
         List<int> listWeaponOwner = GameManager.Instance.Data.WeaponOwner;
-        int indexWeaponTypeHolder = listWeaponOwner[Random.Range(0, listWeaponOwner.Count)];
-        int indexInWeaponHolder = listWeaponOwner.IndexOf(indexWeaponTypeHolder);
-        // neu chua co thi instantiate
-        currentWeaponType = (WeaponType)indexWeaponTypeHolder;
+        int indexWeaponType = listWeaponOwner[Random.Range(0, listWeaponOwner.Count)];
+        int getIndexInWeaponHolder = listWeaponOwner.IndexOf(indexWeaponType);
+        currentWeaponType = (WeaponType)indexWeaponType;
 
-        if(indexInWeaponHolder > weaponHolder.childCount-1)
+        // neu player moi add weapon thi instantiate
+        if (getIndexInWeaponHolder > weaponHolder.childCount - 1)
         {
-            Instantiate(weaponSO.propWeapons[indexWeaponTypeHolder].weaponAvatarPrefabs, weaponHolder).SetActive(false);
+            // trong weaponHolder tao 1 weapon moi o vi tri cuoi, neu nhu getIndexInWeaponHolder vuot qua childCount-1
+            Instantiate(weaponSO.propWeapons[indexWeaponType].weaponAvatarPrefabs, weaponHolder).SetActive(false);
         }
-        currentWeaponAvatar = weaponHolder.GetChild(indexInWeaponHolder).gameObject;
+        currentWeaponAvatar = weaponHolder.GetChild(getIndexInWeaponHolder).gameObject;
     }
 
 

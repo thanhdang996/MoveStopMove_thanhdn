@@ -22,10 +22,10 @@ public class LevelController : MonoBehaviour
         AddSpawnPosToListSpawnPos();
         RandomInitBot();
 
-        UIManager.Instance.OnRetryButton += PrintRetry;
+        UIManager.Instance.OnRetryButton += OnPrintRetry;
     }
 
-    private void PrintRetry()
+    private void OnPrintRetry()
     {
         print("Retry");
     }
@@ -48,7 +48,6 @@ public class LevelController : MonoBehaviour
         playerMovement.SetJoystick(UIManager.Instance.Joystick);
 
         Player player = playerGo.GetComponent<Player>();
-        player.ResetLevelCharacter();
         player.CreateAllWeaponPlayerOwner();
         player.ActiveCurrentWeapon();
         player.OnInit();
@@ -68,7 +67,7 @@ public class LevelController : MonoBehaviour
         return player;
     }
 
-    public void SpawnPlayer()
+    public void RevivePlayer()
     {
         GameObject playerGo = ObjectPooling.Instance.GetGameObject(PoolType.Player);
         Player player = playerGo.GetComponent<Player>();
@@ -96,9 +95,9 @@ public class LevelController : MonoBehaviour
             {
                 bot.CreateWeaponBotBaseOnPlayerOwner();
             }
-            bot.ResetLevelCharacter();
             bot.ActiveRandomWeapon();
             bot.OnInit();
+            bot.HandleAttackRangeBaseOnRangeWeapon();
             bot.transform.position = ListSpawnPos[i].position;
             bot.Id = ++GameManager.IdGlobal;
         }
@@ -110,6 +109,7 @@ public class LevelController : MonoBehaviour
         Bot bot = botGo.GetComponent<Bot>();
         bot.ActiveRandomWeapon();
         bot.OnInit();
+        bot.HandleAttackRangeBaseOnRangeWeapon();
 
         for (int i = 0; i < 100; i++)
         {
@@ -126,9 +126,5 @@ public class LevelController : MonoBehaviour
     public void MinusTotalEnemy()
     {
         totalEnemy--;
-    }
-    public int GetTotalEnemy()
-    {
-        return totalEnemy;
     }
 }

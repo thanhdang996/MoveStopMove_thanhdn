@@ -26,15 +26,15 @@ public class GameManager : Singleton<GameManager>
 
     private void Start()
     {
-        UIManager.Instance.OnNextButton += OnInitLoad;
-        //OnInitLoad();
+        UIManager.Instance.OnNextButton += OnLoadNextLevel;
+
         LoadData();
         LevelManager.Instance.LoadMapAtCurrentLevel();
         UIManager.Instance.OnInitLoadUI();
         currentPlayer = LevelManager.Instance.CurrentLevel.SpawnInitPlayer();
     }
 
-    private void OnInitLoad()
+    private void OnLoadNextLevel()
     {
         LoadData();
         LevelManager.Instance.LoadMapAtCurrentLevel();
@@ -81,14 +81,12 @@ public class GameManager : Singleton<GameManager>
         Data.LevelId++;
     }
 
-    public void AddNewItemToData(int indexWeapon)
+    public void AddNewItemToData(int indexWeaponOnShop)
     {
-        Data.WeaponOwner.Add(indexWeapon);
+        Data.WeaponOwner.Add(indexWeaponOnShop);
         SaveData();
 
-        List<int> listWeaponOwner = Data.WeaponOwner;
-        int lastIndexItem = listWeaponOwner[listWeaponOwner.Count - 1];
-        currentPlayer.AddNewWeapon(lastIndexItem);
+        currentPlayer.AddNewWeapon(indexWeaponOnShop);
     }
 
     private void Update()

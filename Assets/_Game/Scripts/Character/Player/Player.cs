@@ -21,7 +21,7 @@ public class Player : Character
 
     private void Start()
     {
-        UIManager.Instance.OnRetryButton += SpawnPlayer;
+        UIManager.Instance.OnRetryButton += OnRevivePlayer;
     }
 
     public override void OnInit()
@@ -48,10 +48,10 @@ public class Player : Character
         playerMovement.enabled = false;
     }
 
-    private void SpawnPlayer()
+    private void OnRevivePlayer()
     {
         ObjectPooling.Instance.ReturnGameObject(gameObject, PoolType.Player);
-        LevelManager.Instance.CurrentLevel.SpawnPlayer();
+        LevelManager.Instance.CurrentLevel.RevivePlayer();
         CheckConditonToWin();
     }
 
@@ -130,25 +130,31 @@ public class Player : Character
     public void CreateAllWeaponPlayerOwner()
     {
         List<int> listWeaponOwner = GameManager.Instance.Data.WeaponOwner;
-        foreach (int indexWeapon in listWeaponOwner)
+        foreach (int weapon in listWeaponOwner)
         {
-            Instantiate(weaponSO.propWeapons[indexWeapon].weaponAvatarPrefabs, weaponHolder).SetActive(false);
+            Instantiate(weaponSO.propWeapons[weapon].weaponAvatarPrefabs, weaponHolder).SetActive(false);
         }
     }
 
-    public void AddNewWeapon(int lastIndexItem)
+    public void AddNewWeapon(int indexWeaponOnShop)
     {
-        Instantiate(weaponSO.propWeapons[lastIndexItem].weaponAvatarPrefabs, weaponHolder).SetActive(false);
+        Instantiate(weaponSO.propWeapons[indexWeaponOnShop].weaponAvatarPrefabs, weaponHolder).SetActive(false);
+        //List<int> listWeaponOwner = GameManager.Instance.Data.WeaponOwner;
+        //int getIndexInWeaponHolder = listWeaponOwner.IndexOf(indexWeaponOnShop);
+        //currentWeaponAvatar.SetActive(false);
+        //currentWeaponType = (WeaponType)indexWeaponOnShop;
+        //currentWeaponAvatar = weaponHolder.GetChild(getIndexInWeaponHolder).gameObject;
+        //currentWeaponAvatar.SetActive(true);
     }
 
     public void ActiveCurrentWeapon()
     {
         List<int> listWeaponOwner = GameManager.Instance.Data.WeaponOwner;
         int indexcurrentWeapon = GameManager.Instance.Data.CurrentWeapon;
-        int indexInWeaponHolder = listWeaponOwner.IndexOf(indexcurrentWeapon);
+        int getIndexInWeaponHolder = listWeaponOwner.IndexOf(indexcurrentWeapon);
 
         currentWeaponType = (WeaponType)indexcurrentWeapon;
-        currentWeaponAvatar = weaponHolder.GetChild(indexInWeaponHolder).gameObject;
+        currentWeaponAvatar = weaponHolder.GetChild(getIndexInWeaponHolder).gameObject;
     }
 
     public void HandleCamPlayerBaseOnRangeWeapon()
@@ -156,7 +162,7 @@ public class Player : Character
         GetComponent<CameraFollow>().ChangeOffSetBaseRangeWeapon(attackRangeCurrentWeapon);
     }
 
-    public override void ChangeScalePerKillAndIncreaseLevel()
+    public override void ChangeScalePerKillAndIncreaseLevel() // check win
     {
         base.ChangeScalePerKillAndIncreaseLevel();
         GetComponent<CameraFollow>().ChangeOffSetBaseScale();

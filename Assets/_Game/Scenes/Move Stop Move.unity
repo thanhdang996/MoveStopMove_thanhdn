@@ -2236,9 +2236,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 752440260}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: AddNewItemToData
+      - m_Target: {fileID: 891046923}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: BuyWeapon
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

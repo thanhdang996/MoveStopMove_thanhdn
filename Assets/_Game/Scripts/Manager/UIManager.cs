@@ -100,6 +100,11 @@ public class UIManager : Singleton<UIManager>
         OnNextButton?.Invoke();
     }
 
+    public void BuyWeapon(int indexWeaponOnShop)
+    {
+        GameManager.Instance.AddNewItemToData(indexWeaponOnShop);
+    }
+
     public void Quit()
     {
         Application.Quit();
