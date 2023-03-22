@@ -377,6 +377,7 @@ MonoBehaviour:
   timeResetAttack: 1
   isAttack: 0
   isDead: 0
+  currentAnimName: 
   anim: {fileID: 2038517037326327806}
   id: 0
   weaponSO: {fileID: 11400000, guid: 41ee8cc0b205f854b94fb8419e8f7cff, type: 2}
@@ -386,6 +387,8 @@ MonoBehaviour:
   levelCharacter: 0
   aimed: {fileID: 1432887701538854761}
   currentPosTarget: {x: 0, y: 0, z: 0}
+  indicatorGO: {fileID: 0}
+  skinnedMeshRenderer: {fileID: 3529719572588515188}
 --- !u!1 &564957047264644713
 GameObject:
   m_ObjectHideFlags: 0
