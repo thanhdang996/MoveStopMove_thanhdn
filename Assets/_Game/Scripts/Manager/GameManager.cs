@@ -4,8 +4,11 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 
+public enum GameState { MainMenu, GamePlay, Finish }
+
 public class GameManager : Singleton<GameManager>
 {
+    GameState state;
 
     [SerializeField] private GameData data;
     public GameData Data { get => data; set => data = value; }
@@ -18,7 +21,7 @@ public class GameManager : Singleton<GameManager>
     public int MaxLevel { get; set; } = 2;
 
 
-    public override void Awake()
+    protected override void Awake()
     {
         base.Awake();
         IdGlobal = 0;
@@ -33,6 +36,10 @@ public class GameManager : Singleton<GameManager>
         UIManager.Instance.OnInitLoadUI();
         currentPlayer = LevelManager.Instance.CurrentLevel.SpawnInitPlayer();
     }
+
+    public void ChangeState(GameState state) => this.state = state;
+
+    public bool IsState (GameState state) => this.state == state;
 
     private void OnLoadNextLevel()
     {
@@ -89,6 +96,8 @@ public class GameManager : Singleton<GameManager>
         currentPlayer.AddNewWeapon(indexWeaponOnShop);
     }
 
+#if UNITY_EDITOR
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.S))
@@ -102,4 +111,6 @@ public class GameManager : Singleton<GameManager>
             LoadData();
         }
     }
+#endif
+
 }
