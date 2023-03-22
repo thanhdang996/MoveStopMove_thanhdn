@@ -47,7 +47,7 @@ public class LevelController : MonoBehaviour
 
     public Player SpawnInitPlayer()
     {
-        GameObject playerGo = ObjectPooling.Instance.GetGameObject(PoolType.Player);
+        GameObject playerGo = ObjectPooling.Instance.GetGameObject(MyPoolType.Player);
         playerGo.transform.position = spawnPosForPlayerTF.position;
 
         PlayerMovement playerMovement = playerGo.GetComponent<PlayerMovement>();
@@ -75,7 +75,7 @@ public class LevelController : MonoBehaviour
 
     public void RevivePlayer()
     {
-        GameObject playerGo = ObjectPooling.Instance.GetGameObject(PoolType.Player);
+        GameObject playerGo = ObjectPooling.Instance.GetGameObject(MyPoolType.Player);
         Player player = playerGo.GetComponent<Player>();
         player.OnInit();
 
@@ -95,7 +95,7 @@ public class LevelController : MonoBehaviour
     {
         for (int i = 0; i < ListSpawnPosTrigger.Count; i++)
         {
-            GameObject botGo = ObjectPooling.Instance.GetGameObject(PoolType.Bot);
+            GameObject botGo = ObjectPooling.Instance.GetGameObject(MyPoolType.Bot);
             Bot bot = botGo.GetComponent<Bot>();
 
             if (bot.WeaponHolderTF.childCount == 0)
@@ -113,7 +113,7 @@ public class LevelController : MonoBehaviour
 
     public void RandomOneBot()
     {
-        GameObject botGo = ObjectPooling.Instance.GetGameObject(PoolType.Bot);
+        GameObject botGo = ObjectPooling.Instance.GetGameObject(MyPoolType.Bot);
         Bot bot = botGo.GetComponent<Bot>();
         bot.ActiveRandomWeapon();
         bot.OnInit();

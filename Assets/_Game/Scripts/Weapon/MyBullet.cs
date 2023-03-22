@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bullet : Weapon
+public class MyBullet : Weapon
 {
     public override void Launch()
     {

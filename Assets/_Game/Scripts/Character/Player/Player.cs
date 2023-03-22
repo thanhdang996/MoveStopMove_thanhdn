@@ -53,7 +53,7 @@ public class Player : Character
 
     private void OnRevivePlayer()
     {
-        ObjectPooling.Instance.ReturnGameObject(gameObject, PoolType.Player);
+        ObjectPooling.Instance.ReturnGameObject(gameObject, MyPoolType.Player);
         LevelManager.Instance.CurrentLevel.RevivePlayer();
         CheckConditonToWin();
     }

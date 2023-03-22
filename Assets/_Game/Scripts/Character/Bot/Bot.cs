@@ -49,7 +49,7 @@ public class Bot : Character
         ChangeState(new PatrolState());
 
         LevelManager.Instance.CurrentLevel.ListBotCurrent.Add(this);
-        IndicatorGO = ObjectPooling.Instance.GetGameObject(PoolType.Indicator);
+        IndicatorGO = ObjectPooling.Instance.GetGameObject(MyPoolType.Indicator);
     }
 
 
@@ -62,7 +62,7 @@ public class Bot : Character
         CheckConditionEnemyRemainToSpawn();
 
         LevelManager.Instance.CurrentLevel.ListBotCurrent.Remove(this);
-        ObjectPooling.Instance.ReturnGameObject(IndicatorGO, PoolType.Indicator);
+        ObjectPooling.Instance.ReturnGameObject(IndicatorGO, MyPoolType.Indicator);
     }
 
 
@@ -192,11 +192,11 @@ public class Bot : Character
     }
     private void SpawnBot()
     {
-        ObjectPooling.Instance.ReturnGameObject(gameObject, PoolType.Bot);
+        ObjectPooling.Instance.ReturnGameObject(gameObject, MyPoolType.Bot);
         LevelManager.Instance.CurrentLevel.RandomOneBot();
     }
     private void ReturnBotToPool()
     {
-        ObjectPooling.Instance.ReturnGameObject(gameObject, PoolType.Bot);
+        ObjectPooling.Instance.ReturnGameObject(gameObject, MyPoolType.Bot);
     }
 }
