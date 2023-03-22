@@ -9,6 +9,8 @@ public class Player : Character
     private PlayerMovement playerMovement;
     public PlayerMovement PlayerMovement => playerMovement;
 
+    private CameraFollow cam;
+
 
     private bool isWin;
     public bool IsWin { get => isWin; set => isWin = value; }
@@ -17,6 +19,7 @@ public class Player : Character
     {
         base.Awake();
         playerMovement = GetComponent<PlayerMovement>();
+        cam = GetComponent<CameraFollow>();
     }
 
     private void Start()
@@ -77,7 +80,7 @@ public class Player : Character
 
         for (int i = 0; i < ListTarget.Count; i++)
         {
-            float distance = Vector3.Distance(ListTarget[i].transform.position, transform.position);
+            float distance = Vector3.Distance(ListTarget[i].TF.position, TF.position);
             if (distance < minDistance)
             {
                 minDistance = distance;
@@ -97,29 +100,29 @@ public class Player : Character
     {
         if (IsWin)
         {
-            ChangeAnim("Dance");
+            ChangeAnim(Constant.ANIM_DANCE);
             return;
         }
 
         if (IsDead)
         {
-            ChangeAnim("Death");
+            ChangeAnim(Constant.ANIM_DEATH);
             return;
         }
 
         if (PlayerMovement.IsMoving())
         {
-            ChangeAnim("Run");
+            ChangeAnim(Constant.ANIM_RUN);
             return;
         }
         if (IsAttack)
         {
-            ChangeAnim("Attack");
+            ChangeAnim(Constant.ANIM_ATTACK);
             return;
         }
         else if (!PlayerMovement.IsMoving())
         {
-            ChangeAnim("Idle");
+            ChangeAnim(Constant.ANIM_IDLE);
             return;
         }
 
@@ -132,13 +135,13 @@ public class Player : Character
         List<int> listWeaponOwner = GameManager.Instance.Data.WeaponOwner;
         foreach (int weapon in listWeaponOwner)
         {
-            Instantiate(weaponSO.propWeapons[weapon].weaponAvatarPrefabs, weaponHolder).SetActive(false);
+            Instantiate(weaponSO.propWeapons[weapon].weaponAvatarPrefabs, weaponHolderTF).SetActive(false);
         }
     }
 
     public void AddNewWeapon(int indexWeaponOnShop)
     {
-        Instantiate(weaponSO.propWeapons[indexWeaponOnShop].weaponAvatarPrefabs, weaponHolder).SetActive(false);
+        Instantiate(weaponSO.propWeapons[indexWeaponOnShop].weaponAvatarPrefabs, weaponHolderTF).SetActive(false);
         //List<int> listWeaponOwner = GameManager.Instance.Data.WeaponOwner;
         //int getIndexInWeaponHolder = listWeaponOwner.IndexOf(indexWeaponOnShop);
         //currentWeaponAvatar.SetActive(false);
@@ -154,18 +157,18 @@ public class Player : Character
         int getIndexInWeaponHolder = listWeaponOwner.IndexOf(indexcurrentWeapon);
 
         currentWeaponType = (WeaponType)indexcurrentWeapon;
-        currentWeaponAvatar = weaponHolder.GetChild(getIndexInWeaponHolder).gameObject;
+        currentWeaponAvaGO = weaponHolderTF.GetChild(getIndexInWeaponHolder).gameObject;
     }
 
     public void HandleCamPlayerBaseOnRangeWeapon()
     {
-        GetComponent<CameraFollow>().ChangeOffSetBaseRangeWeapon(attackRangeCurrentWeapon);
+        cam.ChangeOffSetBaseRangeWeapon(attackRangeCurrentWeapon);
     }
 
     public override void ChangeScalePerKillAndIncreaseLevel() // check win
     {
         base.ChangeScalePerKillAndIncreaseLevel();
-        GetComponent<CameraFollow>().ChangeOffSetBaseScale();
+        cam.ChangeOffSetBaseScale();
 
         UIManager.Instance.HandUpdateCoinAndText();
 

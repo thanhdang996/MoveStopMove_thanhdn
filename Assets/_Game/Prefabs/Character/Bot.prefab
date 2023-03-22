@@ -367,7 +367,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79578f915d0cf8f40836e0e91beb7de6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  firePoint: {fileID: 5680831552801674267}
+  firePointTF: {fileID: 5680831552801674267}
   avatarNewGO: {fileID: 4943578450811715735}
   attackRangeGO: {fileID: 2020934959447389389}
   listTarget: []
@@ -382,13 +382,12 @@ MonoBehaviour:
   id: 0
   weaponSO: {fileID: 11400000, guid: 41ee8cc0b205f854b94fb8419e8f7cff, type: 2}
   currentWeaponType: 0
-  weaponHolder: {fileID: 3462365545506995613}
-  pointRangeWeapon: {fileID: 1062660485562202961}
+  weaponHolderTF: {fileID: 3462365545506995613}
+  pointRangeWeaponTF: {fileID: 1062660485562202961}
   levelCharacter: 0
-  aimed: {fileID: 1432887701538854761}
+  aimedGO: {fileID: 1432887701538854761}
   currentPosTarget: {x: 0, y: 0, z: 0}
   indicatorGO: {fileID: 0}
-  skinnedMeshRenderer: {fileID: 3529719572588515188}
 --- !u!1 &564957047264644713
 GameObject:
   m_ObjectHideFlags: 0
@@ -929,6 +928,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfd6246560f6a9748af1eef5eb74678a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  characterParent: {fileID: 1735956090}
 --- !u!1 &2072435232823559541
 GameObject:
   m_ObjectHideFlags: 0
@@ -2642,7 +2642,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8841979167937287703}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 1, z: 1.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

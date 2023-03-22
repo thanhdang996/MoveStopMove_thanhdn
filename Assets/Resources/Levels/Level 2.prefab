@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 2975407021928349423}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 2.97, y: 0, z: -1.78}
-  m_LocalScale: {x: -0.82, y: 0.5, z: 2.46}
+  m_LocalScale: {x: 0.8, y: 0.5, z: 2.46}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2325870769734935957}
@@ -1321,9 +1321,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4efcc2a206ffcc44ac39c347c1e2aba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnPosForPlayer: {fileID: 5829308430436609812}
-  spawnPosForBot: {fileID: 5829308429887114712}
-  listSpawnTf: []
+  spawnPosForPlayerTF: {fileID: 5829308430436609812}
+  spawnPosForBotTF: {fileID: 5829308429887114712}
+  listSpawn: []
   listBot: []
   totalEnemy: 15
 --- !u!1 &5829308430725940422

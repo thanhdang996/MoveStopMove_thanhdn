@@ -5,7 +5,22 @@ using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
-    private Transform cameraMain;
+    // cache transform
+    private Transform tf;
+
+    public Transform TF
+    {
+        get
+        {
+            if (tf == null)
+            {
+                tf = transform;
+            }
+            return tf;
+        }
+    }
+
+    private Transform cameraMainTF;
     private int standardRange = 10;
     private Vector3 standarVector3 = new Vector3(0, 25, -25);
 
@@ -14,12 +29,12 @@ public class CameraFollow : MonoBehaviour
 
     private void Awake()
     {
-        cameraMain = Camera.main.transform;
+        cameraMainTF = Camera.main.transform;
     }
 
     private void LateUpdate()
     {
-        cameraMain.position = transform.position + Offset;
+        cameraMainTF.position = TF.position + Offset;
     }
 
     public void ChangeOffSetBaseScale()

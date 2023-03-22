@@ -14,7 +14,8 @@ public class Bullet : Weapon
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.TryGetComponent(out Character character))
+        Character character = Cache.GetCharacter(other);
+        if (character != null)
         {
             if (character == SourceFireCharacter) return;
 

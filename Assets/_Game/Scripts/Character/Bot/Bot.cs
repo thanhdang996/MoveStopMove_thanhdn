@@ -2,16 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UIElements;
 
 public class Bot : Character
 {
-    [SerializeField] private GameObject aimed;
+    [SerializeField] private GameObject aimedGO;
 
     private NavMeshAgent navMeshAgent;
     private IState currentState;
 
     [SerializeField] Vector3 currentPosTarget;
     public Vector3 CurrentPosTarget { get => currentPosTarget; set => currentPosTarget = value; }
+
+    [SerializeField] private GameObject indicatorGO;
+    public GameObject IndicatorGO { get => indicatorGO; set => indicatorGO = value; }
+
 
     protected override void Awake()
     {
@@ -22,14 +27,14 @@ public class Bot : Character
 
     public void GetRandomPosTargetInMap()
     {
-        List<Transform> listPos = LevelManager.Instance.CurrentLevel.ListSpawnPos;
-        currentPosTarget = listPos[Random.Range(0, listPos.Count)].position;
+        List<SpawnPosTrigger> listPos = LevelManager.Instance.CurrentLevel.ListSpawnPosTrigger;
+        currentPosTarget = listPos[Random.Range(0, listPos.Count)].TF.position;
         navMeshAgent.SetDestination(currentPosTarget);
     }
 
     public bool IsReachTarget()
     {
-        return Vector3.Distance(CurrentPosTarget, transform.position) < 5f;
+        return Vector3.Distance(CurrentPosTarget, TF.position) < 5f;
     }
 
     public override void OnInit()
@@ -42,6 +47,9 @@ public class Bot : Character
         navMeshAgent.ResetPath();
         GetRandomPosTargetInMap();
         ChangeState(new PatrolState());
+
+        LevelManager.Instance.CurrentLevel.ListBotCurrent.Add(this);
+        IndicatorGO = ObjectPooling.Instance.GetGameObject(PoolType.Indicator);
     }
 
 
@@ -52,6 +60,9 @@ public class Bot : Character
         base.OnDespawn();
         UIManager.Instance.UpdateTotalEnemyAndText();
         CheckConditionEnemyRemainToSpawn();
+
+        LevelManager.Instance.CurrentLevel.ListBotCurrent.Remove(this);
+        ObjectPooling.Instance.ReturnGameObject(IndicatorGO, PoolType.Indicator);
     }
 
 
@@ -77,12 +88,12 @@ public class Bot : Character
 
     public void ShowAim()
     {
-        aimed.SetActive(true);
+        aimedGO.SetActive(true);
     }
 
     public void HideAim()
     {
-        aimed.SetActive(false);
+        aimedGO.SetActive(false);
     }
 
     public void MoveToTarget()
@@ -104,7 +115,7 @@ public class Bot : Character
 
         for (int i = 0; i < ListTarget.Count; i++)
         {
-            float distance = Vector3.Distance(ListTarget[i].transform.position, transform.position);
+            float distance = Vector3.Distance(ListTarget[i].TF.position, TF.position);
             if (distance < minDistance)
             {
                 minDistance = distance;
@@ -120,23 +131,23 @@ public class Bot : Character
     {
         if (IsDead)
         {
-            ChangeAnim("Death");
+            ChangeAnim(Constant.ANIM_DEATH);
             return;
         }
 
         if (!navMeshAgent.isStopped)
         {
-            ChangeAnim("Run");
+            ChangeAnim(Constant.ANIM_RUN);
             return;
         }
         if (IsAttack)
         {
-            ChangeAnim("Attack");
+            ChangeAnim(Constant.ANIM_ATTACK);
             return;
         }
         if (navMeshAgent.isStopped)
         {
-            ChangeAnim("Idle");
+            ChangeAnim(Constant.ANIM_IDLE);
             return;
         }
 
@@ -147,7 +158,7 @@ public class Bot : Character
         List<int> listWeaponOwner = GameManager.Instance.Data.WeaponOwner;
         foreach (int weapon in listWeaponOwner)
         {
-            Instantiate(weaponSO.propWeapons[weapon].weaponAvatarPrefabs, weaponHolder).SetActive(false);
+            Instantiate(weaponSO.propWeapons[weapon].weaponAvatarPrefabs, weaponHolderTF).SetActive(false);
         }
     }
 
@@ -159,12 +170,12 @@ public class Bot : Character
         currentWeaponType = (WeaponType)indexWeaponType;
 
         // neu player moi add weapon thi instantiate
-        if (getIndexInWeaponHolder > weaponHolder.childCount - 1)
+        if (getIndexInWeaponHolder > weaponHolderTF.childCount - 1)
         {
             // trong weaponHolder tao 1 weapon moi o vi tri cuoi, neu nhu getIndexInWeaponHolder vuot qua childCount-1
-            Instantiate(weaponSO.propWeapons[indexWeaponType].weaponAvatarPrefabs, weaponHolder).SetActive(false);
+            Instantiate(weaponSO.propWeapons[indexWeaponType].weaponAvatarPrefabs, weaponHolderTF).SetActive(false);
         }
-        currentWeaponAvatar = weaponHolder.GetChild(getIndexInWeaponHolder).gameObject;
+        currentWeaponAvaGO = weaponHolderTF.GetChild(getIndexInWeaponHolder).gameObject;
     }
 
 

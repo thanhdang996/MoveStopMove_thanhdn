@@ -5,9 +5,24 @@ using UnityEngine;
 
 public class Character : MonoBehaviour
 {
+    // cache transform
+    private Transform tf;
+
+    public Transform TF
+    {
+        get
+        {
+            if (tf == null)
+            {
+                tf = transform;
+            }
+            return tf;
+        }
+    }
+
     private CapsuleCollider capsuleCollider;
 
-    [SerializeField] protected Transform firePoint;
+    [SerializeField] protected Transform firePointTF;
 
     [SerializeField] private GameObject avatarNewGO;
     [SerializeField] private GameObject attackRangeGO;
@@ -54,17 +69,17 @@ public class Character : MonoBehaviour
     [SerializeField] protected WeaponType currentWeaponType;
     public WeaponType CurrentWeaponType { get => currentWeaponType; set => currentWeaponType = value; }
 
-    [SerializeField] protected Transform weaponHolder;
-    public Transform WeaponHolder => weaponHolder;
-    protected GameObject currentWeaponAvatar;
+    [SerializeField] protected Transform weaponHolderTF;
+    public Transform WeaponHolderTF => weaponHolderTF;
+    protected GameObject currentWeaponAvaGO;
     protected int attackRangeCurrentWeapon;
-    [SerializeField] private Transform pointRangeWeapon;
+    [SerializeField] private Transform pointRangeWeaponTF;
 
 
     //Current Level Character
     [SerializeField] protected int levelCharacter = 0;
     public int LevelCharacter => levelCharacter;
-
+    
 
     protected virtual void Awake()
     {
@@ -74,7 +89,7 @@ public class Character : MonoBehaviour
     public virtual void OnInit()
     {
         capsuleCollider.enabled = true;
-        currentWeaponAvatar.SetActive(true);
+        currentWeaponAvaGO.SetActive(true);
         attackRangeGO.SetActive(true);
         IsDead = false;
         IsAttack = false;
@@ -91,10 +106,10 @@ public class Character : MonoBehaviour
         float scaleAdjust = attackRangeCurrentWeapon / 10f;
 
         // attack range base on weaponrange and level
-        attackRangeGO.transform.localScale = (Vector3.one * scaleAdjust) + (Vector3.one * scalePerKill * levelCharacter);
+        attackRangeGO.transform.localScale = (Vector3.one * scaleAdjust) + (levelCharacter * scalePerKill * Vector3.one);
 
         // avatar base on level
-        avatarNewGO.transform.localScale = Vector3.one + (Vector3.one * scalePerKill * levelCharacter);
+        avatarNewGO.transform.localScale = Vector3.one + (levelCharacter * scalePerKill * Vector3.one);
     }
 
     public virtual void OnDespawn()
@@ -104,31 +119,47 @@ public class Character : MonoBehaviour
 
     public virtual void SetPropWhenDeath()
     {
-        CancelInvoke(); // khi chet cancel invoke het, tu thoi gian ResetAttack
+        CancelInvoke(); // khi chet cancel invoke het, vd nhu thoi gian ResetAttack
         IsDead = true;
         capsuleCollider.enabled = false;
         attackRangeGO.SetActive(false);
-        currentWeaponAvatar.SetActive(false);
+        currentWeaponAvaGO.SetActive(false);
         targetNearest = null;
         RemoveAllTargetRefAfterDeath();
     }
 
     private void RemoveAllTargetRefAfterDeath()
     {
-        foreach (Character target in ListTarget)
+        for (int i = 0; i < ListTarget.Count; i++)
         {
-            target.ListTarget.Remove(this);
-            target.ListBeAimed.Remove(this);
+            ListTarget[i].ListTarget.Remove(this);
+            ListTarget[i].listBeAimed.Remove(this);
         }
-        foreach (Character target in ListBeAimed)
+        for (int i = 0; i < ListBeAimed.Count; i++)
         {
-            target.ListBeAimed.Remove(this);
-            target.ListTarget.Remove(this);
+            ListBeAimed[i].ListBeAimed.Remove(this);
+            ListBeAimed[i].ListTarget.Remove(this);
         }
-        foreach (SpawnPosTrigger spawnPos in ListInSpawnPos)
+        for (int i = 0; i < ListInSpawnPos.Count; i++)
         {
-            spawnPos.ListCharacterInSpawnPos.Remove(this);
+            ListInSpawnPos[i].ListCharacterInSpawnPos.Remove(this);
         }
+
+        //TODO: neu co the thi dung for thay foreach
+        //foreach (Character target in ListTarget)
+        //{
+        //    target.ListTarget.Remove(this);
+        //    target.ListBeAimed.Remove(this);
+        //}
+        //foreach (Character target in ListBeAimed)
+        //{
+        //    target.ListBeAimed.Remove(this);
+        //    target.ListTarget.Remove(this);
+        //}
+        //foreach (SpawnPosTrigger spawnPos in ListInSpawnPos)
+        //{
+        //    spawnPos.ListCharacterInSpawnPos.Remove(this);
+        //}
         ListTarget.Clear();
         ListBeAimed.Clear();
         ListInSpawnPos.Clear();
@@ -151,7 +182,7 @@ public class Character : MonoBehaviour
             List<Character> listTmp = new List<Character>();
             foreach (Character target in ListTarget)
             {
-                Vector3 dir = Vector3.Normalize(target.transform.position - transform.position);
+                Vector3 dir = Vector3.Normalize(target.transform.position - TF.position);
                 float res = Vector3.Dot(transform.forward, dir);
                 if (res > 0.25f)
                 {
@@ -161,20 +192,19 @@ public class Character : MonoBehaviour
 
             foreach (Character character in listTmp)
             {
-                ChangeScalePerKillAndIncreaseLevel();
                 character.OnDespawn();
+                ChangeScalePerKillAndIncreaseLevel();
             }
             return;
         }
 
         // bullet and boomerang
-        currentWeaponAvatar.SetActive(false);
+        currentWeaponAvaGO.SetActive(false);
 
         GameObject obj = ObjectPooling.Instance.GetGameObject(Constant.ConvertWeaponTypeeToObjectType(currentWeaponType));
         Weapon weapon = obj.GetComponent<Weapon>();
         weapon.SourceFireCharacter = this;
-        Vector3 firePointNew = new Vector3(firePoint.position.x, firePoint.position.y + 1f, firePoint.position.z);
-        weapon.transform.SetPositionAndRotation(firePointNew, firePoint.rotation);
+        weapon.transform.SetPositionAndRotation(firePointTF.position, firePointTF.rotation);
         weapon.transform.localScale = avatarNewGO.transform.localScale;
         weapon.Launch();
     }
@@ -182,22 +212,22 @@ public class Character : MonoBehaviour
     {
         //if (isDead) return;
         IsAttack = false;
-        currentWeaponAvatar.SetActive(true);
+        currentWeaponAvaGO.SetActive(true);
     }
 
     // xoay aim toi TargetNearest
     public virtual void RotateToCharacter() // call from animEvent
     {
         if (TargetNearest == null) return;
-        Vector3 dir = (TargetNearest.transform.position - transform.position).normalized;
+        Vector3 dir = (TargetNearest.transform.position - TF.position).normalized;
         dir.y = 0f;
-        transform.rotation = Quaternion.LookRotation(dir, Vector3.up);
+        TF.rotation = Quaternion.LookRotation(dir, Vector3.up);
     }
 
 
     public float GetTimeSecondToStopWeapon(float speedWeapon)
     {
-        float distance = Vector3.Distance(transform.position, pointRangeWeapon.position);
+        float distance = Vector3.Distance(TF.position, pointRangeWeaponTF.position);
         return distance / speedWeapon;
     }
 
