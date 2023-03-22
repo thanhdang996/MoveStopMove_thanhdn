@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     private Rigidbody rb;
-    private FixedJoystick joystick;
+    private FloatingJoystick joystick;
     [SerializeField] private float speed = 8f;
 
     private void Awake()
@@ -13,14 +13,15 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody>();
     }
 
-    public void SetJoystick(FixedJoystick joystick)
+    public void SetJoystick(FloatingJoystick joystick)
     {
         this.joystick = joystick;
     }
 
     private void FixedUpdate()
     {
-        rb.velocity = new Vector3(joystick.Horizontal * speed, 0, joystick.Vertical * speed);
+        Vector3 dirMove = (new Vector3(joystick.Horizontal, 0, joystick.Vertical)).normalized;
+        rb.velocity = dirMove * speed;
         if (rb.velocity != Vector3.zero)
         {
             transform.rotation = Quaternion.LookRotation(rb.velocity);

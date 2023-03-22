@@ -10,8 +10,8 @@ public class UIManager : Singleton<UIManager>
     public event Action OnRetryButton;
     public event Action OnNextButton;
 
-    [SerializeField] private FixedJoystick joystick;
-    public FixedJoystick Joystick => joystick;
+    [SerializeField] private FloatingJoystick joystick;
+    public FloatingJoystick Joystick => joystick;
 
     [SerializeField] private TextMeshProUGUI coinText;
     [SerializeField] private TextMeshProUGUI enemyRemainText;
