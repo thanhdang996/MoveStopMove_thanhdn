@@ -114,6 +114,7 @@ public class Character : MonoBehaviour
 
     public virtual void OnDespawn()
     {
+        SoundManager.Instance.PlaySoundSFX("Chet 3");
         SetPropWhenDeath();
     }
 
@@ -207,6 +208,8 @@ public class Character : MonoBehaviour
         weapon.transform.SetPositionAndRotation(firePointTF.position, firePointTF.rotation);
         weapon.transform.localScale = avatarNewGO.transform.localScale;
         weapon.Launch();
+
+        SoundManager.Instance.PlaySoundSFX("Nem vu khi");
     }
     public void ResetAttack()
     {

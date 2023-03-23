@@ -8,7 +8,10 @@ public class Constant : MonoBehaviour
     public const string ANIM_DEATH = "Death"; 
     public const string ANIM_RUN = "Run"; 
     public const string ANIM_ATTACK = "Attack"; 
-    public const string ANIM_IDLE = "Idle"; 
+    public const string ANIM_IDLE = "Idle";
+
+    public const string VOLUME_MY_MUSIC = "MyMusic";
+    public const string VOLUME_MY_SFX = "MySFX";
 
     public static MyPoolType ConvertWeaponTypeeToObjectType(WeaponType weaponType)
     {

@@ -42,6 +42,7 @@ public class Player : Character
         if (!IsWin)
         {
             UIManager.Instance.ShowPanelLose();
+            SoundManager.Instance.StopSoundMusic("bg-music");
         }
     }
 
