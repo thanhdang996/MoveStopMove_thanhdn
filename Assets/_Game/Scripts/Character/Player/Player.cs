@@ -9,24 +9,54 @@ public class Player : Character
     private PlayerMovement playerMovement;
     public PlayerMovement PlayerMovement => playerMovement;
 
+    private CameraFollow cam;
+
+
+    private bool isWin;
+    public bool IsWin { get => isWin; set => isWin = value; }
+
     protected override void Awake()
     {
         base.Awake();
         playerMovement = GetComponent<PlayerMovement>();
+        cam = GetComponent<CameraFollow>();
+    }
+
+    private void Start()
+    {
+        UIManager.Instance.OnRetryButton += OnRevivePlayer;
     }
 
     public override void OnInit()
     {
         base.OnInit();
         playerMovement.enabled = true;
+        IsWin = false;
     }
 
-    public override void OnDespawn()
+    public override void OnDespawn() // check lose
     {
         (TargetNearest as Bot)?.HideAim();
         base.OnDespawn();
+        DisablePlayerMovement();
+        if (!IsWin)
+        {
+            UIManager.Instance.ShowPanelLose();
+            SoundManager.Instance.StopSoundMusic("bg-music");
+        }
+    }
+
+    public void DisablePlayerMovement()
+    {
         playerMovement.StopMoving();
         playerMovement.enabled = false;
+    }
+
+    private void OnRevivePlayer()
+    {
+        ObjectPooling.Instance.ReturnGameObject(gameObject, MyPoolType.Player);
+        LevelManager.Instance.CurrentLevel.RevivePlayer();
+        CheckConditonToWin();
     }
 
     private void Update()
@@ -51,7 +81,7 @@ public class Player : Character
 
         for (int i = 0; i < ListTarget.Count; i++)
         {
-            float distance = Vector3.Distance(ListTarget[i].transform.position, transform.position);
+            float distance = Vector3.Distance(ListTarget[i].TF.position, TF.position);
             if (distance < minDistance)
             {
                 minDistance = distance;
@@ -69,73 +99,90 @@ public class Player : Character
 
     private void HandleAnim()
     {
+        if (IsWin)
+        {
+            ChangeAnim(Constant.ANIM_DANCE);
+            return;
+        }
+
         if (IsDead)
         {
-            ChangeAnim("Death");
+            ChangeAnim(Constant.ANIM_DEATH);
             return;
         }
 
         if (PlayerMovement.IsMoving())
         {
-            ChangeAnim("Run");
+            ChangeAnim(Constant.ANIM_RUN);
             return;
         }
         if (IsAttack)
         {
-            ChangeAnim("Attack");
+            ChangeAnim(Constant.ANIM_ATTACK);
             return;
         }
         else if (!PlayerMovement.IsMoving())
         {
-            ChangeAnim("Idle");
+            ChangeAnim(Constant.ANIM_IDLE);
             return;
         }
 
     }
 
-    protected override void DelayRespawn()
-    {
-        ObjectPooling.Instance.ReturnGameObject(gameObject, PoolType.Player);
-        LevelManager.Instance.CurrentLevel.SpawnPlayer();
-    }
+
 
     public void CreateAllWeaponPlayerOwner()
     {
         List<int> listWeaponOwner = GameManager.Instance.Data.WeaponOwner;
-        foreach (int indexWeapon in listWeaponOwner)
+        foreach (int weapon in listWeaponOwner)
         {
-            Instantiate(weaponSO.propWeapons[indexWeapon].weaponAvatarPrefabs, weaponHolder).SetActive(false);
+            Instantiate(weaponSO.propWeapons[weapon].weaponAvatarPrefabs, weaponHolderTF).SetActive(false);
         }
+    }
+
+    public void AddNewWeapon(int indexWeaponOnShop)
+    {
+        Instantiate(weaponSO.propWeapons[indexWeaponOnShop].weaponAvatarPrefabs, weaponHolderTF).SetActive(false);
+        //List<int> listWeaponOwner = GameManager.Instance.Data.WeaponOwner;
+        //int getIndexInWeaponHolder = listWeaponOwner.IndexOf(indexWeaponOnShop);
+        //currentWeaponAvatar.SetActive(false);
+        //currentWeaponType = (WeaponType)indexWeaponOnShop;
+        //currentWeaponAvatar = weaponHolder.GetChild(getIndexInWeaponHolder).gameObject;
+        //currentWeaponAvatar.SetActive(true);
     }
 
     public void ActiveCurrentWeapon()
     {
         List<int> listWeaponOwner = GameManager.Instance.Data.WeaponOwner;
         int indexcurrentWeapon = GameManager.Instance.Data.CurrentWeapon;
-        int indexInWeaponHolder = listWeaponOwner.IndexOf(indexcurrentWeapon);
+        int getIndexInWeaponHolder = listWeaponOwner.IndexOf(indexcurrentWeapon);
 
         currentWeaponType = (WeaponType)indexcurrentWeapon;
-        currentWeaponAvatar = weaponHolder.GetChild(indexInWeaponHolder).gameObject;
+        currentWeaponAvaGO = weaponHolderTF.GetChild(getIndexInWeaponHolder).gameObject;
     }
 
     public void HandleCamPlayerBaseOnRangeWeapon()
     {
-        GetComponent<CameraFollow>().ChangeOffSetBaseRangeWeapon(attackRangeCurrentWeapon);
+        cam.ChangeOffSetBaseRangeWeapon(attackRangeCurrentWeapon);
     }
 
-    public override void ChangeScalePerKillAndIncreaseLevel()
+    public override void ChangeScalePerKillAndIncreaseLevel() // check win
     {
         base.ChangeScalePerKillAndIncreaseLevel();
+        cam.ChangeOffSetBaseScale();
 
-        HandleUpdateCoin();
-        GetComponent<CameraFollow>().ChangeOffSetBaseScale();
+        UIManager.Instance.HandUpdateCoinAndText();
+
+        CheckConditonToWin();
     }
 
-    private void HandleUpdateCoin()
+    private void CheckConditonToWin()
     {
-        GameManager.Instance.AddCointText();
-        GameManager.Instance.SaveData();
-
-        UIManager.Instance.UpdateCoinText();
+        if (LevelManager.Instance.CurrentLevel.NoMoreEnemy && !IsDead)
+        {
+            UIManager.Instance.ShowPanelWin();
+            DisablePlayerMovement();
+            IsWin = true;
+        }
     }
 }

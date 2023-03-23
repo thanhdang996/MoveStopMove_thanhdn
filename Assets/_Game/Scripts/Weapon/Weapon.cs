@@ -5,6 +5,21 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
+    // cache transform
+    private Transform tf;
+
+    public Transform TF
+    {
+        get
+        {
+            if (tf == null)
+            {
+                tf = transform;
+            }
+            return tf;
+        }
+    }
+
     protected float timeStop;
     [SerializeField] protected float speed = 20;
 
@@ -22,7 +37,7 @@ public class Weapon : MonoBehaviour
     public virtual void Launch()
     {
         timeStop = SourceFireCharacter.GetTimeSecondToStopWeapon(speed);
-        rb.AddForce(speed * transform.forward, ForceMode.Impulse);
+        rb.AddForce(speed * TF.forward, ForceMode.Impulse);
     }
 
     protected virtual void OnDespawn()

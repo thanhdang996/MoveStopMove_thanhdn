@@ -21,9 +21,9 @@ public class Boomerang : Weapon
         rb.velocity = Vector3.zero;
 
 
-        while (Vector3.Distance(transform.position, SourceFireCharacter.transform.position) > 3f)
+        while (Vector3.Distance(TF.position, SourceFireCharacter.TF.position) > 3f)
         {
-            transform.position = Vector3.MoveTowards(transform.position, SourceFireCharacter.transform.position, speedReturn * Time.deltaTime);
+            TF.position = Vector3.MoveTowards(TF.position, SourceFireCharacter.TF.position, speedReturn * Time.deltaTime);
             yield return null;
         }
         OnDespawn();
@@ -31,7 +31,8 @@ public class Boomerang : Weapon
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.TryGetComponent(out Character character))
+        Character character = Cache.GetCharacter(other);
+        if (character != null)
         {
             if (character == SourceFireCharacter) return;
 

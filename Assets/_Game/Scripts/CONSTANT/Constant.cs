@@ -4,18 +4,23 @@ using UnityEngine;
 
 public class Constant : MonoBehaviour
 {
-    public static PoolType ConvertWeaponTypeeToObjectType(WeaponType weaponType)
+    public const string ANIM_DANCE = "Dance"; 
+    public const string ANIM_DEATH = "Death"; 
+    public const string ANIM_RUN = "Run"; 
+    public const string ANIM_ATTACK = "Attack"; 
+    public const string ANIM_IDLE = "Idle";
+
+    public const string VOLUME_MY_MUSIC = "MyMusic";
+    public const string VOLUME_MY_SFX = "MySFX";
+
+    public static MyPoolType ConvertWeaponTypeeToObjectType(WeaponType weaponType)
     {
-        switch (weaponType)
+        return weaponType switch
         {
-            case WeaponType.Axe:
-                return PoolType.Axe;
-            case WeaponType.Boomerang:
-                return PoolType.Boomerang;
-            case WeaponType.Cream:
-                return PoolType.Cream;
-            default:
-                return PoolType.None;
-        }
+            WeaponType.Axe => MyPoolType.Axe,
+            WeaponType.Boomerang => MyPoolType.Boomerang,
+            WeaponType.Cream => MyPoolType.Cream,
+            _ => MyPoolType.None,
+        };
     }
 }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum PoolType {None, Player, Bot, Axe, Boomerang, Cream }
+public enum MyPoolType { None, Player, Bot, Axe, Boomerang, Cream, Indicator }
 
 public class ObjectPooling : Singleton<ObjectPooling>
 {
@@ -11,54 +11,60 @@ public class ObjectPooling : Singleton<ObjectPooling>
     [SerializeField] private GameObject axePrefab;
     [SerializeField] private GameObject boomerangPrefab;
     [SerializeField] private GameObject creamPrefab;
+    [SerializeField] private GameObject arrowPrefab;
 
 
     [SerializeField] private GameObject parentPlayer;
     [SerializeField] private GameObject parentBot;
     [SerializeField] private GameObject parentWeapon;
+    [SerializeField] private GameObject parentIndicator;
 
-    private Dictionary<PoolType, List<GameObject>> dicGameObject = new Dictionary<PoolType, List<GameObject>>();
+    private Dictionary<MyPoolType, List<GameObject>> dicGameObject = new Dictionary<MyPoolType, List<GameObject>>();
 
-    private GameObject GetPrefab(PoolType type)
+    private GameObject GetPrefab(MyPoolType type)
     {
         switch (type)
         {
-            case PoolType.Player:
+            case MyPoolType.Player:
                 return playerPrefab;
-            case PoolType.Bot:
+            case MyPoolType.Bot:
                 return botPrefab;
-            case PoolType.Axe:
+            case MyPoolType.Axe:
                 return axePrefab;
-            case PoolType.Boomerang:
+            case MyPoolType.Boomerang:
                 return boomerangPrefab;
-            case PoolType.Cream:
+            case MyPoolType.Cream:
                 return creamPrefab;
+            case MyPoolType.Indicator:
+                return arrowPrefab;
             default:
                 return null;
         }
     }
 
-    private GameObject GetParent(PoolType type)
+    private GameObject GetParent(MyPoolType type)
     {
         switch (type)
         {
-            case PoolType.Player:
+            case MyPoolType.Player:
                 return parentPlayer;
-            case PoolType.Bot:
+            case MyPoolType.Bot:
                 return parentBot;
-            case PoolType.Axe:
+            case MyPoolType.Axe:
                 return parentWeapon;
-            case PoolType.Boomerang:
+            case MyPoolType.Boomerang:
                 return parentWeapon;
-            case PoolType.Cream:
+            case MyPoolType.Cream:
                 return parentWeapon;
+            case MyPoolType.Indicator:
+                return parentIndicator;
             default:
                 return null;
         }
     }
 
 
-    public GameObject GetGameObject(PoolType typePrefab)
+    public GameObject GetGameObject(MyPoolType typePrefab)
     {
         List<GameObject> _itemPools = new List<GameObject>();
         if (!dicGameObject.ContainsKey(typePrefab))
@@ -84,7 +90,7 @@ public class ObjectPooling : Singleton<ObjectPooling>
         }
     }
 
-    public void ReturnGameObject(GameObject go, PoolType typePrefab)
+    public void ReturnGameObject(GameObject go, MyPoolType typePrefab)
     {
         dicGameObject[typePrefab].Add(go);
         go.SetActive(false);

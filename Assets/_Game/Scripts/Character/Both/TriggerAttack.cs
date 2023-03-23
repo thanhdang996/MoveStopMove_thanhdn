@@ -4,16 +4,13 @@ using UnityEngine;
 
 public class TriggerAttack : MonoBehaviour
 {
-    private Character characterParent;
+    [SerializeField] private Character characterParent;
 
-    private void Awake()
-    {
-        characterParent = GetComponentInParent<Character>();
-    }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.TryGetComponent(out Character character))
+        Character character = Cache.GetCharacter(other);
+        if (character != null)
         {
             characterParent.ListTarget.Add(character);
             character.ListBeAimed.Add(characterParent);
@@ -22,7 +19,8 @@ public class TriggerAttack : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.TryGetComponent(out Character character))
+        Character character = Cache.GetCharacter(other);
+        if (character != null)
         {
             characterParent.ListTarget.Remove(character);
             character.ListBeAimed.Remove(characterParent);
