@@ -3,23 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Weapon : MonoBehaviour
+public class Weapon : GameUnit
 {
-    // cache transform
-    private Transform tf;
-
-    public Transform TF
-    {
-        get
-        {
-            if (tf == null)
-            {
-                tf = transform;
-            }
-            return tf;
-        }
-    }
-
     protected float timeStop;
     [SerializeField] protected float speed = 20;
 
@@ -44,6 +29,7 @@ public class Weapon : MonoBehaviour
     {
         rb.velocity = Vector3.zero;
         SourceFireCharacter = null;
-        ObjectPooling.Instance.ReturnGameObject(gameObject, Constant.ConvertWeaponTypeeToObjectType(weaponType));
+        //ObjectPooling.Instance.ReturnGameObject(gameObject, Constant.ConvertWeaponTypeeToObjectType(weaponType));
+        SimplePool.Despawn(this); 
     }
 }

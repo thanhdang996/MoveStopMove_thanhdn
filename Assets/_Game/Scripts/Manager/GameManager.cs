@@ -21,9 +21,8 @@ public class GameManager : Singleton<GameManager>
     public int MaxLevel { get; set; } = 2;
 
 
-    protected override void Awake()
+    private void Awake()
     {
-        base.Awake();
         IdGlobal = 0;
     }
 

@@ -54,7 +54,8 @@ public class Player : Character
 
     private void OnRevivePlayer()
     {
-        ObjectPooling.Instance.ReturnGameObject(gameObject, MyPoolType.Player);
+        //ObjectPooling.Instance.ReturnGameObject(gameObject, MyPoolType.Player);
+        SimplePool.Despawn(this);
         LevelManager.Instance.CurrentLevel.RevivePlayer();
         CheckConditonToWin();
     }

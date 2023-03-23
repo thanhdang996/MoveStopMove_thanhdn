@@ -3,23 +3,8 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-public class Character : MonoBehaviour
+public class Character : GameUnit
 {
-    // cache transform
-    private Transform tf;
-
-    public Transform TF
-    {
-        get
-        {
-            if (tf == null)
-            {
-                tf = transform;
-            }
-            return tf;
-        }
-    }
-
     private CapsuleCollider capsuleCollider;
 
     [SerializeField] protected Transform firePointTF;
@@ -202,8 +187,9 @@ public class Character : MonoBehaviour
         // bullet and boomerang
         currentWeaponAvaGO.SetActive(false);
 
-        GameObject obj = ObjectPooling.Instance.GetGameObject(Constant.ConvertWeaponTypeeToObjectType(currentWeaponType));
-        Weapon weapon = obj.GetComponent<Weapon>();
+        //GameObject obj = ObjectPooling.Instance.GetGameObject(Constant.ConvertWeaponTypeeToObjectType(currentWeaponType));
+        //Weapon weapon = obj.GetComponent<Weapon>();
+        Weapon weapon = SimplePool.Spawn<Weapon>(Constant.ConvertWeaponTypeeToObjectType(currentWeaponType));
         weapon.SourceFireCharacter = this;
         weapon.transform.SetPositionAndRotation(firePointTF.position, firePointTF.rotation);
         weapon.transform.localScale = avatarNewGO.transform.localScale;

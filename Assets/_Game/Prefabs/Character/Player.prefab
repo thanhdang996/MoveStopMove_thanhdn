@@ -2241,6 +2241,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2bb1eb1de81168a45a601680e3bea9b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  poolType: 1
   firePointTF: {fileID: 7856952879767797707}
   avatarNewGO: {fileID: 3231077947019693541}
   attackRangeGO: {fileID: 7856952879483283715}
