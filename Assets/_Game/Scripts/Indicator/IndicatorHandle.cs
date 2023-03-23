@@ -38,29 +38,28 @@ public class IndicatorHandle : MonoBehaviour
             Vector3 fromPos = cam.WorldToScreenPoint(playerTF.position);
             Vector3 dir = (toPos - fromPos).normalized;
             float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-            listBotTargets[i].IndicatorGO.TF.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+            listBotTargets[i].Indicator.RTF.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
             float borderSize = 50;
             Vector3 targetPosScreenPoint = toPos;
             bool isOffScreen = targetPosScreenPoint.x <= 0 || targetPosScreenPoint.x >= Screen.width || targetPosScreenPoint.y <= 0 || targetPosScreenPoint.y >= Screen.height;
-            //print($"{targetPosScreenPoint} - {isOffScreen}");
             if (isOffScreen)
             {
-                listBotTargets[i].IndicatorGO.ShowIndicator();
+                listBotTargets[i].Indicator.ShowIndicator();
                 Vector3 cappedTargetScreenPos = targetPosScreenPoint;
                 if (cappedTargetScreenPos.z < 0)
                 {
                     cappedTargetScreenPos *= -1;
-                    listBotTargets[i].IndicatorGO.TF.rotation = Quaternion.AngleAxis(angle + 180, Vector3.forward);
+                    listBotTargets[i].Indicator.RTF.rotation = Quaternion.AngleAxis(angle + 180, Vector3.forward);
                 }
                 cappedTargetScreenPos.x = Mathf.Clamp(cappedTargetScreenPos.x, borderSize, Screen.width - borderSize);
                 cappedTargetScreenPos.y = Mathf.Clamp(cappedTargetScreenPos.y, borderSize, Screen.height - borderSize);
 
-                listBotTargets[i].IndicatorGO.TF.position = cappedTargetScreenPos;
+                listBotTargets[i].Indicator.RTF.anchoredPosition = cappedTargetScreenPos;
             }
             else
             {
-                listBotTargets[i].IndicatorGO.HideIndicator();
+                listBotTargets[i].Indicator.HideIndicator();
             }
         }
     }

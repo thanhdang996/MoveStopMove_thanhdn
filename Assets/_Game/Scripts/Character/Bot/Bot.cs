@@ -14,8 +14,8 @@ public class Bot : Character
     [SerializeField] Vector3 currentPosTarget;
     public Vector3 CurrentPosTarget { get => currentPosTarget; set => currentPosTarget = value; }
 
-    [SerializeField] private Indicator indicatorGO;
-    public Indicator IndicatorGO { get => indicatorGO; set => indicatorGO = value; }
+    [SerializeField] private Indicator indicator;
+    public Indicator Indicator { get => indicator; set => indicator = value; }
 
 
     protected override void Awake()
@@ -50,7 +50,8 @@ public class Bot : Character
 
         LevelManager.Instance.CurrentLevel.ListBotCurrent.Add(this);
         //IndicatorGO = ObjectPooling.Instance.GetGameObject(MyPoolType.Indicator);
-        IndicatorGO = SimplePool.Spawn<Indicator>(PoolType.Indicator);
+        Indicator = SimplePool.Spawn<Indicator>(PoolType.Indicator);
+        Indicator.HideIndicator(); // fix loi ruoi bay indicator
     }
 
 
@@ -64,7 +65,7 @@ public class Bot : Character
 
         LevelManager.Instance.CurrentLevel.ListBotCurrent.Remove(this);
         //ObjectPooling.Instance.ReturnGameObject(IndicatorGO, MyPoolType.Indicator);
-        SimplePool.Despawn(IndicatorGO);
+        SimplePool.Despawn(Indicator);
     }
 
 
