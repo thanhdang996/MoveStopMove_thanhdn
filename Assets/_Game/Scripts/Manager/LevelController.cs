@@ -124,10 +124,6 @@ public class LevelController : MonoBehaviour
         //Bot bot = botGo.GetComponent<Bot>();
 
         Bot bot = SimplePool.Spawn<Bot>(PoolType.Bot);
-        bot.ActiveRandomWeapon();
-        bot.OnInit();
-        bot.HandleAttackRangeBaseOnRangeWeapon();
-
         for (int i = 0; i < 100; i++)
         {
             SpawnPosTrigger posTrigger = ListSpawnPosTrigger[Random.Range(0, ListSpawnPosTrigger.Count)];
@@ -137,8 +133,12 @@ public class LevelController : MonoBehaviour
             }
             bot.TF.position = posTrigger.TF.position;
             break;
-        }
+        } // xet vi tri xong xuoi moi OnInit()
+
         bot.Id = ++GameManager.IdGlobal;
+        bot.ActiveRandomWeapon();
+        bot.OnInit();
+        bot.HandleAttackRangeBaseOnRangeWeapon();
     }
 
     public void MinusTotalEnemy()

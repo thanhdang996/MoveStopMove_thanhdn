@@ -99,7 +99,7 @@ public class Character : GameUnit
 
     public virtual void OnDespawn()
     {
-        SoundManager.Instance.PlaySoundSFX("Chet 3");
+        SoundManager.Instance.PlaySoundSFX("Chet 3", TF.position);
         SetPropWhenDeath();
     }
 
@@ -195,7 +195,7 @@ public class Character : GameUnit
         weapon.transform.localScale = avatarNewGO.transform.localScale;
         weapon.Launch();
 
-        SoundManager.Instance.PlaySoundSFX("Nem vu khi");
+        SoundManager.Instance.PlaySoundSFX("Nem vu khi", TF.position);
     }
     public void ResetAttack()
     {

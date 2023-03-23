@@ -12,7 +12,7 @@ public class SoundManager : Singleton<SoundManager>
 
     private void Start()
     {
-        Init(5f, 5f);
+        Init(1f, 1f);
         //PlaySoundMusic("bg-music");
     }
 
@@ -36,12 +36,26 @@ public class SoundManager : Singleton<SoundManager>
                 listMusicBG[i].Stop();
     }
 
+    public void PlaySoundSFX(string name, Vector3 pos)
+    {
+        for (int i = 0; i < listEffect.Count; i++)
+            if (listEffect[i].clip.name == name)
+            {
+                SFX sfx = SimplePool.Spawn<SFX>(PoolType.SFX);
+                sfx.TF.position = pos;
+                sfx.AudioSource.clip = listEffect[i].clip;
+                sfx.PlaySFX();
+            }
+    }
     public void PlaySoundSFX(string name)
     {
         for (int i = 0; i < listEffect.Count; i++)
             if (listEffect[i].clip.name == name)
+            {
                 listEffect[i].Play();
+            }
     }
+
     public void StopSoundSFX(string name)
     {
         for (int i = 0; i < listEffect.Count; i++)
