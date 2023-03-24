@@ -11,7 +11,7 @@ public class GameManager : Singleton<GameManager>
     GameState state;
 
     [SerializeField] private GameData data;
-    public GameData Data { get => data; set => data = value; }
+    public GameData Data => data;
 
 
     private Player currentPlayer;
@@ -31,6 +31,7 @@ public class GameManager : Singleton<GameManager>
         UIManager.Instance.OnNextButton += OnLoadNextLevel;
 
         LoadData();
+        SoundManager.Instance.VolumeSetting.LoadValueMusic();
         LevelManager.Instance.LoadMapAtCurrentLevel();
         UIManager.Instance.OnInitLoadUI();
         currentPlayer = LevelManager.Instance.CurrentLevel.SpawnInitPlayer();
@@ -67,24 +68,33 @@ public class GameManager : Singleton<GameManager>
 
             GameData data = formatter.Deserialize(stream) as GameData;
             stream.Close();
-            Data = data;
+            this.data = data;
         }
         else
         {
             Debug.LogError("Chua co file save, auto tao data moi va save");
-            Data = new GameData();
+            data = new GameData();
             SaveData();
         }
     }
 
-    public void AddCoin()
+    public void AddCoinData()
     {
         Data.Coin++;
     }
 
-    public void AddLevel()
+    public void AddLevelData()
     {
         Data.LevelId++;
+    }
+
+    public void SetBGVolumeData(float value)
+    {
+        Data.BGMusicVolume = value;
+    }
+    public void SetSFXVolumeData(float value)
+    {
+        Data.SFXVolume = value;
     }
 
     public void AddNewItemToData(int indexWeaponOnShop)
