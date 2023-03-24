@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SFX : GameUnit
 {
-    [SerializeField] AudioSource audioSource;
+    [SerializeField] AudioSource audioSource; // setting 2d or 3d da chinh o unity
     public AudioSource AudioSource => audioSource;
 
 

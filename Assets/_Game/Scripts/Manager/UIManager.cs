@@ -72,7 +72,7 @@ public class UIManager : Singleton<UIManager>
 
     public void HandUpdateCoinAndText()
     {
-        GameManager.Instance.AddCoin();
+        GameManager.Instance.AddCoinData();
         GameManager.Instance.SaveData();
 
         UpdateCoinText();
@@ -87,7 +87,7 @@ public class UIManager : Singleton<UIManager>
     public void Retry()
     {
         HidePanelLose();
-        SoundManager.Instance.PlaySoundMusic("bg-music");
+        SoundManager.Instance.PlayBGSoundMusic();
         OnRetryButton?.Invoke();
     }
 
@@ -95,8 +95,9 @@ public class UIManager : Singleton<UIManager>
     {
         HidePanelWin();
         LevelManager.Instance.RemoveLastMap();
-        GameManager.Instance.AddLevel();
+        GameManager.Instance.AddLevelData();
         GameManager.Instance.SaveData();
+        SoundManager.Instance.PlayBGSoundMusic();
         //ObjectPooling.Instance.ReturnGameObject(GameManager.Instance.CurrentPlayer.gameObject, PoolType.Player);
         OnNextButton?.Invoke();
     }

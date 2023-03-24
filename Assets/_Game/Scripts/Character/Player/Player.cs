@@ -42,7 +42,7 @@ public class Player : Character
         if (!IsWin)
         {
             UIManager.Instance.ShowPanelLose();
-            SoundManager.Instance.StopSoundMusic("bg-music");
+            SoundManager.Instance.StopBGSoundMusic();
         }
     }
 
@@ -122,7 +122,7 @@ public class Player : Character
             ChangeAnim(Constant.ANIM_ATTACK);
             return;
         }
-        else if (!PlayerMovement.IsMoving())
+        if (!PlayerMovement.IsMoving())
         {
             ChangeAnim(Constant.ANIM_IDLE);
             return;
@@ -184,6 +184,8 @@ public class Player : Character
             UIManager.Instance.ShowPanelWin();
             DisablePlayerMovement();
             IsWin = true;
+            SoundManager.Instance.PlaySoundSFX2D(SoundType.Win);
+            SoundManager.Instance.StopBGSoundMusic();
         }
     }
 }
