@@ -80,6 +80,7 @@ MonoBehaviour:
   poolType: 5
   speed: 30
   weaponType: 3
+  rotationSelf: {fileID: 3312334177693990373}
 --- !u!1 &6010886111161829134
 GameObject:
   m_ObjectHideFlags: 0

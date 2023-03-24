@@ -209,4 +209,5 @@ MonoBehaviour:
   poolType: 4
   speed: 15
   weaponType: 1
+  rotationSelf: {fileID: 90353529842403373}
   speedReturn: 15

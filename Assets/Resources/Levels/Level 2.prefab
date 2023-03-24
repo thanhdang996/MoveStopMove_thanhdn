@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 91372986751848382}
   - component: {fileID: 7546769778216235343}
   m_Layer: 3
-  m_Name: Obstacle_3
-  m_TagString: Untagged
+  m_Name: Obstacle
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2975407021928349423}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.97, y: 0, z: -1.78}
+  m_LocalPosition: {x: 2.97, y: 0.21500002, z: -1.78}
   m_LocalScale: {x: 0.8, y: 0.5, z: 2.46}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -111,7 +111,7 @@ GameObject:
   - component: {fileID: 2728382882542152263}
   m_Layer: 3
   m_Name: Obstacle
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -124,7 +124,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3273750802045520758}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.65, y: 0, z: -1.78}
+  m_LocalPosition: {x: 1.65, y: 0.21500002, z: -1.78}
   m_LocalScale: {x: 0.5, y: 0.5, z: 4.58}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -208,7 +208,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &2325870769734935957
 Transform:
@@ -245,7 +245,7 @@ GameObject:
   - component: {fileID: 1752504657724181648}
   m_Layer: 3
   m_Name: Obstacle
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -258,7 +258,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4470679810392807969}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.72, y: 0, z: -0.66}
+  m_LocalPosition: {x: -1.72, y: 0.215, z: -0.66}
   m_LocalScale: {x: 0.5, y: 0.5, z: 4.67}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -859,7 +859,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de7a3c17bd34d874595e422c7a5ea9d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_NavMeshData: {fileID: 23800000, guid: 1a52d2a6c4703394d9040faaed32fe3e, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: eb36b4ee1fbafb94e9d59166bd1b0297, type: 2}
 --- !u!1 &5829308429973981243
 GameObject:
   m_ObjectHideFlags: 0
@@ -1384,8 +1384,8 @@ GameObject:
   - component: {fileID: 2161082261864440338}
   - component: {fileID: 1140859149376408007}
   m_Layer: 3
-  m_Name: Obstacle_2
-  m_TagString: Untagged
+  m_Name: Obstacle
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -1398,7 +1398,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7169814161088169394}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.9, y: 0, z: 1.31}
+  m_LocalPosition: {x: 2.9, y: 0.21500002, z: 1.31}
   m_LocalScale: {x: 1.71, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1481,8 +1481,8 @@ GameObject:
   - component: {fileID: 5900140856771767027}
   - component: {fileID: 2274578993770083276}
   m_Layer: 3
-  m_Name: Obstacle_1
-  m_TagString: Untagged
+  m_Name: Obstacle
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -1495,7 +1495,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8610226771342487967}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.04, y: 0, z: -1.05}
+  m_LocalPosition: {x: 0.04, y: 0.21500002, z: -1.05}
   m_LocalScale: {x: 1.71, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1579,7 +1579,7 @@ GameObject:
   - component: {fileID: 7153188788744545170}
   m_Layer: 3
   m_Name: Obstacle
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -1592,7 +1592,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8731971866218180911}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 2.65}
+  m_LocalPosition: {x: 0, y: 0.21500002, z: 2.65}
   m_LocalScale: {x: 7.26, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
