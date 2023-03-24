@@ -51,7 +51,7 @@ public class Bot : Character
         LevelManager.Instance.CurrentLevel.ListBotCurrent.Add(this);
         //IndicatorGO = ObjectPooling.Instance.GetGameObject(MyPoolType.Indicator);
         Indicator = SimplePool.Spawn<Indicator>(PoolType.Indicator);
-        Indicator.HideIndicator(); // fix loi ruoi bay indicator
+        Indicator.HideIndicator(); // fix loi ruoi bay indicator khi moi sinh bot 
     }
 
 

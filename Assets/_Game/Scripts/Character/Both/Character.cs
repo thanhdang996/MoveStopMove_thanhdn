@@ -99,7 +99,9 @@ public class Character : GameUnit
 
     public virtual void OnDespawn()
     {
-        SoundManager.Instance.PlaySoundSFX("Chet 3", TF.position);
+        //SoundManager.Instance.PlaySoundSFX("Chet 3", TF.position);
+        SoundManager.Instance.PlaySoundSFX3D(SoundType.Dead, TF.position);
+
         SetPropWhenDeath();
     }
 
@@ -163,6 +165,13 @@ public class Character : GameUnit
 
     public virtual void Attack() // call from animEvent
     {
+        if (TargetNearest == null) // fix loi ra khoi tam tan cong van danh dc
+        {
+            isAttack= false;
+            return;
+        }
+        SoundManager.Instance.PlaySoundSFX3D(SoundType.ThrowWeapon, TF.position, (int)currentWeaponType);
+
         if (currentWeaponType == WeaponType.Hammer)
         {
             List<Character> listTmp = new List<Character>();
@@ -189,13 +198,12 @@ public class Character : GameUnit
 
         //GameObject obj = ObjectPooling.Instance.GetGameObject(Constant.ConvertWeaponTypeeToObjectType(currentWeaponType));
         //Weapon weapon = obj.GetComponent<Weapon>();
-        Weapon weapon = SimplePool.Spawn<Weapon>(Constant.ConvertWeaponTypeeToObjectType(currentWeaponType));
+        Weapon weapon = SimplePool.Spawn<Weapon>(Constant.ConvertWeaponTypeToObjectType(currentWeaponType));
         weapon.SourceFireCharacter = this;
         weapon.transform.SetPositionAndRotation(firePointTF.position, firePointTF.rotation);
         weapon.transform.localScale = avatarNewGO.transform.localScale;
         weapon.Launch();
 
-        SoundManager.Instance.PlaySoundSFX("Nem vu khi", TF.position);
     }
     public void ResetAttack()
     {
@@ -207,7 +215,11 @@ public class Character : GameUnit
     // xoay aim toi TargetNearest
     public virtual void RotateToCharacter() // call from animEvent
     {
-        if (TargetNearest == null) return;
+        if (TargetNearest == null) // fix loi ra khoi tam tan cong van danh dc
+        {
+            isAttack= false;
+            return;
+        }
         Vector3 dir = (TargetNearest.transform.position - TF.position).normalized;
         dir.y = 0f;
         TF.rotation = Quaternion.LookRotation(dir, Vector3.up);
