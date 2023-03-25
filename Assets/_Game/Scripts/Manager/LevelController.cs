@@ -12,10 +12,6 @@ public class LevelController : MonoBehaviour
     public List<SpawnPosTrigger> ListSpawnPosTrigger => listSpawn;
 
 
-    [SerializeField] private List<Bot> listBotCurrent = new List<Bot>();
-    public List<Bot> ListBotCurrent { get => listBotCurrent; set => listBotCurrent = value; }
-
-
     [SerializeField] private int totalEnemy = 100;
     public int TotalEnemy { get => totalEnemy; set => totalEnemy = value; }
 

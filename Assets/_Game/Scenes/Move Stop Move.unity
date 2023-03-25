@@ -379,7 +379,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &327132626
 GameObject:
@@ -805,6 +805,57 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 430980510}
   m_CullTransparentMesh: 1
+--- !u!1 &438382305
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 438382307}
+  - component: {fileID: 438382306}
+  m_Layer: 0
+  m_Name: DataManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &438382306
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 438382305}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82d5cb435423c87458eb68cce19c998e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data:
+    coin: 0
+    weaponOwner: 00000000
+    currentWeapon: 0
+    levelId: 1
+    bgMusicVolume: 1
+    sfxVolume: 1
+--- !u!4 &438382307
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 438382305}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -38.376625, y: 1, z: 32.142902}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &450035440
 GameObject:
   m_ObjectHideFlags: 0
@@ -897,6 +948,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentLevel: {fileID: 0}
+  listBotCurrent: []
 --- !u!1 &555042266
 GameObject:
   m_ObjectHideFlags: 0
@@ -1275,7 +1327,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: -2065363780652080875, guid: 7c66c28c29a2d43469951f3b975bf859, type: 2}
   m_audioClip: {fileID: 8300000, guid: 08c0bc94b84eb5f41910eeaaf5378c8a, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -1445,7 +1497,7 @@ Transform:
   - {fileID: 669545828}
   - {fileID: 1191527127}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &697070170
 GameObject:
@@ -1680,13 +1732,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 147f0ea62f57cca40b71cad27a194d7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data:
-    Coin: 0
-    WeaponOwner: 00000000
-    CurrentWeapon: 0
-    LevelId: 1
-    BGMusicVolume: 1
-    SFXVolume: 1
 --- !u!4 &752440261
 Transform:
   m_ObjectHideFlags: 0
@@ -4205,7 +4250,7 @@ RectTransform:
   - {fileID: 1240589997}
   - {fileID: 1201080121}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -4595,7 +4640,7 @@ Transform:
   - {fileID: 555042267}
   - {fileID: 892203204}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1935598813
 GameObject:

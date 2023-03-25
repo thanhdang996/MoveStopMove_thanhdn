@@ -134,7 +134,7 @@ public class Player : Character
 
     public void CreateAllWeaponPlayerOwner()
     {
-        List<int> listWeaponOwner = GameManager.Instance.Data.WeaponOwner;
+        List<int> listWeaponOwner = DataManager.Instance.Data.WeaponOwner;
         foreach (int weapon in listWeaponOwner)
         {
             Instantiate(weaponSO.propWeapons[weapon].weaponAvatarPrefabs, weaponHolderTF).SetActive(false);
@@ -144,7 +144,7 @@ public class Player : Character
     public void AddNewWeapon(int indexWeaponOnShop)
     {
         Instantiate(weaponSO.propWeapons[indexWeaponOnShop].weaponAvatarPrefabs, weaponHolderTF).SetActive(false);
-        //List<int> listWeaponOwner = GameManager.Instance.Data.WeaponOwner;
+        //List<int> listWeaponOwner = DataManager.Instance.Data.WeaponOwner;
         //int getIndexInWeaponHolder = listWeaponOwner.IndexOf(indexWeaponOnShop);
         //currentWeaponAvatar.SetActive(false);
         //currentWeaponType = (WeaponType)indexWeaponOnShop;
@@ -154,8 +154,8 @@ public class Player : Character
 
     public void ActiveCurrentWeapon()
     {
-        List<int> listWeaponOwner = GameManager.Instance.Data.WeaponOwner;
-        int indexcurrentWeapon = GameManager.Instance.Data.CurrentWeapon;
+        List<int> listWeaponOwner = DataManager.Instance.Data.WeaponOwner;
+        int indexcurrentWeapon = DataManager.Instance.Data.CurrentWeapon;
         int getIndexInWeaponHolder = listWeaponOwner.IndexOf(indexcurrentWeapon);
 
         currentWeaponType = (WeaponType)indexcurrentWeapon;

@@ -40,7 +40,7 @@ public class Bot : Character
     public override void OnInit()
     {
         base.OnInit();
-        int levelPlayer = GameManager.Instance.CurrentPlayer.LevelCharacter;
+        int levelPlayer = LevelManager.Instance.CurrentPlayer.LevelCharacter;
         levelCharacter = Random.Range(levelPlayer, levelPlayer + 3);
 
         StartMoving();
@@ -48,7 +48,7 @@ public class Bot : Character
         GetRandomPosTargetInMap();
         ChangeState(new PatrolState());
 
-        LevelManager.Instance.CurrentLevel.ListBotCurrent.Add(this);
+        LevelManager.Instance.ListBotCurrent.Add(this);
         //IndicatorGO = ObjectPooling.Instance.GetGameObject(MyPoolType.Indicator);
         Indicator = SimplePool.Spawn<Indicator>(PoolType.Indicator);
         Indicator.HideIndicator(); // fix loi ruoi bay indicator khi moi sinh bot 
@@ -63,7 +63,7 @@ public class Bot : Character
         MyUIManager.Instance.UpdateTotalEnemyAndText();
         CheckConditionEnemyRemainToSpawn();
 
-        LevelManager.Instance.CurrentLevel.ListBotCurrent.Remove(this);
+        LevelManager.Instance.ListBotCurrent.Remove(this);
         //ObjectPooling.Instance.ReturnGameObject(IndicatorGO, MyPoolType.Indicator);
         SimplePool.Despawn(Indicator);
     }
@@ -158,7 +158,7 @@ public class Bot : Character
 
     public void CreateWeaponBotBaseOnPlayerOwner()
     {
-        List<int> listWeaponOwner = GameManager.Instance.Data.WeaponOwner;
+        List<int> listWeaponOwner = DataManager.Instance.Data.WeaponOwner;
         foreach (int weapon in listWeaponOwner)
         {
             Instantiate(weaponSO.propWeapons[weapon].weaponAvatarPrefabs, weaponHolderTF).SetActive(false);
@@ -167,7 +167,7 @@ public class Bot : Character
 
     public void ActiveRandomWeapon()
     {
-        List<int> listWeaponOwner = GameManager.Instance.Data.WeaponOwner;
+        List<int> listWeaponOwner = DataManager.Instance.Data.WeaponOwner;
         int indexWeaponType = listWeaponOwner[Random.Range(0, listWeaponOwner.Count)];
         int getIndexInWeaponHolder = listWeaponOwner.IndexOf(indexWeaponType);
         currentWeaponType = (WeaponType)indexWeaponType;

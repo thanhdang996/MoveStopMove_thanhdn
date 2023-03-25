@@ -29,7 +29,7 @@ public class MyUIManager : Singleton<MyUIManager>
 
     public void UpdateCoinText()
     {
-        coinText.text = GameManager.Instance.Data.Coin.ToString();
+        coinText.text = DataManager.Instance.Data.Coin.ToString();
     }
     public void UpdateEnemeRemainText()
     {
@@ -72,8 +72,8 @@ public class MyUIManager : Singleton<MyUIManager>
 
     public void HandUpdateCoinAndText()
     {
-        GameManager.Instance.AddCoinData();
-        GameManager.Instance.SaveData();
+        DataManager.Instance.Data.AddCoinToData();
+        DataManager.Instance.SaveData();
 
         UpdateCoinText();
     }
@@ -95,16 +95,16 @@ public class MyUIManager : Singleton<MyUIManager>
     {
         HidePanelWin();
         LevelManager.Instance.RemoveLastMap();
-        GameManager.Instance.AddLevelData();
-        GameManager.Instance.SaveData();
+        DataManager.Instance.Data.AddLevelToData();
+        DataManager.Instance.SaveData();
         SoundManager.Instance.PlayBGSoundMusic();
-        //ObjectPooling.Instance.ReturnGameObject(GameManager.Instance.CurrentPlayer.gameObject, PoolType.Player);
+        //ObjectPooling.Instance.ReturnGameObject(DataManager.Instance.CurrentPlayer.gameObject, PoolType.Player);
         OnNextButton?.Invoke();
     }
 
     public void BuyWeapon(int indexWeaponOnShop)
     {
-        GameManager.Instance.AddNewItemToData(indexWeaponOnShop);
+        DataManager.Instance.Data.AddNewItemToData(indexWeaponOnShop);
     }
 
     public void Quit()
