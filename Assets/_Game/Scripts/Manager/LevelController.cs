@@ -28,7 +28,7 @@ public class LevelController : MonoBehaviour
         AddSpawnPosToListSpawnPos();
         RandomInitBot();
 
-        UIManager.Instance.OnRetryButton += OnPrintRetry;
+        MyUIManager.Instance.OnRetryButton += OnPrintRetry;
     }
 
     private void OnPrintRetry()
@@ -56,7 +56,7 @@ public class LevelController : MonoBehaviour
 
         Player player = SimplePool.Spawn<Player>(PoolType.Player);
         player.TF.position = spawnPosForPlayerTF.position;
-        player.PlayerMovement.SetJoystick(UIManager.Instance.Joystick);
+        player.PlayerMovement.SetJoystick(MyUIManager.Instance.Joystick);
 
 
         player.CreateAllWeaponPlayerOwner();

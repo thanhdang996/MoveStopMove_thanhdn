@@ -24,7 +24,7 @@ public class Player : Character
 
     private void Start()
     {
-        UIManager.Instance.OnRetryButton += OnRevivePlayer;
+        MyUIManager.Instance.OnRetryButton += OnRevivePlayer;
     }
 
     public override void OnInit()
@@ -41,7 +41,7 @@ public class Player : Character
         DisablePlayerMovement();
         if (!IsWin)
         {
-            UIManager.Instance.ShowPanelLose();
+            MyUIManager.Instance.ShowPanelLose();
             SoundManager.Instance.StopBGSoundMusic();
         }
     }
@@ -172,7 +172,7 @@ public class Player : Character
         base.ChangeScalePerKillAndIncreaseLevel();
         cam.ChangeOffSetBaseScale();
 
-        UIManager.Instance.HandUpdateCoinAndText();
+        MyUIManager.Instance.HandUpdateCoinAndText();
 
         CheckConditonToWin();
     }
@@ -181,7 +181,7 @@ public class Player : Character
     {
         if (LevelManager.Instance.CurrentLevel.NoMoreEnemy && !IsDead)
         {
-            UIManager.Instance.ShowPanelWin();
+            MyUIManager.Instance.ShowPanelWin();
             DisablePlayerMovement();
             IsWin = true;
             SoundManager.Instance.PlaySoundSFX2D(SoundType.Win);

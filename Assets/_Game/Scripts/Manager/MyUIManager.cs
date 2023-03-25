@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine.UI;
 using System;
 
-public class UIManager : Singleton<UIManager>
+public class MyUIManager : Singleton<MyUIManager>
 {
     public event Action OnRetryButton;
     public event Action OnNextButton;

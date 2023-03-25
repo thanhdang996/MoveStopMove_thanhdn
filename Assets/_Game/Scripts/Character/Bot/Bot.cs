@@ -60,7 +60,7 @@ public class Bot : Character
         StopMoving();
 
         base.OnDespawn();
-        UIManager.Instance.UpdateTotalEnemyAndText();
+        MyUIManager.Instance.UpdateTotalEnemyAndText();
         CheckConditionEnemyRemainToSpawn();
 
         LevelManager.Instance.CurrentLevel.ListBotCurrent.Remove(this);

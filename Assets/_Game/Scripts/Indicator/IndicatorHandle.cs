@@ -20,7 +20,7 @@ public class IndicatorHandle : MonoBehaviour
 
     private void Start()
     {
-        UIManager.Instance.OnNextButton += OnSearchAllTargetBotNextLevel;
+        MyUIManager.Instance.OnNextButton += OnSearchAllTargetBotNextLevel;
         playerTF = GameManager.Instance.CurrentPlayer.transform;
         listBotTargets = LevelManager.Instance.CurrentLevel.ListBotCurrent;
     }

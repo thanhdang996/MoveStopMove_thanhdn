@@ -28,12 +28,12 @@ public class GameManager : Singleton<GameManager>
 
     private void Start()
     {
-        UIManager.Instance.OnNextButton += OnLoadNextLevel;
+        MyUIManager.Instance.OnNextButton += OnLoadNextLevel;
 
         LoadData();
         SoundManager.Instance.VolumeSetting.LoadValueMusic();
         LevelManager.Instance.LoadMapAtCurrentLevel();
-        UIManager.Instance.OnInitLoadUI();
+        MyUIManager.Instance.OnInitLoadUI();
         currentPlayer = LevelManager.Instance.CurrentLevel.SpawnInitPlayer();
     }
 
@@ -45,7 +45,7 @@ public class GameManager : Singleton<GameManager>
     {
         LoadData();
         LevelManager.Instance.LoadMapAtCurrentLevel();
-        UIManager.Instance.OnInitLoadUI();
+        MyUIManager.Instance.OnInitLoadUI();
         currentPlayer = LevelManager.Instance.CurrentLevel.SpawnPlayerNextLevel(CurrentPlayer);
     }
 
