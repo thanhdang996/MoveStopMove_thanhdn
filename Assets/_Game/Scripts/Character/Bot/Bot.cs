@@ -14,8 +14,8 @@ public class Bot : Character
     [SerializeField] Vector3 currentPosTarget;
     public Vector3 CurrentPosTarget { get => currentPosTarget; set => currentPosTarget = value; }
 
-    [SerializeField] private GameObject indicatorGO;
-    public GameObject IndicatorGO { get => indicatorGO; set => indicatorGO = value; }
+    [SerializeField] private Indicator indicator;
+    public Indicator Indicator { get => indicator; set => indicator = value; }
 
 
     protected override void Awake()
@@ -49,7 +49,9 @@ public class Bot : Character
         ChangeState(new PatrolState());
 
         LevelManager.Instance.CurrentLevel.ListBotCurrent.Add(this);
-        IndicatorGO = ObjectPooling.Instance.GetGameObject(MyPoolType.Indicator);
+        //IndicatorGO = ObjectPooling.Instance.GetGameObject(MyPoolType.Indicator);
+        Indicator = SimplePool.Spawn<Indicator>(PoolType.Indicator);
+        Indicator.HideIndicator(); // fix loi ruoi bay indicator khi moi sinh bot 
     }
 
 
@@ -58,11 +60,12 @@ public class Bot : Character
         StopMoving();
 
         base.OnDespawn();
-        UIManager.Instance.UpdateTotalEnemyAndText();
+        MyUIManager.Instance.UpdateTotalEnemyAndText();
         CheckConditionEnemyRemainToSpawn();
 
         LevelManager.Instance.CurrentLevel.ListBotCurrent.Remove(this);
-        ObjectPooling.Instance.ReturnGameObject(IndicatorGO, MyPoolType.Indicator);
+        //ObjectPooling.Instance.ReturnGameObject(IndicatorGO, MyPoolType.Indicator);
+        SimplePool.Despawn(Indicator);
     }
 
 
@@ -192,11 +195,13 @@ public class Bot : Character
     }
     private void SpawnBot()
     {
-        ObjectPooling.Instance.ReturnGameObject(gameObject, MyPoolType.Bot);
+        //ObjectPooling.Instance.ReturnGameObject(gameObject, MyPoolType.Bot);
+        SimplePool.Despawn(this);
         LevelManager.Instance.CurrentLevel.RandomOneBot();
     }
     private void ReturnBotToPool()
     {
-        ObjectPooling.Instance.ReturnGameObject(gameObject, MyPoolType.Bot);
+        //ObjectPooling.Instance.ReturnGameObject(gameObject, MyPoolType.Bot);
+        SimplePool.Despawn(this);
     }
 }

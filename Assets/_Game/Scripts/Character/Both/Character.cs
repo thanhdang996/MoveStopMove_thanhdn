@@ -3,23 +3,8 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-public class Character : MonoBehaviour
+public class Character : GameUnit
 {
-    // cache transform
-    private Transform tf;
-
-    public Transform TF
-    {
-        get
-        {
-            if (tf == null)
-            {
-                tf = transform;
-            }
-            return tf;
-        }
-    }
-
     private CapsuleCollider capsuleCollider;
 
     [SerializeField] protected Transform firePointTF;
@@ -114,7 +99,9 @@ public class Character : MonoBehaviour
 
     public virtual void OnDespawn()
     {
-        SoundManager.Instance.PlaySoundSFX("Chet 3");
+        //SoundManager.Instance.PlaySoundSFX("Chet 3", TF.position);
+        SoundManager.Instance.PlaySoundSFX3D(SoundType.Dead, TF.position);
+
         SetPropWhenDeath();
     }
 
@@ -178,6 +165,13 @@ public class Character : MonoBehaviour
 
     public virtual void Attack() // call from animEvent
     {
+        if (TargetNearest == null) // fix loi ra khoi tam tan cong van danh dc
+        {
+            isAttack= false;
+            return;
+        }
+        SoundManager.Instance.PlaySoundSFX3D(SoundType.ThrowWeapon, TF.position, (int)currentWeaponType);
+
         if (currentWeaponType == WeaponType.Hammer)
         {
             List<Character> listTmp = new List<Character>();
@@ -202,14 +196,14 @@ public class Character : MonoBehaviour
         // bullet and boomerang
         currentWeaponAvaGO.SetActive(false);
 
-        GameObject obj = ObjectPooling.Instance.GetGameObject(Constant.ConvertWeaponTypeeToObjectType(currentWeaponType));
-        Weapon weapon = obj.GetComponent<Weapon>();
+        //GameObject obj = ObjectPooling.Instance.GetGameObject(Constant.ConvertWeaponTypeeToObjectType(currentWeaponType));
+        //Weapon weapon = obj.GetComponent<Weapon>();
+        Weapon weapon = SimplePool.Spawn<Weapon>(Constant.ConvertWeaponTypeToObjectType(currentWeaponType));
         weapon.SourceFireCharacter = this;
         weapon.transform.SetPositionAndRotation(firePointTF.position, firePointTF.rotation);
         weapon.transform.localScale = avatarNewGO.transform.localScale;
         weapon.Launch();
 
-        SoundManager.Instance.PlaySoundSFX("Nem vu khi");
     }
     public void ResetAttack()
     {
@@ -221,7 +215,11 @@ public class Character : MonoBehaviour
     // xoay aim toi TargetNearest
     public virtual void RotateToCharacter() // call from animEvent
     {
-        if (TargetNearest == null) return;
+        if (TargetNearest == null) // fix loi ra khoi tam tan cong van danh dc
+        {
+            isAttack= false;
+            return;
+        }
         Vector3 dir = (TargetNearest.transform.position - TF.position).normalized;
         dir.y = 0f;
         TF.rotation = Quaternion.LookRotation(dir, Vector3.up);

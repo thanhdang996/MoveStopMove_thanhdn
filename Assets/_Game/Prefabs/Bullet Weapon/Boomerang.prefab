@@ -206,6 +206,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a49115ae60780047be14eb2e2f1146b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  poolType: 4
   speed: 15
   weaponType: 1
+  rotationSelf: {fileID: 90353529842403373}
   speedReturn: 15

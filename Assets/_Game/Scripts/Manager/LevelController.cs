@@ -28,7 +28,7 @@ public class LevelController : MonoBehaviour
         AddSpawnPosToListSpawnPos();
         RandomInitBot();
 
-        UIManager.Instance.OnRetryButton += OnPrintRetry;
+        MyUIManager.Instance.OnRetryButton += OnPrintRetry;
     }
 
     private void OnPrintRetry()
@@ -47,13 +47,18 @@ public class LevelController : MonoBehaviour
 
     public Player SpawnInitPlayer()
     {
-        GameObject playerGo = ObjectPooling.Instance.GetGameObject(MyPoolType.Player);
-        playerGo.transform.position = spawnPosForPlayerTF.position;
+        //GameObject playerGo = ObjectPooling.Instance.GetGameObject(MyPoolType.Player);
+        //playerGo.transform.position = spawnPosForPlayerTF.position;
 
-        PlayerMovement playerMovement = playerGo.GetComponent<PlayerMovement>();
-        playerMovement.SetJoystick(UIManager.Instance.Joystick);
+        //PlayerMovement playerMovement = playerGo.GetComponent<PlayerMovement>();
+        //playerMovement.SetJoystick(UIManager.Instance.Joystick);
+        //Player player = playerGo.GetComponent<Player>();
 
-        Player player = playerGo.GetComponent<Player>();
+        Player player = SimplePool.Spawn<Player>(PoolType.Player);
+        player.TF.position = spawnPosForPlayerTF.position;
+        player.PlayerMovement.SetJoystick(MyUIManager.Instance.Joystick);
+
+
         player.CreateAllWeaponPlayerOwner();
         player.ActiveCurrentWeapon();
         player.OnInit();
@@ -75,8 +80,9 @@ public class LevelController : MonoBehaviour
 
     public void RevivePlayer()
     {
-        GameObject playerGo = ObjectPooling.Instance.GetGameObject(MyPoolType.Player);
-        Player player = playerGo.GetComponent<Player>();
+        //GameObject playerGo = ObjectPooling.Instance.GetGameObject(MyPoolType.Player);
+        //Player player = playerGo.GetComponent<Player>();
+        Player player = SimplePool.Spawn<Player>(PoolType.Player);
         player.OnInit();
 
         //TODO: cache transform
@@ -95,8 +101,9 @@ public class LevelController : MonoBehaviour
     {
         for (int i = 0; i < ListSpawnPosTrigger.Count; i++)
         {
-            GameObject botGo = ObjectPooling.Instance.GetGameObject(MyPoolType.Bot);
-            Bot bot = botGo.GetComponent<Bot>();
+            //GameObject botGo = ObjectPooling.Instance.GetGameObject(MyPoolType.Bot);
+            //Bot bot = botGo.GetComponent<Bot>();
+            Bot bot = SimplePool.Spawn<Bot>(PoolType.Bot);
 
             if (bot.WeaponHolderTF.childCount == 0)
             {
@@ -113,12 +120,10 @@ public class LevelController : MonoBehaviour
 
     public void RandomOneBot()
     {
-        GameObject botGo = ObjectPooling.Instance.GetGameObject(MyPoolType.Bot);
-        Bot bot = botGo.GetComponent<Bot>();
-        bot.ActiveRandomWeapon();
-        bot.OnInit();
-        bot.HandleAttackRangeBaseOnRangeWeapon();
+        //GameObject botGo = ObjectPooling.Instance.GetGameObject(MyPoolType.Bot);
+        //Bot bot = botGo.GetComponent<Bot>();
 
+        Bot bot = SimplePool.Spawn<Bot>(PoolType.Bot);
         for (int i = 0; i < 100; i++)
         {
             SpawnPosTrigger posTrigger = ListSpawnPosTrigger[Random.Range(0, ListSpawnPosTrigger.Count)];
@@ -128,8 +133,12 @@ public class LevelController : MonoBehaviour
             }
             bot.TF.position = posTrigger.TF.position;
             break;
-        }
+        } // xet vi tri xong xuoi moi OnInit()
+
         bot.Id = ++GameManager.IdGlobal;
+        bot.ActiveRandomWeapon();
+        bot.OnInit();
+        bot.HandleAttackRangeBaseOnRangeWeapon();
     }
 
     public void MinusTotalEnemy()

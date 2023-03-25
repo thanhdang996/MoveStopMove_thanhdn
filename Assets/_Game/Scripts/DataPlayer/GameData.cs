@@ -9,4 +9,7 @@ public class GameData
     public List<int> WeaponOwner = new List<int>() { 0 };
     public int CurrentWeapon = 0;
     public int LevelId = 1;
+
+    public float BGMusicVolume = 1f;
+    public float SFXVolume = 1f;
 }

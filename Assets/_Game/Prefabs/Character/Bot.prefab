@@ -367,6 +367,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79578f915d0cf8f40836e0e91beb7de6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  poolType: 2
   firePointTF: {fileID: 5680831552801674267}
   avatarNewGO: {fileID: 4943578450811715735}
   attackRangeGO: {fileID: 2020934959447389389}
@@ -387,7 +388,7 @@ MonoBehaviour:
   levelCharacter: 0
   aimedGO: {fileID: 1432887701538854761}
   currentPosTarget: {x: 0, y: 0, z: 0}
-  indicatorGO: {fileID: 0}
+  indicatorPrefab: {fileID: 8945039249078772045, guid: fa6a6e8d203b4724e9812952c309ad57, type: 3}
 --- !u!1 &564957047264644713
 GameObject:
   m_ObjectHideFlags: 0

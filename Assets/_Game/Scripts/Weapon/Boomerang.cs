@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class Boomerang : Weapon
 {
-    [SerializeField] private float speedReturn = 20f;
+    [SerializeField] private float speedReturn = 15f;
 
     public override void Launch()
     {
@@ -29,18 +29,27 @@ public class Boomerang : Weapon
         OnDespawn();
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        Character character = Cache.GetCharacter(other);
-        if (character != null)
-        {
-            if (character == SourceFireCharacter) return;
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    if (other.CompareTag(Constant.TAG_OBSTACLE))
+    //    {
+    //        StopAllCoroutines();
+    //        OnHitObstacle();
+    //        return;
+    //    }
 
-            character.OnDespawn();
-            SourceFireCharacter.ChangeScalePerKillAndIncreaseLevel();
+    //    Character character = Cache.GetCharacter(other);
+    //    if (character != null)
+    //    {
+    //        if (character == SourceFireCharacter) return;
+    //        SoundManager.Instance.PlaySoundSFX(SoundType.WeaponHit, TF.position);
+    //        character.OnDespawn();
+    //        SourceFireCharacter.ChangeScalePerKillAndIncreaseLevel();
 
-            StopCoroutine(Return());
-            OnDespawn();
-        }
-    }
+    //        StopAllCoroutines();
+    //        OnDespawn();
+    //    }
+    //}
+
+
 }

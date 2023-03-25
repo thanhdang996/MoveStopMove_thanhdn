@@ -62,9 +62,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d66b979b26dd3147886e706e383e886, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  poolType: 3
   speed: 20
   weaponType: 0
-  weaponRange: 12
+  rotationSelf: {fileID: 7385313778626739347}
 --- !u!1 &709639255106839637
 GameObject:
   m_ObjectHideFlags: 0

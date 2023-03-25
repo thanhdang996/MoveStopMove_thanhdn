@@ -13,14 +13,19 @@ public class Constant : MonoBehaviour
     public const string VOLUME_MY_MUSIC = "MyMusic";
     public const string VOLUME_MY_SFX = "MySFX";
 
-    public static MyPoolType ConvertWeaponTypeeToObjectType(WeaponType weaponType)
+
+    public const string TAG_OBSTACLE = "Obstacle";
+
+
+
+    public static PoolType ConvertWeaponTypeToObjectType(WeaponType weaponType)
     {
         return weaponType switch
         {
-            WeaponType.Axe => MyPoolType.Axe,
-            WeaponType.Boomerang => MyPoolType.Boomerang,
-            WeaponType.Cream => MyPoolType.Cream,
-            _ => MyPoolType.None,
+            WeaponType.Axe => PoolType.Axe,
+            WeaponType.Boomerang => PoolType.Boomerang,
+            WeaponType.Cream => PoolType.Cream,
+            _ => PoolType.None,
         };
     }
 }

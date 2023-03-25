@@ -24,7 +24,7 @@ public class Player : Character
 
     private void Start()
     {
-        UIManager.Instance.OnRetryButton += OnRevivePlayer;
+        MyUIManager.Instance.OnRetryButton += OnRevivePlayer;
     }
 
     public override void OnInit()
@@ -41,8 +41,8 @@ public class Player : Character
         DisablePlayerMovement();
         if (!IsWin)
         {
-            UIManager.Instance.ShowPanelLose();
-            SoundManager.Instance.StopSoundMusic("bg-music");
+            MyUIManager.Instance.ShowPanelLose();
+            SoundManager.Instance.StopBGSoundMusic();
         }
     }
 
@@ -54,7 +54,8 @@ public class Player : Character
 
     private void OnRevivePlayer()
     {
-        ObjectPooling.Instance.ReturnGameObject(gameObject, MyPoolType.Player);
+        //ObjectPooling.Instance.ReturnGameObject(gameObject, MyPoolType.Player);
+        SimplePool.Despawn(this);
         LevelManager.Instance.CurrentLevel.RevivePlayer();
         CheckConditonToWin();
     }
@@ -121,7 +122,7 @@ public class Player : Character
             ChangeAnim(Constant.ANIM_ATTACK);
             return;
         }
-        else if (!PlayerMovement.IsMoving())
+        if (!PlayerMovement.IsMoving())
         {
             ChangeAnim(Constant.ANIM_IDLE);
             return;
@@ -171,7 +172,7 @@ public class Player : Character
         base.ChangeScalePerKillAndIncreaseLevel();
         cam.ChangeOffSetBaseScale();
 
-        UIManager.Instance.HandUpdateCoinAndText();
+        MyUIManager.Instance.HandUpdateCoinAndText();
 
         CheckConditonToWin();
     }
@@ -180,9 +181,11 @@ public class Player : Character
     {
         if (LevelManager.Instance.CurrentLevel.NoMoreEnemy && !IsDead)
         {
-            UIManager.Instance.ShowPanelWin();
+            MyUIManager.Instance.ShowPanelWin();
             DisablePlayerMovement();
             IsWin = true;
+            SoundManager.Instance.PlaySoundSFX2D(SoundType.Win);
+            SoundManager.Instance.StopBGSoundMusic();
         }
     }
 }
