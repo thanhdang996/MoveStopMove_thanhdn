@@ -45,9 +45,6 @@ public class Character : GameUnit
     [SerializeField] private string currentAnimName;
     [SerializeField] private Animator anim;
 
-    //id
-    [SerializeField] private int id;
-    public int Id { get => id; set => id = value; }
 
     //Current Weapon
     [SerializeField] protected WeaponSO weaponSO;

@@ -113,7 +113,6 @@ public class LevelController : MonoBehaviour
             bot.OnInit();
             bot.HandleAttackRangeBaseOnRangeWeapon();
             bot.TF.position = ListSpawnPosTrigger[i].TF.position;
-            bot.Id = ++GameManager.IdGlobal;
             
         }
     }
@@ -135,7 +134,6 @@ public class LevelController : MonoBehaviour
             break;
         } // xet vi tri xong xuoi moi OnInit()
 
-        bot.Id = ++GameManager.IdGlobal;
         bot.ActiveRandomWeapon();
         bot.OnInit();
         bot.HandleAttackRangeBaseOnRangeWeapon();

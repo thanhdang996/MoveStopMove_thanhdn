@@ -16,15 +16,9 @@ public class GameManager : Singleton<GameManager>
 
     private Player currentPlayer;
     public Player CurrentPlayer => currentPlayer;
-    public static int IdGlobal = 0;
 
     public int MaxLevel { get; set; } = 2;
 
-
-    private void Awake()
-    {
-        IdGlobal = 0;
-    }
 
     private void Start()
     {
