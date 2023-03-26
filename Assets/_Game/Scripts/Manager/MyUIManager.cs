@@ -98,7 +98,7 @@ public class MyUIManager : Singleton<MyUIManager>
         DataManager.Instance.Data.AddLevelToData();
         DataManager.Instance.SaveData();
         SoundManager.Instance.PlayBGSoundMusic();
-        //ObjectPooling.Instance.ReturnGameObject(DataManager.Instance.CurrentPlayer.gameObject, PoolType.Player);
+
         OnNextButton?.Invoke();
     }
 

@@ -6,6 +6,7 @@ using UnityEngine.UIElements;
 
 public class Bot : Character
 {
+    public event System.Action<Bot> OnDeath;
     [SerializeField] private GameObject aimedGO;
 
     private NavMeshAgent navMeshAgent;
@@ -49,7 +50,6 @@ public class Bot : Character
         ChangeState(new PatrolState());
 
         LevelManager.Instance.ListBotCurrent.Add(this);
-        //IndicatorGO = ObjectPooling.Instance.GetGameObject(MyPoolType.Indicator);
         Indicator = SimplePool.Spawn<Indicator>(PoolType.Indicator);
         Indicator.HideIndicator(); // fix loi ruoi bay indicator khi moi sinh bot 
     }
@@ -61,11 +61,11 @@ public class Bot : Character
 
         base.OnDespawn();
         MyUIManager.Instance.UpdateTotalEnemyAndText();
-        CheckConditionEnemyRemainToSpawn();
 
         LevelManager.Instance.ListBotCurrent.Remove(this);
-        //ObjectPooling.Instance.ReturnGameObject(IndicatorGO, MyPoolType.Indicator);
         SimplePool.Despawn(Indicator);
+
+        OnDeath?.Invoke(this);
     }
 
 
@@ -179,29 +179,5 @@ public class Bot : Character
             Instantiate(weaponSO.propWeapons[indexWeaponType].weaponAvatarPrefabs, weaponHolderTF).SetActive(false);
         }
         currentWeaponAvaGO = weaponHolderTF.GetChild(getIndexInWeaponHolder).gameObject;
-    }
-
-
-    private void CheckConditionEnemyRemainToSpawn()
-    {
-        if (LevelManager.Instance.CurrentLevel.TotalEnemy - LevelManager.Instance.CurrentLevel.NumberBotSpawnInit >= 0)
-        {
-            Invoke(nameof(SpawnBot), timeDelayRespawn);
-        }
-        else
-        {
-            Invoke(nameof(ReturnBotToPool), timeDelayRespawn);
-        }
-    }
-    private void SpawnBot()
-    {
-        //ObjectPooling.Instance.ReturnGameObject(gameObject, MyPoolType.Bot);
-        SimplePool.Despawn(this);
-        LevelManager.Instance.RandomOneBot();
-    }
-    private void ReturnBotToPool()
-    {
-        //ObjectPooling.Instance.ReturnGameObject(gameObject, MyPoolType.Bot);
-        SimplePool.Despawn(this);
     }
 }

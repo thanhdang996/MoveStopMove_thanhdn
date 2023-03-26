@@ -35,6 +35,8 @@ public class Character : GameUnit
     public bool IsAttack { get => isAttack; set => isAttack = value; }
 
     protected float timeDelayRespawn = 4f;
+    public float TimeDelayRespawn => timeDelayRespawn;
+
     [SerializeField] private bool isDead;
     public bool IsDead { get => isDead; private set => isDead = value; }
 

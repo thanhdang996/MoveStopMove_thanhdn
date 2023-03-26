@@ -6,7 +6,6 @@ using UnityEngine.TextCore.Text;
 
 public class Player : Character
 {
-    public event Action OnScaleChange;
     public event Action OnDeath;
 
     private PlayerMovement playerMovement;
@@ -160,7 +159,5 @@ public class Player : Character
         cam.ChangeOffSetBaseScale();
 
         MyUIManager.Instance.HandUpdateCoinAndText();
-
-        OnScaleChange?.Invoke();
     }
 }

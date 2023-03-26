@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class LevelManager : Singleton<LevelManager>
 {
@@ -12,6 +13,7 @@ public class LevelManager : Singleton<LevelManager>
 
     [SerializeField] private List<Bot> listBotCurrent = new List<Bot>();
     public List<Bot> ListBotCurrent => listBotCurrent;
+
     public void RemoveLastMap()
     {
         if (currentLevel != null)
@@ -53,6 +55,9 @@ public class LevelManager : Singleton<LevelManager>
 
     private void OnLoadNextLevel()
     {
+        SimplePool.Collect(PoolType.Bot);
+        StopAllCoroutines();
+
         DataManager.Instance.LoadData();
         LoadMapAtCurrentLevel();
         currentLevel.AddSpawnPosToListSpawnPos();
@@ -75,7 +80,6 @@ public class LevelManager : Singleton<LevelManager>
         currentPlayer.HandleCamPlayerBaseOnRangeWeapon();
         currentPlayer.OnInit();
 
-        currentPlayer.OnScaleChange += CheckConditionToWin;
         currentPlayer.OnDeath += CheckConditionToLose;
     }
 
@@ -91,11 +95,11 @@ public class LevelManager : Singleton<LevelManager>
     public void RevivePlayer()
     {
         //SimplePool.Despawn(currentPlayer);
-        //currentPlayer = SimplePool.Spawn<Player>(PoolType.Player);
+        //currentPlayer = SimplePool.Spawn<Player>(PoolType.Player); // 2 dong nay bo vi co moi 1 player
         currentPlayer.OnInit();
         RandomPosNotNearChacracter(self: currentPlayer);
 
-        CheckConditionToWin(); // check lai cho chac
+        CheckConditionToWin(); // check lai cho chac neu nhu ko con enemy nao thi sau do hien win
     }
 
 
@@ -114,6 +118,8 @@ public class LevelManager : Singleton<LevelManager>
             bot.ActiveRandomWeapon();
             bot.HandleAttackRangeBaseOnRangeWeapon();
             bot.OnInit();
+
+            bot.OnDeath += CheckConditionEnemyRemainToSpawnAndCheckWin;
         }
     }
 
@@ -140,6 +146,43 @@ public class LevelManager : Singleton<LevelManager>
         }
     }
 
+
+    private void CheckConditionToLose()
+    {
+        if (!currentPlayer.IsWin)
+        {
+            MyUIManager.Instance.ShowPanelLose();
+            SoundManager.Instance.StopBGSoundMusic();
+        }
+    }
+
+    private void CheckConditionEnemyRemainToSpawnAndCheckWin(Bot bot)
+    {
+        if (CurrentLevel.TotalEnemy >= CurrentLevel.NumberBotSpawnInit)
+        {
+            StartCoroutine(ReturnBotToPoolAndSpawnOneBot(bot));
+        }
+        else
+        {
+            StartCoroutine(ReturnBotToPool(bot));
+        }
+
+        CheckConditionToWin();
+
+        IEnumerator ReturnBotToPoolAndSpawnOneBot(Bot bot)
+        {
+            yield return new WaitForSeconds(bot.TimeDelayRespawn);
+            SimplePool.Despawn(bot);
+            RandomOneBot();
+        }
+
+        IEnumerator ReturnBotToPool(Bot bot)
+        {
+            yield return new WaitForSeconds(bot.TimeDelayRespawn);
+            SimplePool.Despawn(bot);
+        }
+    }
+
     private void CheckConditionToWin()
     {
         if (currentLevel.NoMoreEnemy && !currentPlayer.IsDead)
@@ -152,13 +195,4 @@ public class LevelManager : Singleton<LevelManager>
             SoundManager.Instance.StopBGSoundMusic();
         }
     }
-    private void CheckConditionToLose()
-    {
-        if (!currentPlayer.IsWin)
-        {
-            MyUIManager.Instance.ShowPanelLose();
-            SoundManager.Instance.StopBGSoundMusic();
-        }
-    }
-
 }
