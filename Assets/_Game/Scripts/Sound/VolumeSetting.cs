@@ -19,8 +19,8 @@ public class VolumeSetting : MonoBehaviour
 
     public void LoadValueMusic()
     {
-        bgMusicSilder.value = GameManager.Instance.Data.BGMusicVolume;
-        sfxSilder.value = GameManager.Instance.Data.SFXVolume;
+        bgMusicSilder.value = DataManager.Instance.Data.BGMusicVolume;
+        sfxSilder.value = DataManager.Instance.Data.SFXVolume;
 
         SetMusicVolume(bgMusicSilder.value);
         SetSFXVolume(sfxSilder.value);
@@ -28,9 +28,9 @@ public class VolumeSetting : MonoBehaviour
 
     private void OnDisable()
     {
-        GameManager.Instance.SetBGVolumeData(bgMusicSilder.value);
-        GameManager.Instance.SetSFXVolumeData(sfxSilder.value);
-        GameManager.Instance.SaveData();
+        DataManager.Instance.Data.SetBGVolumeToData(bgMusicSilder.value);
+        DataManager.Instance.Data.SetSFXVolumeToData(sfxSilder.value);
+        DataManager.Instance.SaveData();
     }
 
     private void SetMusicVolume(float value)

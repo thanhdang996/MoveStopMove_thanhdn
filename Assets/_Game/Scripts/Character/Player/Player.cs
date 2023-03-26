@@ -6,6 +6,8 @@ using UnityEngine.TextCore.Text;
 
 public class Player : Character
 {
+    public event Action OnDeath;
+
     private PlayerMovement playerMovement;
     public PlayerMovement PlayerMovement => playerMovement;
 
@@ -22,11 +24,6 @@ public class Player : Character
         cam = GetComponent<CameraFollow>();
     }
 
-    private void Start()
-    {
-        MyUIManager.Instance.OnRetryButton += OnRevivePlayer;
-    }
-
     public override void OnInit()
     {
         base.OnInit();
@@ -39,25 +36,14 @@ public class Player : Character
         (TargetNearest as Bot)?.HideAim();
         base.OnDespawn();
         DisablePlayerMovement();
-        if (!IsWin)
-        {
-            MyUIManager.Instance.ShowPanelLose();
-            SoundManager.Instance.StopBGSoundMusic();
-        }
+
+        OnDeath?.Invoke();
     }
 
     public void DisablePlayerMovement()
     {
         playerMovement.StopMoving();
         playerMovement.enabled = false;
-    }
-
-    private void OnRevivePlayer()
-    {
-        //ObjectPooling.Instance.ReturnGameObject(gameObject, MyPoolType.Player);
-        SimplePool.Despawn(this);
-        LevelManager.Instance.CurrentLevel.RevivePlayer();
-        CheckConditonToWin();
     }
 
     private void Update()
@@ -134,7 +120,7 @@ public class Player : Character
 
     public void CreateAllWeaponPlayerOwner()
     {
-        List<int> listWeaponOwner = GameManager.Instance.Data.WeaponOwner;
+        List<int> listWeaponOwner = DataManager.Instance.Data.WeaponOwner;
         foreach (int weapon in listWeaponOwner)
         {
             Instantiate(weaponSO.propWeapons[weapon].weaponAvatarPrefabs, weaponHolderTF).SetActive(false);
@@ -144,7 +130,7 @@ public class Player : Character
     public void AddNewWeapon(int indexWeaponOnShop)
     {
         Instantiate(weaponSO.propWeapons[indexWeaponOnShop].weaponAvatarPrefabs, weaponHolderTF).SetActive(false);
-        //List<int> listWeaponOwner = GameManager.Instance.Data.WeaponOwner;
+        //List<int> listWeaponOwner = DataManager.Instance.Data.WeaponOwner;
         //int getIndexInWeaponHolder = listWeaponOwner.IndexOf(indexWeaponOnShop);
         //currentWeaponAvatar.SetActive(false);
         //currentWeaponType = (WeaponType)indexWeaponOnShop;
@@ -154,8 +140,8 @@ public class Player : Character
 
     public void ActiveCurrentWeapon()
     {
-        List<int> listWeaponOwner = GameManager.Instance.Data.WeaponOwner;
-        int indexcurrentWeapon = GameManager.Instance.Data.CurrentWeapon;
+        List<int> listWeaponOwner = DataManager.Instance.Data.WeaponOwner;
+        int indexcurrentWeapon = DataManager.Instance.Data.CurrentWeapon;
         int getIndexInWeaponHolder = listWeaponOwner.IndexOf(indexcurrentWeapon);
 
         currentWeaponType = (WeaponType)indexcurrentWeapon;
@@ -173,19 +159,5 @@ public class Player : Character
         cam.ChangeOffSetBaseScale();
 
         MyUIManager.Instance.HandUpdateCoinAndText();
-
-        CheckConditonToWin();
-    }
-
-    private void CheckConditonToWin()
-    {
-        if (LevelManager.Instance.CurrentLevel.NoMoreEnemy && !IsDead)
-        {
-            MyUIManager.Instance.ShowPanelWin();
-            DisablePlayerMovement();
-            IsWin = true;
-            SoundManager.Instance.PlaySoundSFX2D(SoundType.Win);
-            SoundManager.Instance.StopBGSoundMusic();
-        }
     }
 }

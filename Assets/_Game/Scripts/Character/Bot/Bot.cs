@@ -6,6 +6,7 @@ using UnityEngine.UIElements;
 
 public class Bot : Character
 {
+    public event System.Action<Bot> OnDeath;
     [SerializeField] private GameObject aimedGO;
 
     private NavMeshAgent navMeshAgent;
@@ -40,7 +41,7 @@ public class Bot : Character
     public override void OnInit()
     {
         base.OnInit();
-        int levelPlayer = GameManager.Instance.CurrentPlayer.LevelCharacter;
+        int levelPlayer = LevelManager.Instance.CurrentPlayer.LevelCharacter;
         levelCharacter = Random.Range(levelPlayer, levelPlayer + 3);
 
         StartMoving();
@@ -48,10 +49,10 @@ public class Bot : Character
         GetRandomPosTargetInMap();
         ChangeState(new PatrolState());
 
-        LevelManager.Instance.CurrentLevel.ListBotCurrent.Add(this);
-        //IndicatorGO = ObjectPooling.Instance.GetGameObject(MyPoolType.Indicator);
         Indicator = SimplePool.Spawn<Indicator>(PoolType.Indicator);
         Indicator.HideIndicator(); // fix loi ruoi bay indicator khi moi sinh bot 
+
+        LevelManager.Instance.ListBotCurrent.Add(this);
     }
 
 
@@ -61,11 +62,11 @@ public class Bot : Character
 
         base.OnDespawn();
         MyUIManager.Instance.UpdateTotalEnemyAndText();
-        CheckConditionEnemyRemainToSpawn();
 
-        LevelManager.Instance.CurrentLevel.ListBotCurrent.Remove(this);
-        //ObjectPooling.Instance.ReturnGameObject(IndicatorGO, MyPoolType.Indicator);
         SimplePool.Despawn(Indicator);
+        OnDeath?.Invoke(this);
+
+        LevelManager.Instance.ListBotCurrent.Remove(this);
     }
 
 
@@ -158,7 +159,7 @@ public class Bot : Character
 
     public void CreateWeaponBotBaseOnPlayerOwner()
     {
-        List<int> listWeaponOwner = GameManager.Instance.Data.WeaponOwner;
+        List<int> listWeaponOwner = DataManager.Instance.Data.WeaponOwner;
         foreach (int weapon in listWeaponOwner)
         {
             Instantiate(weaponSO.propWeapons[weapon].weaponAvatarPrefabs, weaponHolderTF).SetActive(false);
@@ -167,7 +168,7 @@ public class Bot : Character
 
     public void ActiveRandomWeapon()
     {
-        List<int> listWeaponOwner = GameManager.Instance.Data.WeaponOwner;
+        List<int> listWeaponOwner = DataManager.Instance.Data.WeaponOwner;
         int indexWeaponType = listWeaponOwner[Random.Range(0, listWeaponOwner.Count)];
         int getIndexInWeaponHolder = listWeaponOwner.IndexOf(indexWeaponType);
         currentWeaponType = (WeaponType)indexWeaponType;
@@ -179,29 +180,5 @@ public class Bot : Character
             Instantiate(weaponSO.propWeapons[indexWeaponType].weaponAvatarPrefabs, weaponHolderTF).SetActive(false);
         }
         currentWeaponAvaGO = weaponHolderTF.GetChild(getIndexInWeaponHolder).gameObject;
-    }
-
-
-    private void CheckConditionEnemyRemainToSpawn()
-    {
-        if (LevelManager.Instance.CurrentLevel.TotalEnemy - LevelManager.Instance.CurrentLevel.NumberBotSpawnInit >= 0)
-        {
-            Invoke(nameof(SpawnBot), timeDelayRespawn);
-        }
-        else
-        {
-            Invoke(nameof(ReturnBotToPool), timeDelayRespawn);
-        }
-    }
-    private void SpawnBot()
-    {
-        //ObjectPooling.Instance.ReturnGameObject(gameObject, MyPoolType.Bot);
-        SimplePool.Despawn(this);
-        LevelManager.Instance.CurrentLevel.RandomOneBot();
-    }
-    private void ReturnBotToPool()
-    {
-        //ObjectPooling.Instance.ReturnGameObject(gameObject, MyPoolType.Bot);
-        SimplePool.Despawn(this);
     }
 }

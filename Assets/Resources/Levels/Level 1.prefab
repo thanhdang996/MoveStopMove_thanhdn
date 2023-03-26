@@ -974,7 +974,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 5829308429905469121}
   m_Father: {fileID: 0}
@@ -994,9 +994,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnPosForPlayerTF: {fileID: 5829308430436609812}
   spawnPosForBotTF: {fileID: 5829308429887114712}
-  listSpawn: []
-  listBotCurrent: []
-  totalEnemy: 100
+  listSpawnPosTrigger: []
+  totalEnemy: 11
 --- !u!1 &5829308430725940422
 GameObject:
   m_ObjectHideFlags: 0
