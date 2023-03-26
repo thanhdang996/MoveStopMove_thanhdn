@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class IndicatorHandle : MonoBehaviour
+public class IndicatorHandle : Singleton<IndicatorHandle>
 {
     private Camera cam;
 
@@ -21,6 +21,10 @@ public class IndicatorHandle : MonoBehaviour
     private void Start()
     {
         MyUIManager.Instance.OnNextButton += OnSearchAllTargetBotNextLevel;
+    }
+
+    public void AssignTempChacracterToShowIndicator()
+    {
         playerTF = LevelManager.Instance.CurrentPlayer.transform;
         listBotTargets = LevelManager.Instance.ListBotCurrent;
     }

@@ -12,27 +12,6 @@ public class LevelManager : Singleton<LevelManager>
 
     [SerializeField] private List<Bot> listBotCurrent = new List<Bot>();
     public List<Bot> ListBotCurrent => listBotCurrent;
-
-    private void Start()
-    {
-        MyUIManager.Instance.OnNextButton += OnLoadNextLevel;
-
-        DataManager.Instance.LoadData();
-        SoundManager.Instance.VolumeSetting.LoadValueMusic();
-        LoadMapAtCurrentLevel();
-        MyUIManager.Instance.OnInitLoadUI();
-        currentPlayer = CurrentLevel.SpawnInitPlayer();
-    }
-
-    private void OnLoadNextLevel()
-    {
-        DataManager.Instance.LoadData();
-        LoadMapAtCurrentLevel();
-        MyUIManager.Instance.OnInitLoadUI();
-        currentPlayer = CurrentLevel.SpawnPlayerNextLevel(CurrentPlayer);
-    }
-
-
     public void RemoveLastMap()
     {
         if (currentLevel != null)
@@ -46,4 +25,113 @@ public class LevelManager : Singleton<LevelManager>
         GameObject go = Resources.Load($"Levels/Level {DataManager.Instance.Data.LevelId}") as GameObject;
         currentLevel = Instantiate(go).GetComponent<LevelController>();
     }
+
+
+    private void Start()
+    {
+        MyUIManager.Instance.OnNextButton += OnLoadNextLevel;
+        LoadNewMap();
+    }
+
+    private void LoadNewMap()
+    {
+        // load map and add spawnpos
+        DataManager.Instance.LoadData();
+        LoadMapAtCurrentLevel();
+        currentLevel.AddSpawnPosToListSpawnPos();
+
+        // set up sound, ui
+        SoundManager.Instance.VolumeSetting.LoadValueMusic();
+        MyUIManager.Instance.OnInitLoadUI();
+
+        // spawn init player, bots and then show indicator
+        SpawnInitPlayer();
+        RandomInitBot();
+        IndicatorHandle.Instance.AssignTempChacracterToShowIndicator();
+    }
+
+    private void OnLoadNextLevel()
+    {
+        DataManager.Instance.LoadData();
+        LoadMapAtCurrentLevel();
+        currentLevel.AddSpawnPosToListSpawnPos();
+
+        MyUIManager.Instance.OnInitLoadUI();
+
+        SpawnPlayerNextLevel();
+        RandomInitBot();
+    }
+
+    private void SpawnInitPlayer()
+    {
+        currentPlayer = SimplePool.Spawn<Player>(PoolType.Player);
+        currentPlayer.TF.position = currentLevel.SpawnPosForPlayerTF.position;
+        currentPlayer.PlayerMovement.SetJoystick(MyUIManager.Instance.Joystick);
+
+        currentPlayer.CreateAllWeaponPlayerOwner();
+        currentPlayer.ActiveCurrentWeapon();
+        currentPlayer.HandleAttackRangeBaseOnRangeWeapon();
+        currentPlayer.HandleCamPlayerBaseOnRangeWeapon();
+        currentPlayer.OnInit();
+    }
+
+    private void SpawnPlayerNextLevel()
+    {
+        currentPlayer.TF.position = currentLevel.SpawnPosForPlayerTF.position;
+        currentPlayer.ResetLevelCharacter();
+        currentPlayer.HandleAttackRangeBaseOnRangeWeapon();
+        currentPlayer.HandleCamPlayerBaseOnRangeWeapon();
+        currentPlayer.OnInit();
+    }
+
+    public void RevivePlayer()
+    {
+        currentPlayer = SimplePool.Spawn<Player>(PoolType.Player);
+        currentPlayer.OnInit();
+
+        RandomPosNotNearChacracter(self: currentPlayer);
+    }
+
+
+    public void RandomInitBot()
+    {
+        for (int i = 0; i < CurrentLevel.ListSpawnPosTrigger.Count; i++)
+        {
+            Bot bot = SimplePool.Spawn<Bot>(PoolType.Bot);
+            bot.TF.position = CurrentLevel.ListSpawnPosTrigger[i].TF.position;
+
+            if (bot.WeaponHolderTF.childCount == 0)
+            {
+                bot.CreateWeaponBotBaseOnPlayerOwner();
+            }
+
+            bot.ActiveRandomWeapon();
+            bot.HandleAttackRangeBaseOnRangeWeapon();
+            bot.OnInit();
+        }
+    }
+
+    public void RandomOneBot()
+    {
+        Bot bot = SimplePool.Spawn<Bot>(PoolType.Bot);
+        RandomPosNotNearChacracter(bot);
+
+        bot.ActiveRandomWeapon();
+        bot.HandleAttackRangeBaseOnRangeWeapon();
+        bot.OnInit();
+    }
+
+    private void RandomPosNotNearChacracter(Character self)
+    {
+        for (int i = 0; i < 100; i++)
+        {
+            SpawnPosTrigger posTrigger = CurrentLevel.ListSpawnPosTrigger[Random.Range(0, CurrentLevel.ListSpawnPosTrigger.Count)];
+            if (!posTrigger.IsEmty)
+            {
+                continue;
+            }
+            self.TF.position = posTrigger.TF.position; break;
+        }
+    }
+
 }

@@ -197,7 +197,7 @@ public class Bot : Character
     {
         //ObjectPooling.Instance.ReturnGameObject(gameObject, MyPoolType.Bot);
         SimplePool.Despawn(this);
-        LevelManager.Instance.CurrentLevel.RandomOneBot();
+        LevelManager.Instance.RandomOneBot();
     }
     private void ReturnBotToPool()
     {
