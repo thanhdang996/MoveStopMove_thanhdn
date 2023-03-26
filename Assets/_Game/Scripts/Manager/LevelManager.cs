@@ -30,6 +30,7 @@ public class LevelManager : Singleton<LevelManager>
     private void Start()
     {
         MyUIManager.Instance.OnNextButton += OnLoadNextLevel;
+        MyUIManager.Instance.OnRetryButton += RevivePlayer;
         LoadNewMap();
     }
 
@@ -73,6 +74,9 @@ public class LevelManager : Singleton<LevelManager>
         currentPlayer.HandleAttackRangeBaseOnRangeWeapon();
         currentPlayer.HandleCamPlayerBaseOnRangeWeapon();
         currentPlayer.OnInit();
+
+        currentPlayer.OnScaleChange += CheckConditionToWin;
+        currentPlayer.OnDeath += CheckConditionToLose;
     }
 
     private void SpawnPlayerNextLevel()
@@ -86,10 +90,12 @@ public class LevelManager : Singleton<LevelManager>
 
     public void RevivePlayer()
     {
-        currentPlayer = SimplePool.Spawn<Player>(PoolType.Player);
+        //SimplePool.Despawn(currentPlayer);
+        //currentPlayer = SimplePool.Spawn<Player>(PoolType.Player);
         currentPlayer.OnInit();
-
         RandomPosNotNearChacracter(self: currentPlayer);
+
+        CheckConditionToWin(); // check lai cho chac
     }
 
 
@@ -131,6 +137,27 @@ public class LevelManager : Singleton<LevelManager>
                 continue;
             }
             self.TF.position = posTrigger.TF.position; break;
+        }
+    }
+
+    private void CheckConditionToWin()
+    {
+        if (currentLevel.NoMoreEnemy && !currentPlayer.IsDead)
+        {
+            MyUIManager.Instance.ShowPanelWin();
+            currentPlayer.DisablePlayerMovement();
+            currentPlayer.IsWin = true;
+
+            SoundManager.Instance.PlaySoundSFX2D(SoundType.Win);
+            SoundManager.Instance.StopBGSoundMusic();
+        }
+    }
+    private void CheckConditionToLose()
+    {
+        if (!currentPlayer.IsWin)
+        {
+            MyUIManager.Instance.ShowPanelLose();
+            SoundManager.Instance.StopBGSoundMusic();
         }
     }
 

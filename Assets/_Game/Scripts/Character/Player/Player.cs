@@ -6,6 +6,9 @@ using UnityEngine.TextCore.Text;
 
 public class Player : Character
 {
+    public event Action OnScaleChange;
+    public event Action OnDeath;
+
     private PlayerMovement playerMovement;
     public PlayerMovement PlayerMovement => playerMovement;
 
@@ -22,11 +25,6 @@ public class Player : Character
         cam = GetComponent<CameraFollow>();
     }
 
-    private void Start()
-    {
-        MyUIManager.Instance.OnRetryButton += OnRevivePlayer;
-    }
-
     public override void OnInit()
     {
         base.OnInit();
@@ -39,25 +37,14 @@ public class Player : Character
         (TargetNearest as Bot)?.HideAim();
         base.OnDespawn();
         DisablePlayerMovement();
-        if (!IsWin)
-        {
-            MyUIManager.Instance.ShowPanelLose();
-            SoundManager.Instance.StopBGSoundMusic();
-        }
+
+        OnDeath?.Invoke();
     }
 
     public void DisablePlayerMovement()
     {
         playerMovement.StopMoving();
         playerMovement.enabled = false;
-    }
-
-    private void OnRevivePlayer()
-    {
-        //ObjectPooling.Instance.ReturnGameObject(gameObject, MyPoolType.Player);
-        SimplePool.Despawn(this);
-        LevelManager.Instance.RevivePlayer();
-        CheckConditonToWin();
     }
 
     private void Update()
@@ -174,18 +161,6 @@ public class Player : Character
 
         MyUIManager.Instance.HandUpdateCoinAndText();
 
-        CheckConditonToWin();
-    }
-
-    private void CheckConditonToWin()
-    {
-        if (LevelManager.Instance.CurrentLevel.NoMoreEnemy && !IsDead)
-        {
-            MyUIManager.Instance.ShowPanelWin();
-            DisablePlayerMovement();
-            IsWin = true;
-            SoundManager.Instance.PlaySoundSFX2D(SoundType.Win);
-            SoundManager.Instance.StopBGSoundMusic();
-        }
+        OnScaleChange?.Invoke();
     }
 }
