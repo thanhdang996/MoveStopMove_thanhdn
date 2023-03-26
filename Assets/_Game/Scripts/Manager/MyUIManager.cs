@@ -94,11 +94,8 @@ public class MyUIManager : Singleton<MyUIManager>
     public void Next()
     {
         HidePanelWin();
-        LevelManager.Instance.RemoveLastMap();
-        DataManager.Instance.Data.AddLevelToData();
-        DataManager.Instance.SaveData();
-        SoundManager.Instance.PlayBGSoundMusic();
 
+        SoundManager.Instance.PlayBGSoundMusic();
         OnNextButton?.Invoke();
     }
 

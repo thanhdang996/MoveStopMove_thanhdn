@@ -49,9 +49,10 @@ public class Bot : Character
         GetRandomPosTargetInMap();
         ChangeState(new PatrolState());
 
-        LevelManager.Instance.ListBotCurrent.Add(this);
         Indicator = SimplePool.Spawn<Indicator>(PoolType.Indicator);
         Indicator.HideIndicator(); // fix loi ruoi bay indicator khi moi sinh bot 
+
+        LevelManager.Instance.ListBotCurrent.Add(this);
     }
 
 
@@ -62,10 +63,10 @@ public class Bot : Character
         base.OnDespawn();
         MyUIManager.Instance.UpdateTotalEnemyAndText();
 
-        LevelManager.Instance.ListBotCurrent.Remove(this);
         SimplePool.Despawn(Indicator);
-
         OnDeath?.Invoke(this);
+
+        LevelManager.Instance.ListBotCurrent.Remove(this);
     }
 
 

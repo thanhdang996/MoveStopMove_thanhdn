@@ -58,6 +58,10 @@ public class LevelManager : Singleton<LevelManager>
         SimplePool.Collect(PoolType.Bot);
         StopAllCoroutines();
 
+        RemoveLastMap();
+        DataManager.Instance.Data.AddLevelToData();
+        DataManager.Instance.SaveData();
+
         DataManager.Instance.LoadData();
         LoadMapAtCurrentLevel();
         currentLevel.AddSpawnPosToListSpawnPos();
@@ -65,7 +69,7 @@ public class LevelManager : Singleton<LevelManager>
         MyUIManager.Instance.OnInitLoadUI();
 
         SpawnPlayerNextLevel();
-        RandomInitBot();
+        RandomNextLevelBot();
     }
 
     private void SpawnInitPlayer()
@@ -80,11 +84,12 @@ public class LevelManager : Singleton<LevelManager>
         currentPlayer.HandleCamPlayerBaseOnRangeWeapon();
         currentPlayer.OnInit();
 
-        currentPlayer.OnDeath += CheckConditionToLose;
+        currentPlayer.OnDeath += CheckConditionToLose; // cac action  dki 1 lan duy nhat luc tao
     }
 
     private void SpawnPlayerNextLevel()
     {
+        //currentPlayer = SimplePool.Spawn<Player>(PoolType.Player);
         currentPlayer.TF.position = currentLevel.SpawnPosForPlayerTF.position;
         currentPlayer.ResetLevelCharacter();
         currentPlayer.HandleAttackRangeBaseOnRangeWeapon();
@@ -110,16 +115,25 @@ public class LevelManager : Singleton<LevelManager>
             Bot bot = SimplePool.Spawn<Bot>(PoolType.Bot);
             bot.TF.position = CurrentLevel.ListSpawnPosTrigger[i].TF.position;
 
-            if (bot.WeaponHolderTF.childCount == 0)
-            {
-                bot.CreateWeaponBotBaseOnPlayerOwner();
-            }
-
+            bot.CreateWeaponBotBaseOnPlayerOwner();
             bot.ActiveRandomWeapon();
             bot.HandleAttackRangeBaseOnRangeWeapon();
             bot.OnInit();
 
-            bot.OnDeath += CheckConditionEnemyRemainToSpawnAndCheckWin;
+            bot.OnDeath += CheckConditionEnemyRemainToSpawnAndCheckWin; // cac action  dki 1 lan duy nhat luc tao
+        }
+    }
+
+    public void RandomNextLevelBot()
+    {
+        for (int i = 0; i < CurrentLevel.ListSpawnPosTrigger.Count; i++)
+        {
+            Bot bot = SimplePool.Spawn<Bot>(PoolType.Bot);
+            bot.TF.position = CurrentLevel.ListSpawnPosTrigger[i].TF.position;
+
+            bot.ActiveRandomWeapon();
+            bot.HandleAttackRangeBaseOnRangeWeapon();
+            bot.OnInit();
         }
     }
 
