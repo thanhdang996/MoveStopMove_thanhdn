@@ -259,7 +259,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 5415384694714923714}
         m_TargetAssemblyTypeName: UICWinLevel, Assembly-CSharp
-        m_MethodName: NextLevel
+        m_MethodName: Button_NextLevel
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -722,7 +722,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 5415384694714923714}
         m_TargetAssemblyTypeName: UICWinLevel, Assembly-CSharp
-        m_MethodName: Quit
+        m_MethodName: Button_Quit
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

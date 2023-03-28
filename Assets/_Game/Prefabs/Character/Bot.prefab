@@ -340,7 +340,7 @@ NavMeshAgent:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 323425293274888856}
-  m_Enabled: 1
+  m_Enabled: 0
   m_AgentTypeID: 0
   m_Radius: 0.5
   m_Speed: 6
@@ -380,7 +380,6 @@ MonoBehaviour:
   isDead: 0
   currentAnimName: 
   anim: {fileID: 2038517037326327806}
-  id: 0
   weaponSO: {fileID: 11400000, guid: 41ee8cc0b205f854b94fb8419e8f7cff, type: 2}
   currentWeaponType: 0
   weaponHolderTF: {fileID: 3462365545506995613}
@@ -388,7 +387,7 @@ MonoBehaviour:
   levelCharacter: 0
   aimedGO: {fileID: 1432887701538854761}
   currentPosTarget: {x: 0, y: 0, z: 0}
-  indicatorPrefab: {fileID: 8945039249078772045, guid: fa6a6e8d203b4724e9812952c309ad57, type: 3}
+  indicator: {fileID: 0}
 --- !u!1 &564957047264644713
 GameObject:
   m_ObjectHideFlags: 0

@@ -2229,7 +2229,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddfa2e7cbece5ea48a9891358bc93979, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
+  speed: 20
 --- !u!114 &7856952880071817192
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2255,7 +2255,6 @@ MonoBehaviour:
   isDead: 0
   currentAnimName: 
   anim: {fileID: 8360442735529251468}
-  id: 0
   weaponSO: {fileID: 11400000, guid: 41ee8cc0b205f854b94fb8419e8f7cff, type: 2}
   currentWeaponType: 2
   weaponHolderTF: {fileID: 1179914792605724733}
