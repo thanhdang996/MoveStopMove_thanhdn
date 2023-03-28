@@ -11,6 +11,7 @@ public struct PropWeapon
     public GameObject weaponAvatarPrefabs;
     public int attackRangeWeapons;
     public WeaponType weaponType;
+    public int price;
 }
 
 [CreateAssetMenu()]

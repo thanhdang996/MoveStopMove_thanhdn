@@ -60,7 +60,9 @@ public class Bot : Character
         StopMoving();
         navMeshAgent.enabled= false; // fix when next level not correct pos
         base.OnDespawn();
-        UIManager.Instance.GetUI<UICGamePlay>().HandleUpdateTotalEnemyAndText();
+
+        LevelManager.Instance.CurrentLevel.MinusOneTotalEnemy();
+        UIManager.Instance.GetUI<UICGamePlay>().UI_UpdateEnemeRemainText();
 
         SimplePool.Despawn(Indicator);
         OnDeath?.Invoke(this);
@@ -179,5 +181,6 @@ public class Bot : Character
             Instantiate(weaponSO.propWeapons[indexWeaponType].weaponAvatarPrefabs, weaponHolderTF).SetActive(false);
         }
         currentWeaponAvaGO = weaponHolderTF.GetChild(getIndexInWeaponHolder).gameObject;
+        currentWeaponAvaGO.SetActive(true);
     }
 }

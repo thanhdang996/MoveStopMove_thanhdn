@@ -73,7 +73,6 @@ public class Character : GameUnit
     public virtual void OnInit()
     {
         capsuleCollider.enabled = true;
-        currentWeaponAvaGO.SetActive(true);
         attackRangeGO.SetActive(true);
         IsDead = false;
         IsAttack = false;

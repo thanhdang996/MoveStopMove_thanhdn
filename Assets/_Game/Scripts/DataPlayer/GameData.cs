@@ -32,6 +32,10 @@ public class GameData
     {
         coin++;
     }
+    public void SetCoinToData(int coin)
+    {
+        this.coin= coin;
+    }
 
     public void AddLevelToData()
     {
@@ -47,11 +51,9 @@ public class GameData
         sfxVolume = value;
     }
 
-    public void AddNewItemToData(int indexWeaponOnShop)
+    public void ChangeCurrentWeaponData(int index)
     {
-        weaponOwner.Add(indexWeaponOnShop);
-        DataManager.Instance.SaveData();
-
-        LevelManager.Instance.CurrentPlayer.AddNewWeapon(indexWeaponOnShop);
+        currentWeapon = index;
     }
+
 }

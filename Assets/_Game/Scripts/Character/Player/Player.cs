@@ -133,15 +133,23 @@ public class Player : Character
     public void AddNewWeapon(int indexWeaponOnShop)
     {
         Instantiate(weaponSO.propWeapons[indexWeaponOnShop].weaponAvatarPrefabs, weaponHolderTF).SetActive(false);
-        //List<int> listWeaponOwner = DataManager.Instance.Data.WeaponOwner;
-        //int getIndexInWeaponHolder = listWeaponOwner.IndexOf(indexWeaponOnShop);
-        //currentWeaponAvatar.SetActive(false);
-        //currentWeaponType = (WeaponType)indexWeaponOnShop;
-        //currentWeaponAvatar = weaponHolder.GetChild(getIndexInWeaponHolder).gameObject;
-        //currentWeaponAvatar.SetActive(true);
+        List<int> listWeaponOwner = DataManager.Instance.Data.WeaponOwner;
+        int getIndexInWeaponHolder = listWeaponOwner.IndexOf(indexWeaponOnShop);
+        currentWeaponAvaGO.SetActive(false);
+        currentWeaponType = (WeaponType)indexWeaponOnShop;
+        currentWeaponAvaGO = weaponHolderTF.GetChild(getIndexInWeaponHolder).gameObject;
+        currentWeaponAvaGO.SetActive(true);
+    }
+    public void DeActiveCurrentWeapon()
+    {
+        currentWeaponAvaGO.SetActive(false);
+    }
+    public void ActiveCurrentWeapon()
+    {
+        currentWeaponAvaGO.SetActive(true);
     }
 
-    public void ActiveCurrentWeapon()
+    public void GetCurrentWeaponDataAndActive()
     {
         List<int> listWeaponOwner = DataManager.Instance.Data.WeaponOwner;
         int indexcurrentWeapon = DataManager.Instance.Data.CurrentWeapon;
@@ -149,6 +157,15 @@ public class Player : Character
 
         currentWeaponType = (WeaponType)indexcurrentWeapon;
         currentWeaponAvaGO = weaponHolderTF.GetChild(getIndexInWeaponHolder).gameObject;
+        currentWeaponAvaGO.SetActive(true);
+    }
+
+    public void ChangeWeaponOnHand()
+    {
+        DeActiveCurrentWeapon();
+        GetCurrentWeaponDataAndActive();
+        HandleAttackRangeBaseOnRangeWeapon();
+        HandleCamPlayerBaseOnRangeWeapon();
     }
 
     public void HandleCamPlayerBaseOnRangeWeapon()
@@ -161,6 +178,7 @@ public class Player : Character
         base.ChangeScalePerKillAndIncreaseLevel();
         cam.ChangeOffSetBaseScale();
 
-        UIManager.Instance.GetUI<UICGamePlay>().HandleUpdateCoinAndText();
+        DataManager.Instance.Data.AddCoinToData();
+        DataManager.Instance.SaveData();
     }
 }

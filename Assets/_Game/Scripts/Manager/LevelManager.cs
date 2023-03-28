@@ -31,26 +31,32 @@ public class LevelManager : Singleton<LevelManager>
 
     private void Start()
     {
+        // load map. create player, bot, indicator
         LoadNewMap();
+        SpawnPlayerBotAndShowIndicator();
 
+        // show mainmenu
         UIManager.Instance.OpenUI<UICMainMenu>();
+
+        // load music first
+        SoundManager.Instance.SetMusicVolume(DataManager.Instance.Data.BGMusicVolume);
+        SoundManager.Instance.SetSFXVolume(DataManager.Instance.Data.SFXVolume);
     }
 
     private void LoadNewMap()
     {
-        // load map and add spawnpos
         DataManager.Instance.LoadData();
         LoadMapAtCurrentLevel();
         currentLevel.AddSpawnPosToListSpawnPos();
+        currentLevel.SetEnemyRemainEqualTotalEnemy();  
+    }
 
-
-        // spawn init player, bots and then show indicator
+    private void SpawnPlayerBotAndShowIndicator()
+    {
         SpawnInitPlayer();
         RandomInitBot();
         IndicatorHandle.Instance.AssignTempChacracterToShowIndicator();
     }
-
-
 
     private void SpawnInitPlayer()
     {
@@ -58,7 +64,7 @@ public class LevelManager : Singleton<LevelManager>
         currentPlayer.TF.position = currentLevel.SpawnPosForPlayerTF.position;
 
         currentPlayer.CreateAllWeaponPlayerOwner();
-        currentPlayer.ActiveCurrentWeapon();
+        currentPlayer.GetCurrentWeaponDataAndActive();
         currentPlayer.HandleAttackRangeBaseOnRangeWeapon();
         currentPlayer.HandleCamPlayerBaseOnRangeWeapon();
         currentPlayer.OnInit();
@@ -82,6 +88,7 @@ public class LevelManager : Singleton<LevelManager>
         SimplePool.Despawn(currentPlayer);
         currentPlayer = SimplePool.Spawn<Player>(PoolType.Player); 
         currentPlayer.OnInit();
+        currentPlayer.ActiveCurrentWeapon();
         RandomPosNotNearChacracter(self: currentPlayer);
 
         CheckConditionToWin(); // check lai cho chac neu nhu ko con enemy nao thi sau do hien win
@@ -128,6 +135,7 @@ public class LevelManager : Singleton<LevelManager>
             bot.ActiveRandomWeapon();
             bot.HandleAttackRangeBaseOnRangeWeapon();
             bot.OnInit();
+            bot.ChangeState(new PatrolState());
         }
     }
 
@@ -199,9 +207,6 @@ public class LevelManager : Singleton<LevelManager>
             UIManager.Instance.OpenUI<UICWinLevel>();
             currentPlayer.DisablePlayerMovement();
             currentPlayer.IsWin = true;
-
-            SoundManager.Instance.PlaySoundSFX2D(SoundType.Win);
-            SoundManager.Instance.StopBGSoundMusic();
         }
     }
 
@@ -220,17 +225,16 @@ public class LevelManager : Singleton<LevelManager>
     // back main menu
     public void OnBackToMainMenu()
     {
+        SimplePool.CollectAll();
         StopAllCoroutines();
 
         GameManager.Instance.ChangeState(GameState.MainMenu);
-        SoundManager.Instance.StopBGSoundMusic();
 
         for (int i = listBotCurrent.Count - 1; i >= 0; i--)
         {
             listBotCurrent[i].SetPropWhenDeath();
             listBotCurrent.RemoveAt(i);
         }
-        SimplePool.CollectAll();
         CurrentLevel.EnemyRemain = CurrentLevel.GetTotalEnemy();
         ReviveAllRandomBot();
         RevivePlayer();
@@ -250,6 +254,8 @@ public class LevelManager : Singleton<LevelManager>
         DataManager.Instance.LoadData();
         LoadMapAtCurrentLevel();
         currentLevel.AddSpawnPosToListSpawnPos();
+        currentLevel.SetEnemyRemainEqualTotalEnemy();
+        UIManager.Instance.GetUI<UICGamePlay>().UI_UpdateEnemeRemainText();
 
         SpawnPlayerNextLevel();
         RandomNextLevelBot();
