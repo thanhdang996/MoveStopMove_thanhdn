@@ -4,14 +4,16 @@ using UnityEngine;
 
 public class UICLoseLevel : UICanvas
 {
-    public void RetryLevel()
+
+    // Button UI
+    public void Button_RetryLevel()
     {
         SoundManager.Instance.PlayBGSoundMusic();
         LevelManager.Instance.RevivePlayer();
         CloseDirectly();
     }
 
-    public void Quit()
+    public void Button_Quit()
     {
         Application.Quit();
     }

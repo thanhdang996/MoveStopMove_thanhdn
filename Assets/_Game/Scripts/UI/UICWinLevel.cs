@@ -4,14 +4,24 @@ using UnityEngine;
 
 public class UICWinLevel : UICanvas
 {
-    public void NextLevel()
+    public override void Open()
+    {
+        base.Open();
+        SoundManager.Instance.PlaySoundSFX2D(SoundType.Win);
+        SoundManager.Instance.StopBGSoundMusic();
+    }
+
+
+    // Button UI
+    public void Button_NextLevel()
     {
         SoundManager.Instance.PlayBGSoundMusic();
         LevelManager.Instance.OnLoadNextLevel();
         CloseDirectly();
     }
 
-    public void Quit()
+
+    public void Button_Quit()
     {
         Application.Quit();
     }

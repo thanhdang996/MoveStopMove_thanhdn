@@ -5,25 +5,34 @@ using TMPro;
 
 public class UICMainMenu : UICanvas
 {
-    [SerializeField] private TextMeshProUGUI textCoint;
+    [SerializeField] private TextMeshProUGUI textCoin;
+
 
 
     public override void Open()
     {
         base.Open();
         UIManager.Instance.IndicatorParent.SetActive(false);
-        textCoint.text = DataManager.Instance.Data.Coin.ToString();
+        UI_UpdateTextCoin();
     }
 
-    public void OpenSetting()
+    public void UI_UpdateTextCoin()
     {
-        UIManager.Instance.OpenUI<UICSetting>();
+        textCoin.text = DataManager.Instance.Data.Coin.ToString();
     }
 
-    public void PlayGame()
+
+    // Button UI
+    public void Button_Open_UICWeapon()
+    {
+        UIManager.Instance.OpenUI<UICWeapon>();
+    }
+
+    public void Button_PlayGame()
     {
         UIManager.Instance.OpenUI<UICGamePlay>();
         UIManager.Instance.IndicatorParent.SetActive(true);
+        SoundManager.Instance.PlayBGSoundMusic();
         LevelManager.Instance.OnStartGame();
         CloseDirectly();
     }

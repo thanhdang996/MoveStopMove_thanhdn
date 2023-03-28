@@ -14,6 +14,7 @@ public class SoundAudioClip
 
 public class SoundManager : Singleton<SoundManager>
 {
+
     [Header("Setting")]
     [SerializeField] private AudioMixer audioMixer;
 
@@ -82,5 +83,15 @@ public class SoundManager : Singleton<SoundManager>
                 return;
             }
         }
+    }
+
+    public void SetMusicVolume(float value)
+    {
+        audioMixer.SetFloat(Constant.VOLUME_MY_MUSIC, Mathf.Log10(value) * 20);
+    }
+
+    public void SetSFXVolume(float value)
+    {
+        audioMixer.SetFloat(Constant.VOLUME_MY_SFX, Mathf.Log10(value) * 20);
     }
 }
