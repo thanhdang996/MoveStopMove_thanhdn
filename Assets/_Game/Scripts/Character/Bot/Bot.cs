@@ -44,6 +44,7 @@ public class Bot : Character
         int levelPlayer = LevelManager.Instance.CurrentPlayer.LevelCharacter;
         levelCharacter = Random.Range(levelPlayer, levelPlayer + 3);
 
+        navMeshAgent.enabled = true; // fix when next level not correct pos
         navMeshAgent.ResetPath();
         StopMoving();
 
@@ -57,7 +58,7 @@ public class Bot : Character
     public override void OnDespawn()
     {
         StopMoving();
-
+        navMeshAgent.enabled= false; // fix when next level not correct pos
         base.OnDespawn();
         UIManager.Instance.GetUI<UICGamePlay>().HandleUpdateTotalEnemyAndText();
 
