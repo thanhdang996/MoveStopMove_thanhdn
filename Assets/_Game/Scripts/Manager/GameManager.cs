@@ -14,4 +14,9 @@ public class GameManager : Singleton<GameManager>
 
     public bool IsState (GameState state) => this.state == state;
 
+    private void Awake()
+    {
+        ChangeState(GameState.MainMenu);
+    }
+
 }

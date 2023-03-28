@@ -21,6 +21,8 @@ using UnityEngine.Events;
 
 public class UIManager : Singleton<UIManager>
 {
+    [SerializeField] private GameObject indicatorParent;
+    public GameObject IndicatorParent => indicatorParent;
     //dict for quick query UI prefab
     //dict dung de lu thong tin prefab canvas truy cap cho nhanh
     private Dictionary<System.Type, UICanvas> uiCanvasPrefab = new Dictionary<System.Type, UICanvas>();

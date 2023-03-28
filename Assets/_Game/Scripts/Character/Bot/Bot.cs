@@ -44,10 +44,8 @@ public class Bot : Character
         int levelPlayer = LevelManager.Instance.CurrentPlayer.LevelCharacter;
         levelCharacter = Random.Range(levelPlayer, levelPlayer + 3);
 
-        StartMoving();
         navMeshAgent.ResetPath();
-        GetRandomPosTargetInMap();
-        ChangeState(new PatrolState());
+        StopMoving();
 
         Indicator = SimplePool.Spawn<Indicator>(PoolType.Indicator);
         Indicator.HideIndicator(); // fix loi ruoi bay indicator khi moi sinh bot 
@@ -61,7 +59,7 @@ public class Bot : Character
         StopMoving();
 
         base.OnDespawn();
-        MyUIManager.Instance.UpdateTotalEnemyAndText();
+        UIManager.Instance.GetUI<UICGamePlay>().HandleUpdateTotalEnemyAndText();
 
         SimplePool.Despawn(Indicator);
         OnDeath?.Invoke(this);
@@ -73,7 +71,7 @@ public class Bot : Character
     private void Update()
     {
         HandleAnim();
-        if (!IsDead)
+        if (!IsDead && GameManager.Instance.IsState(GameState.GamePlay))
         {
             currentState?.OnExecute(this);
         }

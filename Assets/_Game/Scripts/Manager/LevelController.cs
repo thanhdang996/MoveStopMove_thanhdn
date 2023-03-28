@@ -15,10 +15,9 @@ public class LevelController : MonoBehaviour
     public List<SpawnPosTrigger> ListSpawnPosTrigger => listSpawnPosTrigger;
 
 
-    [SerializeField] private int totalEnemy = 100;
-    public int TotalEnemy { get => totalEnemy; }
-
-    public bool NoMoreEnemy => totalEnemy == 0;
+    private const int totalEnemy = 11;
+    public int EnemyRemain { get; set; } = totalEnemy;
+    public bool NoMoreEnemy => EnemyRemain == 0;
     public int NumberBotSpawnInit => spawnPosForBotTF.childCount;
 
     public void AddSpawnPosToListSpawnPos()
@@ -31,6 +30,11 @@ public class LevelController : MonoBehaviour
 
     public void MinusTotalEnemy()
     {
-        totalEnemy--;
+        EnemyRemain--;
+    }
+
+    public int GetTotalEnemy()
+    {
+        return totalEnemy;
     }
 }

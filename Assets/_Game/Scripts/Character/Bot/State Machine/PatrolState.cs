@@ -14,6 +14,7 @@ public class PatrolState : IState
         //randomTimeChangeAttackState = Random.Range(0.05f, 0.1f);
 
         bot.StartMoving();
+        bot.GetRandomPosTargetInMap();
         bot.MoveToTarget();
     }
 

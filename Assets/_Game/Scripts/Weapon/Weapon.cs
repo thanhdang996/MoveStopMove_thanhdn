@@ -40,7 +40,6 @@ public class Weapon : GameUnit
     {
         rb.velocity = Vector3.zero;
         SourceFireCharacter = null;
-        //ObjectPooling.Instance.ReturnGameObject(gameObject, Constant.ConvertWeaponTypeeToObjectType(weaponType));
         SimplePool.Despawn(this);
     }
 

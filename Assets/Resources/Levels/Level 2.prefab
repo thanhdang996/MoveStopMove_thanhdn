@@ -859,7 +859,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de7a3c17bd34d874595e422c7a5ea9d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_NavMeshData: {fileID: 23800000, guid: eb36b4ee1fbafb94e9d59166bd1b0297, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: a0c8facf2bec34248be0dbe1f88007b9, type: 2}
 --- !u!1 &5829308429973981243
 GameObject:
   m_ObjectHideFlags: 0
@@ -1324,7 +1324,6 @@ MonoBehaviour:
   spawnPosForPlayerTF: {fileID: 5829308430436609812}
   spawnPosForBotTF: {fileID: 5829308429887114712}
   listSpawnPosTrigger: []
-  totalEnemy: 50
 --- !u!1 &5829308430725940422
 GameObject:
   m_ObjectHideFlags: 0

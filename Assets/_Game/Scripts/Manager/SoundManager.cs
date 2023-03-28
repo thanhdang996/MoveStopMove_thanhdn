@@ -16,8 +16,7 @@ public class SoundManager : Singleton<SoundManager>
 {
     [Header("Setting")]
     [SerializeField] private AudioMixer audioMixer;
-    [SerializeField] private VolumeSetting volumeSetting;
-    public VolumeSetting VolumeSetting => volumeSetting;
+
 
     [Header("Audio Source")]
     [SerializeField] private AudioSource audioSourceMusicBG;
@@ -25,12 +24,6 @@ public class SoundManager : Singleton<SoundManager>
 
     [Header("All Clip")]
     [SerializeField] private SoundAudioClip[] soundAudioClips;
-
-
-    private void Start()
-    {
-        PlayBGSoundMusic();
-    }
 
 
     public void PlayBGSoundMusic()

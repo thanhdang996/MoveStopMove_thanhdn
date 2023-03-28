@@ -48,15 +48,18 @@ public class Player : Character
 
     private void Update()
     {
-        CheckTargetNearestAndShowAim();
-        HandleAnim();
-
-        if (PlayerMovement.IsMoving()) return;
-        if (ListTarget.Count > 0)
+        if (GameManager.Instance.IsState(GameState.GamePlay))
         {
-            if (!IsAttack)
+            CheckTargetNearestAndShowAim();
+            HandleAnim();
+
+            if (PlayerMovement.IsMoving()) return;
+            if (ListTarget.Count > 0)
             {
-                AttackCharacter();
+                if (!IsAttack)
+                {
+                    AttackCharacter();
+                }
             }
         }
     }
@@ -158,6 +161,6 @@ public class Player : Character
         base.ChangeScalePerKillAndIncreaseLevel();
         cam.ChangeOffSetBaseScale();
 
-        MyUIManager.Instance.HandUpdateCoinAndText();
+        UIManager.Instance.GetUI<UICGamePlay>().HandleUpdateCoinAndText();
     }
 }

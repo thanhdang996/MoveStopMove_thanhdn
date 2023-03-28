@@ -20,17 +20,21 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Vector3 dirMove = (new Vector3(joystick.Horizontal, 0, joystick.Vertical)).normalized;
-        rb.velocity = dirMove * speed;
-        if (rb.velocity != Vector3.zero)
+        if(GameManager.Instance.IsState(GameState.GamePlay))
         {
-            transform.rotation = Quaternion.LookRotation(rb.velocity);
+            Vector3 dirMove = (new Vector3(joystick.Horizontal, 0, joystick.Vertical)).normalized;
+            rb.velocity = dirMove * speed;
+            if (rb.velocity != Vector3.zero)
+            {
+                transform.rotation = Quaternion.LookRotation(rb.velocity);
+            }
         }
+        
     }
 
     public bool IsMoving()
     {
-        return Mathf.Abs(joystick.Horizontal) > 0.01f || Mathf.Abs(joystick.Vertical) > 0.01f;
+        return rb.velocity != Vector3.zero;
     }
 
     public void StopMoving()

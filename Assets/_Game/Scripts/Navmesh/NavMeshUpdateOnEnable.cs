@@ -16,5 +16,6 @@ public class NavMeshUpdateOnEnable : MonoBehaviour
     void OnDisable()
     {
         NavMesh.RemoveNavMeshData(m_NavMeshInstance);
+        NavMesh.RemoveAllNavMeshData();
     }
 }

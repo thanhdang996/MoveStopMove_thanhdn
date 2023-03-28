@@ -31,9 +31,9 @@ public class LevelManager : Singleton<LevelManager>
 
     private void Start()
     {
-        MyUIManager.Instance.OnNextButton += OnLoadNextLevel;
-        MyUIManager.Instance.OnRetryButton += RevivePlayer;
         LoadNewMap();
+
+        UIManager.Instance.OpenUI<UICMainMenu>();
     }
 
     private void LoadNewMap()
@@ -43,9 +43,6 @@ public class LevelManager : Singleton<LevelManager>
         LoadMapAtCurrentLevel();
         currentLevel.AddSpawnPosToListSpawnPos();
 
-        // set up sound, ui
-        SoundManager.Instance.VolumeSetting.LoadValueMusic();
-        MyUIManager.Instance.OnInitLoadUI();
 
         // spawn init player, bots and then show indicator
         SpawnInitPlayer();
@@ -53,30 +50,12 @@ public class LevelManager : Singleton<LevelManager>
         IndicatorHandle.Instance.AssignTempChacracterToShowIndicator();
     }
 
-    private void OnLoadNextLevel()
-    {
-        SimplePool.Collect(PoolType.Bot);
-        StopAllCoroutines();
 
-        RemoveLastMap();
-        DataManager.Instance.Data.AddLevelToData();
-        DataManager.Instance.SaveData();
-
-        DataManager.Instance.LoadData();
-        LoadMapAtCurrentLevel();
-        currentLevel.AddSpawnPosToListSpawnPos();
-
-        MyUIManager.Instance.OnInitLoadUI();
-
-        SpawnPlayerNextLevel();
-        RandomNextLevelBot();
-    }
 
     private void SpawnInitPlayer()
     {
         currentPlayer = SimplePool.Spawn<Player>(PoolType.Player);
         currentPlayer.TF.position = currentLevel.SpawnPosForPlayerTF.position;
-        currentPlayer.PlayerMovement.SetJoystick(MyUIManager.Instance.Joystick);
 
         currentPlayer.CreateAllWeaponPlayerOwner();
         currentPlayer.ActiveCurrentWeapon();
@@ -89,7 +68,7 @@ public class LevelManager : Singleton<LevelManager>
 
     private void SpawnPlayerNextLevel()
     {
-        //currentPlayer = SimplePool.Spawn<Player>(PoolType.Player);
+        currentPlayer = SimplePool.Spawn<Player>(PoolType.Player);
         currentPlayer.TF.position = currentLevel.SpawnPosForPlayerTF.position;
         currentPlayer.ResetLevelCharacter();
         currentPlayer.HandleAttackRangeBaseOnRangeWeapon();
@@ -97,10 +76,11 @@ public class LevelManager : Singleton<LevelManager>
         currentPlayer.OnInit();
     }
 
+    // retry
     public void RevivePlayer()
     {
-        //SimplePool.Despawn(currentPlayer);
-        //currentPlayer = SimplePool.Spawn<Player>(PoolType.Player); // 2 dong nay bo vi co moi 1 player
+        SimplePool.Despawn(currentPlayer);
+        currentPlayer = SimplePool.Spawn<Player>(PoolType.Player); 
         currentPlayer.OnInit();
         RandomPosNotNearChacracter(self: currentPlayer);
 
@@ -119,8 +99,22 @@ public class LevelManager : Singleton<LevelManager>
             bot.ActiveRandomWeapon();
             bot.HandleAttackRangeBaseOnRangeWeapon();
             bot.OnInit();
-
+            bot.ChangeState(null);
             bot.OnDeath += CheckConditionEnemyRemainToSpawnAndCheckWin; // cac action  dki 1 lan duy nhat luc tao
+        }
+    }
+
+    public void ReviveAllRandomBot()
+    {
+        for (int i = 0; i < CurrentLevel.ListSpawnPosTrigger.Count; i++)
+        {
+            Bot bot = SimplePool.Spawn<Bot>(PoolType.Bot);
+            bot.TF.position = CurrentLevel.ListSpawnPosTrigger[i].TF.position;
+
+            bot.ActiveRandomWeapon();
+            bot.HandleAttackRangeBaseOnRangeWeapon();
+            bot.OnInit();
+            bot.ChangeState(null);
         }
     }
 
@@ -145,6 +139,7 @@ public class LevelManager : Singleton<LevelManager>
         bot.ActiveRandomWeapon();
         bot.HandleAttackRangeBaseOnRangeWeapon();
         bot.OnInit();
+        bot.ChangeState(new PatrolState());
     }
 
     private void RandomPosNotNearChacracter(Character self)
@@ -165,14 +160,14 @@ public class LevelManager : Singleton<LevelManager>
     {
         if (!currentPlayer.IsWin)
         {
-            MyUIManager.Instance.ShowPanelLose();
+            UIManager.Instance.OpenUI<UICLoseLevel>();
             SoundManager.Instance.StopBGSoundMusic();
         }
     }
 
     private void CheckConditionEnemyRemainToSpawnAndCheckWin(Bot bot)
     {
-        if (CurrentLevel.TotalEnemy >= CurrentLevel.NumberBotSpawnInit)
+        if (CurrentLevel.EnemyRemain >= CurrentLevel.NumberBotSpawnInit)
         {
             StartCoroutine(ReturnBotToPoolAndSpawnOneBot(bot));
         }
@@ -201,12 +196,62 @@ public class LevelManager : Singleton<LevelManager>
     {
         if (currentLevel.NoMoreEnemy && !currentPlayer.IsDead)
         {
-            MyUIManager.Instance.ShowPanelWin();
+            UIManager.Instance.OpenUI<UICWinLevel>();
             currentPlayer.DisablePlayerMovement();
             currentPlayer.IsWin = true;
 
             SoundManager.Instance.PlaySoundSFX2D(SoundType.Win);
             SoundManager.Instance.StopBGSoundMusic();
         }
+    }
+
+
+    //start level
+    public void OnStartGame()
+    {
+        GameManager.Instance.ChangeState(GameState.GamePlay);
+
+        for (int i = 0; i < listBotCurrent.Count; i++)
+        {
+            listBotCurrent[i].ChangeState(new PatrolState());
+        }
+    }
+
+    // back main menu
+    public void OnBackToMainMenu()
+    {
+        StopAllCoroutines();
+
+        GameManager.Instance.ChangeState(GameState.MainMenu);
+        SoundManager.Instance.StopBGSoundMusic();
+
+        for (int i = listBotCurrent.Count - 1; i >= 0; i--)
+        {
+            listBotCurrent[i].SetPropWhenDeath();
+            listBotCurrent.RemoveAt(i);
+        }
+        SimplePool.CollectAll();
+        CurrentLevel.EnemyRemain = CurrentLevel.GetTotalEnemy();
+        ReviveAllRandomBot();
+        RevivePlayer();
+        currentPlayer.TF.position = currentLevel.SpawnPosForPlayerTF.position;
+    }
+
+    // next level
+    public void OnLoadNextLevel()
+    {
+        SimplePool.CollectAll();
+        StopAllCoroutines();
+
+        RemoveLastMap();
+        DataManager.Instance.Data.AddLevelToData();
+        DataManager.Instance.SaveData();
+
+        DataManager.Instance.LoadData();
+        LoadMapAtCurrentLevel();
+        currentLevel.AddSpawnPosToListSpawnPos();
+
+        SpawnPlayerNextLevel();
+        RandomNextLevelBot();
     }
 }

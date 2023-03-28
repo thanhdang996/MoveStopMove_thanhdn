@@ -98,7 +98,6 @@ public class Character : GameUnit
 
     public virtual void OnDespawn()
     {
-        //SoundManager.Instance.PlaySoundSFX("Chet 3", TF.position);
         SoundManager.Instance.PlaySoundSFX3D(SoundType.Dead, TF.position);
 
         SetPropWhenDeath();
