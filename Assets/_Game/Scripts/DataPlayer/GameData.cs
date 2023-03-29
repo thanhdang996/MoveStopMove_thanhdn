@@ -9,12 +9,12 @@ public class GameData
     public int Coin => coin;
 
 
-    [SerializeField] private List<int> weaponOwner = new List<int>() { 0 };
-    public List<int> WeaponOwner { get { return weaponOwner; } }
+    [SerializeField] private List<WeaponType> weaponOwner = new List<WeaponType>() { WeaponType.Axe };
+    public List<WeaponType> WeaponOwner { get { return weaponOwner; } }
 
 
-    [SerializeField] private int currentWeapon = 0;
-    public int CurrentWeapon { get { return currentWeapon; } }
+    [SerializeField] private WeaponType currentWeapon =  WeaponType.Axe;
+    public WeaponType CurrentWeapon { get { return currentWeapon; } }
 
 
     [SerializeField] private int levelId = 1;
@@ -51,9 +51,9 @@ public class GameData
         sfxVolume = value;
     }
 
-    public void ChangeCurrentWeaponData(int index)
+    public void ChangeCurrentWeaponData(WeaponType weaponType)
     {
-        currentWeapon = index;
+        currentWeapon = weaponType;
     }
 
 }

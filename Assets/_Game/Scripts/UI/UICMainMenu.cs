@@ -25,7 +25,12 @@ public class UICMainMenu : UICanvas
     // Button UI
     public void Button_Open_UICWeapon()
     {
-        UIManager.Instance.OpenUI<UICWeapon>();
+        UIManager.Instance.OpenUI<UICShopWeapon>();
+    }
+
+    public void Button_Open_UICShopDress()
+    {
+        UIManager.Instance.OpenUI<UICShopDress>();
     }
 
     public void Button_PlayGame()

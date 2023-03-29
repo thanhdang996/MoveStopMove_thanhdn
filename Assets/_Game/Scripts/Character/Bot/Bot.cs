@@ -160,32 +160,32 @@ public class Bot : Character
 
     public void CreateWeaponBotBaseOnPlayerOwner()
     {
-        List<int> listWeaponOwner = DataManager.Instance.Data.WeaponOwner;
-        foreach (int weapon in listWeaponOwner)
+        List<WeaponType> listWeaponOwner = DataManager.Instance.Data.WeaponOwner;
+        foreach (WeaponType weapon in listWeaponOwner)
         {
-            Instantiate(weaponSO.propWeapons[weapon].weaponAvatarPrefabs, weaponHolderTF).SetActive(false);
+            Instantiate(weaponSO.propWeapons[(int)weapon].weaponAvatarPrefabs, weaponHolderTF).SetActive(false);
         }
     }
 
     public void ActiveRandomWeapon()
     {
-        List<int> listWeaponOwner = DataManager.Instance.Data.WeaponOwner;
-        int indexRandomWeaponType = listWeaponOwner[Random.Range(0, listWeaponOwner.Count)];
-        int getIndexInWeaponHolder = listWeaponOwner.IndexOf(indexRandomWeaponType);
+        List<WeaponType> listWeaponOwner = DataManager.Instance.Data.WeaponOwner;
+        WeaponType getRandomWeaponTypeInData = listWeaponOwner[Random.Range(0, listWeaponOwner.Count)];
+        int getIndexInWeaponHolder = listWeaponOwner.IndexOf(getRandomWeaponTypeInData);
         if (getIndexInWeaponHolder == -1)
         {
-            print("Ban dang ko so huu vu ki do " + ((WeaponType)indexRandomWeaponType).ToString());
+            print("Ban dang ko so huu vu ki do " + (getRandomWeaponTypeInData).ToString());
             return;
         }
 
         currentWeaponAvaGO = weaponHolderTF.GetChild(getIndexInWeaponHolder).gameObject;
         ActiveCurrentWeapon();
 
-        currentWeaponType = (WeaponType)indexRandomWeaponType;
+        currentWeaponType = getRandomWeaponTypeInData;
     }
 
-    public void CreateNewWeaponBasePlayerJustAdd(int indexWeaponOnShop)
+    public void CreateNewWeaponBasePlayerJustAdd(WeaponType indexWeaponOnShop)
     {
-        Instantiate(weaponSO.propWeapons[indexWeaponOnShop].weaponAvatarPrefabs, weaponHolderTF).SetActive(false);
+        Instantiate(weaponSO.propWeapons[(int)indexWeaponOnShop].weaponAvatarPrefabs, weaponHolderTF).SetActive(false);
     }
 }

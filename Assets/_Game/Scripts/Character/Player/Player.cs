@@ -123,35 +123,35 @@ public class Player : Character
 
     public void CreateAllWeaponPlayerOwner()
     {
-        List<int> listWeaponOwner = DataManager.Instance.Data.WeaponOwner;
-        foreach (int weapon in listWeaponOwner)
+        List<WeaponType> listWeaponOwner = DataManager.Instance.Data.WeaponOwner;
+        foreach (WeaponType weapon in listWeaponOwner)
         {
-            Instantiate(weaponSO.propWeapons[weapon].weaponAvatarPrefabs, weaponHolderTF).SetActive(false);
+            Instantiate(weaponSO.propWeapons[(int)weapon].weaponAvatarPrefabs, weaponHolderTF).SetActive(false);
         }
     }
 
-    public void AddNewWeapon(int indexWeaponOnShop)
+    public void AddNewWeapon(WeaponType weaponTypeOnShop)
     {
-        GameObject newWeaponGO = Instantiate(weaponSO.propWeapons[indexWeaponOnShop].weaponAvatarPrefabs, weaponHolderTF);
+        GameObject newWeaponGO = Instantiate(weaponSO.propWeapons[(int)weaponTypeOnShop].weaponAvatarPrefabs, weaponHolderTF);
         DeActiveCurrentWeapon();
         currentWeaponAvaGO = newWeaponGO;
         ActiveCurrentWeapon();
 
-        currentWeaponType = (WeaponType)indexWeaponOnShop;
+        currentWeaponType = weaponTypeOnShop;
     }
 
     public void GetCurrentWeaponDataAndActive()
     {
-        List<int> listWeaponOwner = DataManager.Instance.Data.WeaponOwner;
-        int indexcurrentWeapon = DataManager.Instance.Data.CurrentWeapon;
-        int getIndexInWeaponHolder = listWeaponOwner.IndexOf(indexcurrentWeapon);
+        List<WeaponType> listWeaponOwner = DataManager.Instance.Data.WeaponOwner;
+        WeaponType currentWeaponTypeInData = DataManager.Instance.Data.CurrentWeapon;
+        int getIndexInWeaponHolder = listWeaponOwner.IndexOf(currentWeaponTypeInData);
         if (getIndexInWeaponHolder == -1)
         {
-            print("Ban dang ko so huu vu ki do " + ((WeaponType)indexcurrentWeapon).ToString());
+            print("Ban dang ko so huu vu ki do " + (currentWeaponTypeInData).ToString());
             return;
         }
 
-        currentWeaponType = (WeaponType)indexcurrentWeapon;
+        currentWeaponType = currentWeaponTypeInData;
         currentWeaponAvaGO = weaponHolderTF.GetChild(getIndexInWeaponHolder).gameObject;
         currentWeaponAvaGO.SetActive(true);
     }

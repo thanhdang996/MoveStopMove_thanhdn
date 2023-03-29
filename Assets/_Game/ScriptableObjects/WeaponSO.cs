@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public enum WeaponType { Axe, Boomerang, Hammer, Cream }
+public enum WeaponType { Axe = 0, Boomerang = 1, Hammer = 2, Cream = 3 }
 
 [System.Serializable]
 public struct PropWeapon
