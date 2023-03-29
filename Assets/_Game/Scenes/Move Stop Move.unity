@@ -1262,7 +1262,7 @@ MonoBehaviour:
     collect: 1
   - root: {fileID: 829088629}
     prefab: {fileID: 1735956090, guid: 44fdae529ffda574f81b271d6fc53b34, type: 3}
-    amount: 10
+    amount: 1
     collect: 1
   - root: {fileID: 555042267}
     prefab: {fileID: -6138692397638877070, guid: 94a28ca53bd9d6542a1b8cb289a792be, type: 3}

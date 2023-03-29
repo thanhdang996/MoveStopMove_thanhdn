@@ -20,18 +20,18 @@ public class RotationSelf : MonoBehaviour
     }
 
 
-    [SerializeField] private float rotateSpeed = 5f;
+    [SerializeField] private float rotateSpeed = 20f;
     [SerializeField] private bool isRotateZ;
 
     private void Update()
     {
         if (isRotateZ)
         {
-            TF.Rotate(0, 0, rotateSpeed);
+            TF.Rotate(rotateSpeed * Time.deltaTime * Vector3.forward);
         }
         else
         {
-            TF.Rotate(0, rotateSpeed, 0);
+            TF.Rotate(rotateSpeed * Time.deltaTime * Vector3.up);
         }
     }
 }

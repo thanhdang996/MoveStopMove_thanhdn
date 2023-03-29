@@ -861,7 +861,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c037860be5c6b064ea73e66eedaa460e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotateSpeed: 3
+  rotateSpeed: 100
   isRotateZ: 0
 --- !u!1 &6060695005929070610
 GameObject:
@@ -908,7 +908,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c037860be5c6b064ea73e66eedaa460e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotateSpeed: 3
+  rotateSpeed: 100
   isRotateZ: 0
 --- !u!1 &6640517664251580736
 GameObject:
@@ -1122,7 +1122,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c037860be5c6b064ea73e66eedaa460e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotateSpeed: 3
+  rotateSpeed: 100
   isRotateZ: 0
 --- !u!1 &8601992210491545617
 GameObject:
@@ -1239,12 +1239,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsDestroyOnClose: 0
+  currentButtonType: 0
+  currentIndexWeaponInShop: 0
   textCoin: {fileID: 108109999}
   weaponSO: {fileID: 11400000, guid: 41ee8cc0b205f854b94fb8419e8f7cff, type: 2}
-  cam: {fileID: 8601992211665788033}
-  listWeapon: {fileID: 8601992211201454027}
-  indexWeapon: 0
-  button: {fileID: 8601992211191472174}
+  camTF: {fileID: 8601992211665788033}
+  listWeaponTF: {fileID: 8601992211201454027}
+  buttonBuy: {fileID: 8601992211191472174}
+  textButton: {fileID: 8601992211279598418}
 --- !u!1 &8601992210505560903
 GameObject:
   m_ObjectHideFlags: 0
@@ -1414,7 +1416,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 8601992210491545620}
         m_TargetAssemblyTypeName: UICWeapon, Assembly-CSharp
-        m_MethodName: TurnLeft
+        m_MethodName: Button_Left
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1547,7 +1549,6 @@ GameObject:
   - component: {fileID: 8601992211191472144}
   - component: {fileID: 8601992211191472145}
   - component: {fileID: 8601992211191472174}
-  - component: {fileID: 8601992211191472147}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -1658,9 +1659,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8601992211191472147}
-        m_TargetAssemblyTypeName: ButtonWeapon, Assembly-CSharp
-        m_MethodName: HandleOnClick
+      - m_Target: {fileID: 8601992210491545620}
+        m_TargetAssemblyTypeName: UICWeapon, Assembly-CSharp
+        m_MethodName: Button_HandleBuyWeapon
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1670,20 +1671,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &8601992211191472147
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8601992211191472172}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac5dc45065029674ebd426cdd4c165ab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  uICWeapon: {fileID: 8601992210491545620}
-  buttonType: 0
 --- !u!1 &8601992211201454024
 GameObject:
   m_ObjectHideFlags: 0
@@ -1952,7 +1939,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 8601992210491545620}
         m_TargetAssemblyTypeName: UICWeapon, Assembly-CSharp
-        m_MethodName: TurnRight
+        m_MethodName: Button_Right
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2241,5 +2228,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c037860be5c6b064ea73e66eedaa460e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotateSpeed: 3
+  rotateSpeed: 100
   isRotateZ: 0
