@@ -132,21 +132,12 @@ public class Player : Character
 
     public void AddNewWeapon(int indexWeaponOnShop)
     {
-        Instantiate(weaponSO.propWeapons[indexWeaponOnShop].weaponAvatarPrefabs, weaponHolderTF).SetActive(false);
-        List<int> listWeaponOwner = DataManager.Instance.Data.WeaponOwner;
-        int getIndexInWeaponHolder = listWeaponOwner.IndexOf(indexWeaponOnShop);
-        currentWeaponAvaGO.SetActive(false);
+        GameObject newWeaponGO = Instantiate(weaponSO.propWeapons[indexWeaponOnShop].weaponAvatarPrefabs, weaponHolderTF);
+        DeActiveCurrentWeapon();
+        currentWeaponAvaGO = newWeaponGO;
+        ActiveCurrentWeapon();
+
         currentWeaponType = (WeaponType)indexWeaponOnShop;
-        currentWeaponAvaGO = weaponHolderTF.GetChild(getIndexInWeaponHolder).gameObject;
-        currentWeaponAvaGO.SetActive(true);
-    }
-    public void DeActiveCurrentWeapon()
-    {
-        currentWeaponAvaGO.SetActive(false);
-    }
-    public void ActiveCurrentWeapon()
-    {
-        currentWeaponAvaGO.SetActive(true);
     }
 
     public void GetCurrentWeaponDataAndActive()
@@ -154,6 +145,11 @@ public class Player : Character
         List<int> listWeaponOwner = DataManager.Instance.Data.WeaponOwner;
         int indexcurrentWeapon = DataManager.Instance.Data.CurrentWeapon;
         int getIndexInWeaponHolder = listWeaponOwner.IndexOf(indexcurrentWeapon);
+        if (getIndexInWeaponHolder == -1)
+        {
+            print("Ban dang ko so huu vu ki do " + ((WeaponType)indexcurrentWeapon).ToString());
+            return;
+        }
 
         currentWeaponType = (WeaponType)indexcurrentWeapon;
         currentWeaponAvaGO = weaponHolderTF.GetChild(getIndexInWeaponHolder).gameObject;

@@ -83,6 +83,15 @@ public class Character : GameUnit
         levelCharacter = 0;
     }
 
+    public void DeActiveCurrentWeapon()
+    {
+        currentWeaponAvaGO.SetActive(false);
+    }
+    public void ActiveCurrentWeapon()
+    {
+        currentWeaponAvaGO.SetActive(true);
+    }
+
     public void HandleAttackRangeBaseOnRangeWeapon()
     {
         attackRangeCurrentWeapon = weaponSO.ReturnAttackRangeOfWeapon(CurrentWeaponType);

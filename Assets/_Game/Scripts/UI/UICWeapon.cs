@@ -3,32 +3,36 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 public class UICWeapon : UICanvas
 {
+    private enum BuyWeaponButtonType { None, Equipped, Select, Buy }
+    private BuyWeaponButtonType currentButtonType;
+    private int currentIndexWeaponInShop;
+
     [SerializeField] TextMeshProUGUI textCoin;
-    public TextMeshProUGUI TextCoin => textCoin;
     [SerializeField] private WeaponSO weaponSO;
-    [SerializeField] private Transform cam;
-    [SerializeField] private Transform listWeapon;
-    [SerializeField] private int indexWeapon;
-    public int IndexWeapon => indexWeapon;
-    [SerializeField] private Button button;
+    [SerializeField] private Transform camTF;
+    [SerializeField] private Transform listWeaponTF;
+
+    [SerializeField] private Button buttonBuy;
+    [SerializeField] private TextMeshProUGUI textButton;
 
     private float snapPerItem = 4;
-    public int MaxWeaponIndex => listWeapon.childCount - 1;
+    public int MaxWeaponIndex => listWeaponTF.childCount - 1;
 
     public override void Open()
     {
         base.Open();
-        CheckWeapon();
         UI_UpdateTextCoin();
+        ChangeStateButtonBaseIndexWeapon();
     }
 
     public override void CloseDirectly()
     {
         base.CloseDirectly();
-        UIManager.Instance.GetUI<UICMainMenu>().UI_UpdateTextCoin();
+        UIManager.Instance.GetUI<UICMainMenu>().UI_UpdateTextCoin(); // vi MainMenu van o duoi UICWeapon
     }
 
 
@@ -37,79 +41,133 @@ public class UICWeapon : UICanvas
     {
         textCoin.text = DataManager.Instance.Data.Coin.ToString();
     }
-    public void TurnRight()
+
+    // Button UI
+    public void Button_Right()
     {
-        indexWeapon++;
-        if (indexWeapon > MaxWeaponIndex)
+        currentIndexWeaponInShop++;
+        if (currentIndexWeaponInShop > MaxWeaponIndex)
         {
-            indexWeapon = MaxWeaponIndex;
+            currentIndexWeaponInShop = MaxWeaponIndex;
             return;
         }
-        Vector3 pos = cam.position;
+        Vector3 pos = camTF.position;
         pos.x += snapPerItem;
-        cam.position = pos;
-        CheckWeapon();
+        camTF.position = pos;
+        ChangeStateButtonBaseIndexWeapon();
     }
 
-    public void TurnLeft()
+    public void Button_Left()
     {
-        indexWeapon--;
-        if (indexWeapon < 0)
+        currentIndexWeaponInShop--;
+        if (currentIndexWeaponInShop < 0)
         {
-            indexWeapon = 0;
+            currentIndexWeaponInShop = 0;
             return;
         }
-        Vector3 pos = cam.position;
+        Vector3 pos = camTF.position;
         pos.x -= snapPerItem;
-        cam.position = pos;
-        CheckWeapon();
+        camTF.position = pos;
+        ChangeStateButtonBaseIndexWeapon();
+    }
+    public void Button_HandleBuyWeapon()
+    {
+        if (currentButtonType == BuyWeaponButtonType.Equipped)
+        {
+            UIManager.Instance.CloseUI<UICWeapon>();
+            return;
+        }
+        if (currentButtonType == BuyWeaponButtonType.Select)
+        {
+            DataManager.Instance.Data.ChangeCurrentWeaponData(currentIndexWeaponInShop);
+            DataManager.Instance.SaveData();
+
+            LevelManager.Instance.CurrentPlayer.ChangeWeaponOnHand();
+            ChangeStateButtonBaseIndexWeapon();
+            return;
+        }
+        if (currentButtonType == BuyWeaponButtonType.Buy)
+        {
+            if (CanBuyWeapon())
+            {
+                int coinRemain = GetCoinInData() - GetCurrentWeaponPrice();
+                DataManager.Instance.Data.SetCoinToData(coinRemain);
+
+                DataManager.Instance.Data.WeaponOwner.Add(currentIndexWeaponInShop);
+                DataManager.Instance.Data.ChangeCurrentWeaponData(currentIndexWeaponInShop);
+
+                DataManager.Instance.SaveData();
+
+                UI_UpdateTextCoin();
+                LevelManager.Instance.CurrentPlayer.AddNewWeapon(currentIndexWeaponInShop);
+                LevelManager.Instance.CurrentPlayer.ChangeWeaponOnHand();
+
+                foreach (var bot in LevelManager.Instance.ListBotCurrent)
+                {
+                    bot.CreateNewWeaponBasePlayerJustAdd(currentIndexWeaponInShop);
+                }
+                ChangeStateButtonBaseIndexWeapon();
+            }
+            else
+            {
+                Debug.Log("Not Enough money to buy");
+            }
+        }
     }
 
-    public void CheckWeapon()
+
+    public void ChangeStateButtonBaseIndexWeapon()
     {
-        if(indexWeapon == GetCurrentWeaponIndex())
+
+        if (currentIndexWeaponInShop == GetCurrentWeaponIndexInData())
         {
-            button.GetComponentInChildren<TextMeshProUGUI>().text = "Equipped";
-            button.GetComponent<ButtonWeapon>().ButtonType = ButtonType.Equipped;
+            buttonBuy.interactable = true;
+            currentButtonType = BuyWeaponButtonType.Equipped;
+            textButton.text = currentButtonType.ToString();
             return;
         }
 
-        if (DataManager.Instance.Data.WeaponOwner.Contains(indexWeapon))
+        if(GetListWeaponOwnerInData().Contains(currentIndexWeaponInShop))
         {
-            button.GetComponentInChildren<TextMeshProUGUI>().text = "Select";
-            button.GetComponent<ButtonWeapon>().ButtonType = ButtonType.Select;
+            buttonBuy.interactable = true;
+            currentButtonType = BuyWeaponButtonType.Select;
+            textButton.text = currentButtonType.ToString();
+            return;
         }
-        else
-        {
-            button.GetComponentInChildren<TextMeshProUGUI>().text = "Buy " + weaponSO.propWeapons[indexWeapon].price;
-            button.GetComponent<ButtonWeapon>().ButtonType = ButtonType.Buy;
 
+        if (!GetListWeaponOwnerInData().Contains(currentIndexWeaponInShop))
+        {
+            buttonBuy.interactable = CanBuyWeapon();
+
+            currentButtonType = BuyWeaponButtonType.Buy;
+            textButton.text = $"{currentButtonType} {GetCurrentWeaponPrice()}";
+            return;
         }
     }
 
-    public int GetCurrentWeaponIndex()
+    public int GetCurrentWeaponIndexInData()
     {
         return DataManager.Instance.Data.CurrentWeapon;
     }
 
-    public int GetWeaponPrice()
+    public List<int> GetListWeaponOwnerInData()
     {
-        return weaponSO.propWeapons[indexWeapon].price;
+        return DataManager.Instance.Data.WeaponOwner;
     }
 
-    //public void HandleOnClick()
-    //{
-    //    CheckWeapon();
-    //    if (buttonType == ButtonType.Equipped)
-    //    {
-    //        return;
-    //    }
-    //    if (buttonType == ButtonType.Select)
-    //    {
-    //        DataManager.Instance.Data.ChangeCurrentWeaponData(uICWeapon.IndexWeapon);
-    //        DataManager.Instance.SaveData();
-    //        LevelManager.Instance.CurrentPlayer.DeActiveCurrentWeapon();
-    //        LevelManager.Instance.CurrentPlayer.ActiveCurrentWeapon();
-    //    }
-    //}
+    public int GetCoinInData()
+    {
+        return DataManager.Instance.Data.Coin;
+    }
+    public int GetCurrentWeaponPrice()
+    {
+        return weaponSO.propWeapons[currentIndexWeaponInShop].price;
+    }
+
+
+    private bool CanBuyWeapon()
+    {
+        if (GetCoinInData() < GetCurrentWeaponPrice()) return false;
+        return true;
+    }
 }

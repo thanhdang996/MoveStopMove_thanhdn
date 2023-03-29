@@ -42,7 +42,7 @@ public class Bot : Character
     {
         base.OnInit();
         int levelPlayer = LevelManager.Instance.CurrentPlayer.LevelCharacter;
-        levelCharacter = Random.Range(levelPlayer, levelPlayer + 3);
+        levelCharacter = Random.Range(levelPlayer, levelPlayer + 5);
 
         navMeshAgent.enabled = true; // fix when next level not correct pos
         navMeshAgent.ResetPath();
@@ -170,17 +170,22 @@ public class Bot : Character
     public void ActiveRandomWeapon()
     {
         List<int> listWeaponOwner = DataManager.Instance.Data.WeaponOwner;
-        int indexWeaponType = listWeaponOwner[Random.Range(0, listWeaponOwner.Count)];
-        int getIndexInWeaponHolder = listWeaponOwner.IndexOf(indexWeaponType);
-        currentWeaponType = (WeaponType)indexWeaponType;
-
-        // neu player moi add weapon thi instantiate
-        if (getIndexInWeaponHolder > weaponHolderTF.childCount - 1)
+        int indexRandomWeaponType = listWeaponOwner[Random.Range(0, listWeaponOwner.Count)];
+        int getIndexInWeaponHolder = listWeaponOwner.IndexOf(indexRandomWeaponType);
+        if (getIndexInWeaponHolder == -1)
         {
-            // trong weaponHolder tao 1 weapon moi o vi tri cuoi, neu nhu getIndexInWeaponHolder vuot qua childCount-1
-            Instantiate(weaponSO.propWeapons[indexWeaponType].weaponAvatarPrefabs, weaponHolderTF).SetActive(false);
+            print("Ban dang ko so huu vu ki do " + ((WeaponType)indexRandomWeaponType).ToString());
+            return;
         }
+
         currentWeaponAvaGO = weaponHolderTF.GetChild(getIndexInWeaponHolder).gameObject;
-        currentWeaponAvaGO.SetActive(true);
+        ActiveCurrentWeapon();
+
+        currentWeaponType = (WeaponType)indexRandomWeaponType;
+    }
+
+    public void CreateNewWeaponBasePlayerJustAdd(int indexWeaponOnShop)
+    {
+        Instantiate(weaponSO.propWeapons[indexWeaponOnShop].weaponAvatarPrefabs, weaponHolderTF).SetActive(false);
     }
 }

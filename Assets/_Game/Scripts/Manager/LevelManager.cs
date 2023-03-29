@@ -48,7 +48,7 @@ public class LevelManager : Singleton<LevelManager>
         DataManager.Instance.LoadData();
         LoadMapAtCurrentLevel();
         currentLevel.AddSpawnPosToListSpawnPos();
-        currentLevel.SetEnemyRemainEqualTotalEnemy();  
+        currentLevel.SetEnemyRemainEqualTotalEnemy();
     }
 
     private void SpawnPlayerBotAndShowIndicator()
@@ -86,7 +86,7 @@ public class LevelManager : Singleton<LevelManager>
     public void RevivePlayer()
     {
         SimplePool.Despawn(currentPlayer);
-        currentPlayer = SimplePool.Spawn<Player>(PoolType.Player); 
+        currentPlayer = SimplePool.Spawn<Player>(PoolType.Player);
         currentPlayer.OnInit();
         currentPlayer.ActiveCurrentWeapon();
         RandomPosNotNearChacracter(self: currentPlayer);
@@ -236,9 +236,11 @@ public class LevelManager : Singleton<LevelManager>
             listBotCurrent.RemoveAt(i);
         }
         CurrentLevel.EnemyRemain = CurrentLevel.GetTotalEnemy();
-        ReviveAllRandomBot();
         RevivePlayer();
+        currentPlayer.ResetLevelCharacter(); // reset player moi revive bot, vi level bot base on player
         currentPlayer.TF.position = currentLevel.SpawnPosForPlayerTF.position;
+
+        ReviveAllRandomBot();
     }
 
     // next level
