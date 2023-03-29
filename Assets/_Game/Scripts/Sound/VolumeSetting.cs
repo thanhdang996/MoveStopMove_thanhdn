@@ -7,14 +7,13 @@ using UnityEngine.UI;
 
 public class VolumeSetting : MonoBehaviour
 {
-    [SerializeField] AudioMixer audioMixer;
     [SerializeField] Slider bgMusicSilder;
     [SerializeField] Slider sfxSilder;
 
     private void Awake()
     {
-        bgMusicSilder.onValueChanged.AddListener(SetMusicVolume);
-        sfxSilder.onValueChanged.AddListener(SetSFXVolume);
+        bgMusicSilder.onValueChanged.AddListener(SoundManager.Instance.SetMusicVolume);
+        sfxSilder.onValueChanged.AddListener(SoundManager.Instance.SetSFXVolume);
     }
 
     public void LoadValueMusic()
@@ -22,8 +21,8 @@ public class VolumeSetting : MonoBehaviour
         bgMusicSilder.value = DataManager.Instance.Data.BGMusicVolume;
         sfxSilder.value = DataManager.Instance.Data.SFXVolume;
 
-        SetMusicVolume(bgMusicSilder.value);
-        SetSFXVolume(sfxSilder.value);
+        SoundManager.Instance.SetMusicVolume(bgMusicSilder.value);
+        SoundManager.Instance.SetSFXVolume(sfxSilder.value);
     }
 
     private void OnDisable()
@@ -31,15 +30,5 @@ public class VolumeSetting : MonoBehaviour
         DataManager.Instance.Data.SetBGVolumeToData(bgMusicSilder.value);
         DataManager.Instance.Data.SetSFXVolumeToData(sfxSilder.value);
         DataManager.Instance.SaveData();
-    }
-
-    private void SetMusicVolume(float value)
-    {
-        audioMixer.SetFloat(Constant.VOLUME_MY_MUSIC, Mathf.Log10(value) * 20);
-    }
-
-    private void SetSFXVolume(float value)
-    {
-        audioMixer.SetFloat(Constant.VOLUME_MY_SFX, Mathf.Log10(value) * 20);
     }
 }
