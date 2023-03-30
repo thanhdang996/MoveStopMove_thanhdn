@@ -51,10 +51,8 @@ public class Character : GameUnit
     //Current Weapon
     [SerializeField] protected WeaponSO weaponSO;
     [SerializeField] protected WeaponType currentWeaponType;
-    public WeaponType CurrentWeaponType { get => currentWeaponType; set => currentWeaponType = value; }
 
     [SerializeField] protected Transform weaponHolderTF;
-    public Transform WeaponHolderTF => weaponHolderTF;
     protected GameObject currentWeaponAvaGO;
     protected int attackRangeCurrentWeapon;
     [SerializeField] private Transform pointRangeWeaponTF;
@@ -94,7 +92,7 @@ public class Character : GameUnit
 
     public void HandleAttackRangeBaseOnRangeWeapon()
     {
-        attackRangeCurrentWeapon = weaponSO.ReturnAttackRangeOfWeapon(CurrentWeaponType);
+        attackRangeCurrentWeapon = weaponSO.ReturnAttackRangeOfWeapon(currentWeaponType);
         float scaleAdjust = attackRangeCurrentWeapon / 10f;
 
         // attack range base on weaponrange and level

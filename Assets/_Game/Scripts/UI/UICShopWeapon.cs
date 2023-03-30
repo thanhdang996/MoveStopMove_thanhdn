@@ -51,9 +51,9 @@ public class UICShopWeapon : UICanvas
             currentWeaponTypeInShop = (WeaponType)MaxWeaponIndex;
             return;
         }
-        Vector3 pos = camTF.position;
+        Vector3 pos = camTF.localPosition;
         pos.x += snapPerItem;
-        camTF.position = pos;
+        camTF.localPosition = pos;
         ChangeStateButtonBaseIndexWeapon();
     }
 
@@ -65,9 +65,9 @@ public class UICShopWeapon : UICanvas
             currentWeaponTypeInShop = 0;
             return;
         }
-        Vector3 pos = camTF.position;
+        Vector3 pos = camTF.localPosition;
         pos.x -= snapPerItem;
-        camTF.position = pos;
+        camTF.localPosition = pos;
         ChangeStateButtonBaseIndexWeapon();
     }
     public void Button_HandleBuyWeapon()
