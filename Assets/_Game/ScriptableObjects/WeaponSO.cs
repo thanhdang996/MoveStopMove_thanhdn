@@ -6,7 +6,7 @@ using UnityEngine;
 public enum WeaponType { Axe = 0, Boomerang = 1, Hammer = 2, Cream = 3 }
 
 [System.Serializable]
-public struct PropWeapon
+public class PropWeapon
 {
     public GameObject weaponAvatarPrefabs;
     public int attackRangeWeapons;
@@ -14,7 +14,7 @@ public struct PropWeapon
     public int price;
 }
 
-[CreateAssetMenu()]
+[CreateAssetMenu(menuName = "Data/Weapon")]
 public class WeaponSO : ScriptableObject
 {
 

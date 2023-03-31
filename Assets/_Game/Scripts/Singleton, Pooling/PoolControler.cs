@@ -143,7 +143,7 @@ public enum ParticleType
 
 public enum PoolType
 {
-    None, Player, Bot, Axe, Boomerang, Cream, Indicator, SFX
+    None, Player, Bot, Axe, Boomerang, Cream, Indicator, SFX, ItemShopOnHand
 }
 
 

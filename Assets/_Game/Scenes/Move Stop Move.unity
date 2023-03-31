@@ -1078,6 +1078,37 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1 &1202388826
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1202388827}
+  m_Layer: 0
+  m_Name: Hair Container
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1202388827
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1202388826}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1911569705}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1284574299
 GameObject:
   m_ObjectHideFlags: 0
@@ -1284,6 +1315,10 @@ MonoBehaviour:
     prefab: {fileID: 5020745761264018320, guid: 9d7c041b60d2bd948ae0eb48530f9d91, type: 3}
     amount: 10
     collect: 1
+  - root: {fileID: 1202388827}
+    prefab: {fileID: 5158117851137044499, guid: 24919fbfdac6ab4408bb36cebc1c5c78, type: 3}
+    amount: 5
+    collect: 1
   Particle: []
 --- !u!4 &1911569705
 Transform:
@@ -1301,6 +1336,7 @@ Transform:
   - {fileID: 829088629}
   - {fileID: 555042267}
   - {fileID: 892203204}
+  - {fileID: 1202388827}
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

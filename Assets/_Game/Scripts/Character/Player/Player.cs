@@ -17,6 +17,7 @@ public class Player : Character
     private bool isWin;
     public bool IsWin { get => isWin; set => isWin = value; }
 
+
     protected override void Awake()
     {
         base.Awake();
