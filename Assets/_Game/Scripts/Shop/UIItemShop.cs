@@ -9,7 +9,6 @@ using TMPro;
 public class UIItemShop : MonoBehaviour
 {
     private int id;
-    public int Id => id;
     private TabItemController tabItemController;
 
     [SerializeField] private Image image;
@@ -56,15 +55,22 @@ public class UIItemShop : MonoBehaviour
 
     public void Selected()
     {
-        HandleOnClick();
+        print($"{hairType} - has price {price}");
+
+        tabItemController.UICShopDress.UI_SetTextPrice(price);
+
+        tabItemController.TurnOnOutLineCurrentButton(id);
+        tabItemController.CheckToAddItemPlayer(id);
     }
 
-    private void HandleOnClick()
+    public void HandleOnClick()
     {
-        //print($"{hairType} - has price {price}");
-        tabItemController.UICShopDress.UI_SetTextPrice(price);
-        tabItemController.TurnOnOffOutLine(id);
+        if (tabItemController.CurrentUIItemShop.id == id) return;
+        print($"{hairType} - has price {price}");
 
+        tabItemController.UICShopDress.UI_SetTextPrice(price);
+
+        tabItemController.TurnOnOutLineCurrentButton(id);
         tabItemController.CheckToAddItemPlayer(id);
     }
 }

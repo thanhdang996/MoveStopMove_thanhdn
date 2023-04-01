@@ -17,13 +17,19 @@ public class TabItemController : MonoBehaviour
     [SerializeField] private HairSO hairSO;
 
     [SerializeField] private PrefabItemShop currentPrefabItemPlayer;
-    public PrefabItemShop CurrentPrefabItemPlayer => currentPrefabItemPlayer;
-
     [SerializeField] private List<PrefabItemShop> listPrefabItemPlayerContain;
+
+    private UIItemShop currentUIItemShop;
+    public UIItemShop CurrentUIItemShop { get => currentUIItemShop; set => currentUIItemShop = value; }
+    //public UIItemShop CurrentUIItemShop => currentUIItemShop;
     [SerializeField] private List<UIItemShop> listUIItemShop;
+    public List<UIItemShop> ListUIItemShop => listUIItemShop;
 
     [SerializeField] private Button button;
     private bool isFirstTimeRender = true;
+
+    [SerializeField] private Outline outline;
+    public Outline Outline => outline;
 
 
     private void OnEnable()
@@ -52,6 +58,7 @@ public class TabItemController : MonoBehaviour
 
             if (i == 0)
             {
+                SetCurrentUIItemShop(listUIItemShop[0]);
                 itemShop.Selected();
             }
         }
@@ -72,29 +79,29 @@ public class TabItemController : MonoBehaviour
         {
             if (currentPrefabItemPlayer != null)
             {
-                currentPrefabItemPlayer.gameObject.SetActive(false);
+                DeActivePrefabCurrentPlayer();
             }
             currentPrefabItemPlayer = Instantiate(hairSO.propHair[idUIITemShop].hairAvatarPrefabs, LevelManager.Instance.CurrentPlayer.HairHolderTF);
             currentPrefabItemPlayer.SetId(idUIITemShop);
             listPrefabItemPlayerContain.Add(currentPrefabItemPlayer);
-            currentPrefabItemPlayer.gameObject.SetActive(true);
+            ActivePrefabCurrentPlayer();
         }
         else
         {
-            currentPrefabItemPlayer.gameObject.SetActive(false);
+            DeActivePrefabCurrentPlayer();
             for (int i = 0; i < listPrefabItemPlayerContain.Count; i++)
             {
                 if (listPrefabItemPlayerContain[i].Id == idUIITemShop)
                 {
                     currentPrefabItemPlayer = listPrefabItemPlayerContain[i];
-                    currentPrefabItemPlayer.gameObject.SetActive(true);
+                    ActivePrefabCurrentPlayer();
                     return;
                 }
             }
         }
     }
 
-    public void ActiveUIItemShop()
+    public void ActiveAllUIItemShop()
     {
         if (isFirstTimeRender)
         {
@@ -107,10 +114,10 @@ public class TabItemController : MonoBehaviour
         {
             listUIItemShop[i].gameObject.SetActive(true);
         }
-        listUIItemShop[0].Selected();
+        SetCurrentUIItemShop(listUIItemShop[0]);
+        currentUIItemShop.Selected(); // luon select phan tu dau
     }
-
-    public void DeActiveUIItemShop()
+    public void DeActiveAllUIItemShop()
     {
         for (int i = 0; i < listUIItemShop.Count; i++)
         {
@@ -119,24 +126,39 @@ public class TabItemController : MonoBehaviour
     }
 
 
-    public void TurnOnOffOutLine(int id)
+    public void ActivePrefabCurrentPlayer()
     {
-        for (int i = 0; i < listUIItemShop.Count; i++)
+        currentPrefabItemPlayer.gameObject.SetActive(true);
+    }
+    public void DeActivePrefabCurrentPlayer()
+    {
+        if (currentPrefabItemPlayer != null)
         {
-            if (listUIItemShop[i].Id == id)
-            {
-                listUIItemShop[i].Outline.enabled = true;
-            }
-            else
-            {
-                listUIItemShop[i].Outline.enabled = false;
-            }
+            currentPrefabItemPlayer.gameObject.SetActive(false);
         }
+    }
+
+
+    public void TurnOnOutLineCurrentButton(int id)
+    {
+        if (currentUIItemShop != null)
+        {
+            currentUIItemShop.Outline.enabled = false;
+
+        }
+        // vi luc Instantiate UIItemShop set id = index cua vong lap
+        SetCurrentUIItemShop(listUIItemShop[id]);
+        currentUIItemShop.Outline.enabled = true;
+    }
+
+    public void SetCurrentUIItemShop(UIItemShop itemShop)
+    {
+        currentUIItemShop = itemShop;
     }
 
     public void HandleOnClick()
     {
-        if (uicShopDress.CurrentTabIndex == tabIndex) return;
+        if (uicShopDress.CurrentTabItemController.tabIndex == tabIndex) return;
         uicShopDress.OpenTab(tabIndex);
     }
 }

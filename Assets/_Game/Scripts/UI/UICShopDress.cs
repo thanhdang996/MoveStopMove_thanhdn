@@ -6,13 +6,13 @@ using TMPro;
 
 public class UICShopDress : UICanvas
 {
-    private int currentTabIndex = 0;
-    public int CurrentTabIndex => currentTabIndex;
 
     [SerializeField] private TextMeshProUGUI textCoin;
     [SerializeField] private TextMeshProUGUI textPrice;
 
-    [SerializeField] private List<TabItemController> tabs;
+    private TabItemController currentTabItemController;
+    public TabItemController CurrentTabItemController => currentTabItemController;
+    [SerializeField] private List<TabItemController> listTabs;
 
 
 
@@ -34,13 +34,16 @@ public class UICShopDress : UICanvas
 
     public void OpenTab(int tabIndex)
     {
-        tabs[currentTabIndex].DeActiveUIItemShop();
-        if (tabs[currentTabIndex].CurrentPrefabItemPlayer != null)
+        if(currentTabItemController != null)
         {
-            tabs[currentTabIndex].CurrentPrefabItemPlayer.gameObject.SetActive(false);
+            currentTabItemController.Outline.enabled = false;
+            currentTabItemController.TurnOnOutLineCurrentButton(0);
+            currentTabItemController.DeActiveAllUIItemShop();
+            currentTabItemController.DeActivePrefabCurrentPlayer();
         }
-
-        currentTabIndex = tabIndex;
-        tabs[currentTabIndex].ActiveUIItemShop();
+        // vi tabIndex bang thu tu cac TabItem trong listTabs( luc keo editor)
+        currentTabItemController = listTabs[tabIndex]; 
+        currentTabItemController.ActiveAllUIItemShop();
+        currentTabItemController.Outline.enabled = true;
     }
 }
