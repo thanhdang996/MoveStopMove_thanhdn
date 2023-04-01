@@ -61,8 +61,7 @@ public class Character : GameUnit
     // Current Hair
     [SerializeField] protected Transform hairHolderTF;
     public Transform HairHolderTF { get => hairHolderTF; set => hairHolderTF = value; }
-    [SerializeField] private GameObject currentHairGO;
-    public GameObject CurrentHairGO { get => currentHairGO; set => currentHairGO = value; }
+
 
 
     //Current Level Character

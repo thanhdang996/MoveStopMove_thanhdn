@@ -8,7 +8,7 @@ public enum HairType { None, Hoa, MuCS, MuiTen, Rau, Horn, TaiTho, TocXu, VuongM
 [System.Serializable]
 public class PropHair
 {
-    public GameObject hairAvatarPrefabs;
+    public PrefabItemShop hairAvatarPrefabs;
     public HairType hairType;
     public int price;
     public Sprite spriteImage;

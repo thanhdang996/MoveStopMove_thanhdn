@@ -984,6 +984,7 @@ GameObject:
   - component: {fileID: 8006185830340606715}
   - component: {fileID: 8006185830340606716}
   - component: {fileID: 8006185830340606717}
+  - component: {fileID: 4472634308477925780}
   m_Layer: 5
   m_Name: Tab Hat
   m_TagString: Untagged
@@ -1094,6 +1095,26 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &4472634308477925780
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8006185830340606719}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 198d1bdb911dc0445b046425300e2f18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tabIndex: 0
+  uicShopDress: {fileID: 8006185830916610104}
+  contentTF: {fileID: 8006185830664801683}
+  prefabUIItemShop: {fileID: -9043846246535396574, guid: afa9a8d44b08bd94c9177e9695dca244, type: 3}
+  hairSO: {fileID: 11400000, guid: 7849df5c888294e49a4cd62b274d68c4, type: 2}
+  listItemPlayerContain: []
+  listUIItemShop: []
+  button: {fileID: 8006185830340606717}
 --- !u!1 &8006185830418118928
 GameObject:
   m_ObjectHideFlags: 0
@@ -1106,6 +1127,7 @@ GameObject:
   - component: {fileID: 8006185830418119020}
   - component: {fileID: 8006185830418119021}
   - component: {fileID: 8006185830418119022}
+  - component: {fileID: 4568747514473156036}
   m_Layer: 5
   m_Name: Tab Pants
   m_TagString: Untagged
@@ -1216,6 +1238,26 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &4568747514473156036
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8006185830418118928}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 198d1bdb911dc0445b046425300e2f18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tabIndex: 1
+  uicShopDress: {fileID: 8006185830916610104}
+  contentTF: {fileID: 8006185830664801683}
+  prefabUIItemShop: {fileID: -9043846246535396574, guid: afa9a8d44b08bd94c9177e9695dca244, type: 3}
+  hairSO: {fileID: 11400000, guid: 23dcc47a514454d4893569ff10524ce5, type: 2}
+  listItemPlayerContain: []
+  listUIItemShop: []
+  button: {fileID: 8006185830418119022}
 --- !u!1 &8006185830623705934
 GameObject:
   m_ObjectHideFlags: 0
@@ -1838,10 +1880,10 @@ MonoBehaviour:
   IsDestroyOnClose: 0
   currentTabIndex: 0
   textCoin: {fileID: 5418362183211826153}
-  contentTF: {fileID: 8006185830664801683}
-  prefabItemShop: {fileID: -9043846246535396574, guid: afa9a8d44b08bd94c9177e9695dca244, type: 3}
-  hairSO: {fileID: 11400000, guid: 7849df5c888294e49a4cd62b274d68c4, type: 2}
   textPrice: {fileID: 3068233680430226566}
+  tabs:
+  - {fileID: 4472634308477925780}
+  - {fileID: 4568747514473156036}
 --- !u!1 &8006185831316634588
 GameObject:
   m_ObjectHideFlags: 0
