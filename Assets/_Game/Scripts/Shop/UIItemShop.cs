@@ -9,11 +9,10 @@ using TMPro;
 public class UIItemShop : MonoBehaviour
 {
     private int id;
-    private TabItemController tabItemController;
+    private TabItem tabItem;
+    private int price;
 
     [SerializeField] private Image image;
-    [SerializeField] private HairType hairType;
-    [SerializeField] private int price;
     [SerializeField] private Button button;
     [SerializeField] private Outline outline;
     public Outline Outline => outline;
@@ -34,18 +33,14 @@ public class UIItemShop : MonoBehaviour
         this.id = id;
     }
 
-    public void SetTabItemController(TabItemController tabItemController)
+    public void SetTabItem(TabItem tabItem)
     {
-        this.tabItemController = tabItemController;
+        this.tabItem = tabItem;
     }
 
     public void SetSprite(Sprite spriteImage)
     {
         image.sprite = spriteImage;
-    }
-    public void SetHairType(HairType hairType)
-    {
-        this.hairType = hairType;
     }
 
     public void SetPrice(int price)
@@ -53,24 +48,22 @@ public class UIItemShop : MonoBehaviour
         this.price = price;
     }
 
-    public void Selected()
+
+    public void Selected() // de dc chon phan tu dau tien
     {
-        print($"{hairType} - has price {price}");
+        tabItem.UICShopDress.UI_SetTextPrice(price);
 
-        tabItemController.UICShopDress.UI_SetTextPrice(price);
-
-        tabItemController.TurnOnOutLineCurrentButton(id);
-        tabItemController.CheckToAddItemPlayer(id);
+        outline.enabled = true;
+        tabItem.PreviewItemOnPlayer(id);
     }
 
     public void HandleOnClick()
     {
-        if (tabItemController.CurrentUIItemShop.id == id) return;
-        print($"{hairType} - has price {price}");
+        if (tabItem.CurrentUIItemShop.id == id) return;
 
-        tabItemController.UICShopDress.UI_SetTextPrice(price);
+        tabItem.UICShopDress.UI_SetTextPrice(price);
 
-        tabItemController.TurnOnOutLineCurrentButton(id);
-        tabItemController.CheckToAddItemPlayer(id);
+        tabItem.HandleOutLineButton(id);
+        tabItem.PreviewItemOnPlayer(id);
     }
 }

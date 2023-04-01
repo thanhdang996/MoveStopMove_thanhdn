@@ -10,9 +10,9 @@ public class UICShopDress : UICanvas
     [SerializeField] private TextMeshProUGUI textCoin;
     [SerializeField] private TextMeshProUGUI textPrice;
 
-    private TabItemController currentTabItemController;
-    public TabItemController CurrentTabItemController => currentTabItemController;
-    [SerializeField] private List<TabItemController> listTabs;
+    private TabItem currentTabItem;
+    public TabItem CurrentTabItem => currentTabItem;
+    [SerializeField] private List<TabItem> listTabs;
 
 
 
@@ -34,16 +34,18 @@ public class UICShopDress : UICanvas
 
     public void OpenTab(int tabIndex)
     {
-        if(currentTabItemController != null)
+        if(currentTabItem != null)
         {
-            currentTabItemController.Outline.enabled = false;
-            currentTabItemController.TurnOnOutLineCurrentButton(0);
-            currentTabItemController.DeActiveAllUIItemShop();
-            currentTabItemController.DeActivePrefabCurrentPlayer();
+            currentTabItem.Outline.enabled = false;
+
+            // khi chuyen tab, tab cu set button select luon la  vi tri 0 la nut dau tien ( do trong HandleOutLineButton co SetCurrentUIItemShop)
+            currentTabItem.HandleOutLineButton(0); 
+            currentTabItem.DeActiveAllUIItemShop();
+            currentTabItem.DeActivePrefabCurrentPlayer();
         }
         // vi tabIndex bang thu tu cac TabItem trong listTabs( luc keo editor)
-        currentTabItemController = listTabs[tabIndex]; 
-        currentTabItemController.ActiveAllUIItemShop();
-        currentTabItemController.Outline.enabled = true;
+        currentTabItem = listTabs[tabIndex]; 
+        currentTabItem.ActiveAllUIItemShop();
+        currentTabItem.Outline.enabled = true;
     }
 }

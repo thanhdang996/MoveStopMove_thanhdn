@@ -4,10 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TabItemController : MonoBehaviour
+public class TabItem : MonoBehaviour
 {
     [SerializeField] private int tabIndex;
-    public int TabIndex => tabIndex;
 
     [SerializeField] private UICShopDress uicShopDress;
     public UICShopDress UICShopDress => uicShopDress;
@@ -19,11 +18,11 @@ public class TabItemController : MonoBehaviour
     [SerializeField] private PrefabItemShop currentPrefabItemPlayer;
     [SerializeField] private List<PrefabItemShop> listPrefabItemPlayerContain;
 
+
+
     private UIItemShop currentUIItemShop;
-    public UIItemShop CurrentUIItemShop { get => currentUIItemShop; set => currentUIItemShop = value; }
-    //public UIItemShop CurrentUIItemShop => currentUIItemShop;
+    public UIItemShop CurrentUIItemShop  => currentUIItemShop;
     [SerializeField] private List<UIItemShop> listUIItemShop;
-    public List<UIItemShop> ListUIItemShop => listUIItemShop;
 
     [SerializeField] private Button button;
     private bool isFirstTimeRender = true;
@@ -51,54 +50,36 @@ public class TabItemController : MonoBehaviour
             UIItemShop itemShop = Instantiate(prefabUIItemShop, contentTF);
             listUIItemShop.Add(itemShop);
             itemShop.SetId(i);
-            itemShop.SetTabItemController(this);
+            itemShop.SetTabItem(this);
             itemShop.SetSprite(propItem.spriteImage);
-            itemShop.SetHairType(propItem.hairType);
             itemShop.SetPrice(propItem.price);
 
             if (i == 0)
             {
-                SetCurrentUIItemShop(listUIItemShop[0]);
+                SetCurrentUIItemShop(0);
                 itemShop.Selected();
             }
         }
     }
 
-    public bool HasItemOnPlayer(int idUIITemShop)
+    public void PreviewItemOnPlayer(int idUIITemShop)
     {
         for (int i = 0; i < listPrefabItemPlayerContain.Count; i++)
         {
-            if (listPrefabItemPlayerContain[i].Id == idUIITemShop) return true;
-        }
-        return false;
-    }
-
-    public void CheckToAddItemPlayer(int idUIITemShop)
-    {
-        if (!HasItemOnPlayer(idUIITemShop))
-        {
-            if (currentPrefabItemPlayer != null)
+            if (listPrefabItemPlayerContain[i].Id == idUIITemShop)
             {
                 DeActivePrefabCurrentPlayer();
-            }
-            currentPrefabItemPlayer = Instantiate(hairSO.propHair[idUIITemShop].hairAvatarPrefabs, LevelManager.Instance.CurrentPlayer.HairHolderTF);
-            currentPrefabItemPlayer.SetId(idUIITemShop);
-            listPrefabItemPlayerContain.Add(currentPrefabItemPlayer);
-            ActivePrefabCurrentPlayer();
-        }
-        else
-        {
-            DeActivePrefabCurrentPlayer();
-            for (int i = 0; i < listPrefabItemPlayerContain.Count; i++)
-            {
-                if (listPrefabItemPlayerContain[i].Id == idUIITemShop)
-                {
-                    currentPrefabItemPlayer = listPrefabItemPlayerContain[i];
-                    ActivePrefabCurrentPlayer();
-                    return;
-                }
+                currentPrefabItemPlayer = listPrefabItemPlayerContain[i];
+                ActivePrefabCurrentPlayer();
+                return;
             }
         }
+        DeActivePrefabCurrentPlayer();
+        currentPrefabItemPlayer = Instantiate(hairSO.propHair[idUIITemShop].hairAvatarPrefabs, LevelManager.Instance.CurrentPlayer.HairHolderTF);
+        currentPrefabItemPlayer.SetId(idUIITemShop);
+
+        listPrefabItemPlayerContain.Add(currentPrefabItemPlayer);
+        ActivePrefabCurrentPlayer();
     }
 
     public void ActiveAllUIItemShop()
@@ -114,7 +95,6 @@ public class TabItemController : MonoBehaviour
         {
             listUIItemShop[i].gameObject.SetActive(true);
         }
-        SetCurrentUIItemShop(listUIItemShop[0]);
         currentUIItemShop.Selected(); // luon select phan tu dau
     }
     public void DeActiveAllUIItemShop()
@@ -139,26 +119,22 @@ public class TabItemController : MonoBehaviour
     }
 
 
-    public void TurnOnOutLineCurrentButton(int id)
+    public void HandleOutLineButton(int id)
     {
-        if (currentUIItemShop != null)
-        {
-            currentUIItemShop.Outline.enabled = false;
-
-        }
-        // vi luc Instantiate UIItemShop set id = index cua vong lap
-        SetCurrentUIItemShop(listUIItemShop[id]);
+        currentUIItemShop.Outline.enabled = false;
+        SetCurrentUIItemShop(id);
         currentUIItemShop.Outline.enabled = true;
     }
 
-    public void SetCurrentUIItemShop(UIItemShop itemShop)
+    public void SetCurrentUIItemShop(int index)
     {
-        currentUIItemShop = itemShop;
+        // vi luc Instantiate UIItemShop set id = index cua vong lap
+        currentUIItemShop = listUIItemShop[index];
     }
 
     public void HandleOnClick()
     {
-        if (uicShopDress.CurrentTabItemController.tabIndex == tabIndex) return;
+        if (uicShopDress.CurrentTabItem.tabIndex == tabIndex) return;
         uicShopDress.OpenTab(tabIndex);
     }
 }
