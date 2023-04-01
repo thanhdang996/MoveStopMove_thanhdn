@@ -1112,7 +1112,7 @@ MonoBehaviour:
   uicShopDress: {fileID: 8006185830916610104}
   contentTF: {fileID: 8006185830664801683}
   prefabUIItemShop: {fileID: -9043846246535396574, guid: afa9a8d44b08bd94c9177e9695dca244, type: 3}
-  hairSO: {fileID: 11400000, guid: 7849df5c888294e49a4cd62b274d68c4, type: 2}
+  skinSO: {fileID: 11400000, guid: 09be12a1629f933498282a10a6f8682d, type: 2}
   currentPrefabItemPlayer: {fileID: 0}
   listPrefabItemPlayerContain: []
   listUIItemShop: []
@@ -1273,7 +1273,7 @@ MonoBehaviour:
   uicShopDress: {fileID: 8006185830916610104}
   contentTF: {fileID: 8006185830664801683}
   prefabUIItemShop: {fileID: -9043846246535396574, guid: afa9a8d44b08bd94c9177e9695dca244, type: 3}
-  hairSO: {fileID: 11400000, guid: 23dcc47a514454d4893569ff10524ce5, type: 2}
+  skinSO: {fileID: 11400000, guid: afceed0c3a2009a4cbd16b1f12205263, type: 2}
   currentPrefabItemPlayer: {fileID: 0}
   listPrefabItemPlayerContain: []
   listUIItemShop: []

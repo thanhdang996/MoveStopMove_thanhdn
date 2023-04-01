@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52c1157b5ac3919428b63f0e136320a4, type: 3}
+  m_Name: Hair Pops
+  m_EditorClassIdentifier: 
+  propsItems:
+  - avatarPrefab: {fileID: -4049232330901227769, guid: a5edc822c1c5e8948b7df6a2e6d38b58, type: 3}
+    price: 50
+    spriteImage: {fileID: 21300000, guid: 72edaa3edb9bac44d893fab941421c6b, type: 3}
+  - avatarPrefab: {fileID: 125044694326337198, guid: 6c9b6e08fbc11f6428757d7ff3f84b77, type: 3}
+    price: 100
+    spriteImage: {fileID: 21300000, guid: b75bee2b89a2fb543ab10a17353e61bd, type: 3}
+  - avatarPrefab: {fileID: 2023037873842041801, guid: a911d949a915a844ea59e97a973e1d1e, type: 3}
+    price: 150
+    spriteImage: {fileID: 21300000, guid: bbe2bc3421f6fc14aaae508b5f6195d3, type: 3}
+  - avatarPrefab: {fileID: -2679052402373824675, guid: 0cc9105426ffa7244bfb832ded12beb8, type: 3}
+    price: 200
+    spriteImage: {fileID: 21300000, guid: 206fcc0b311a37f4ebd21adcc6b98964, type: 3}
+  - avatarPrefab: {fileID: -3983374054382138580, guid: 51713f72fcb0b8944bcdeaab0e48a6c0, type: 3}
+    price: 250
+    spriteImage: {fileID: 21300000, guid: 17f6b5c70d7297742b6765117dc5ab44, type: 3}
+  - avatarPrefab: {fileID: -472267769351597931, guid: d0a89850ffad0b34abd3bb39bccbda2e, type: 3}
+    price: 300
+    spriteImage: {fileID: 21300000, guid: 53eaeddf7e334b144a4cc14c290245b6, type: 3}
+  - avatarPrefab: {fileID: -3309035305506600652, guid: 8a55537a93486254399837dc7f3a4be4, type: 3}
+    price: 350
+    spriteImage: {fileID: 21300000, guid: 90950044dc01c8a4dadc07fb59fd35cd, type: 3}
+  - avatarPrefab: {fileID: 258164616743415782, guid: 0679c8694128fb249aec847043ff20c4, type: 3}
+    price: 400
+    spriteImage: {fileID: 21300000, guid: 284193bd8ee9bff4584c8d85b6bb14b8, type: 3}

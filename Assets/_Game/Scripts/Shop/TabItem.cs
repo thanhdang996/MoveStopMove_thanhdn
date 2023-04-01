@@ -13,7 +13,7 @@ public class TabItem : MonoBehaviour
 
     [SerializeField] private Transform contentTF;
     [SerializeField] private UIItemShop prefabUIItemShop;
-    [SerializeField] private HairSO hairSO;
+    [SerializeField] private SkinSO skinSO;
 
     [SerializeField] private PrefabItemShop currentPrefabItemPlayer;
     [SerializeField] private List<PrefabItemShop> listPrefabItemPlayerContain;
@@ -43,9 +43,9 @@ public class TabItem : MonoBehaviour
 
     public void InitItem()
     {
-        for (int i = 0; i < hairSO.propHair.Length; i++)
+        for (int i = 0; i < skinSO.propsItems.Length; i++)
         {
-            PropHair propItem = hairSO.propHair[i];
+            PropsItem propItem = skinSO.propsItems[i];
 
             UIItemShop itemShop = Instantiate(prefabUIItemShop, contentTF);
             listUIItemShop.Add(itemShop);
@@ -75,7 +75,7 @@ public class TabItem : MonoBehaviour
             }
         }
         DeActivePrefabCurrentPlayer();
-        currentPrefabItemPlayer = Instantiate(hairSO.propHair[idUIITemShop].hairAvatarPrefabs, LevelManager.Instance.CurrentPlayer.HairHolderTF);
+        currentPrefabItemPlayer = Instantiate(skinSO.propsItems[idUIITemShop].avatarPrefab, LevelManager.Instance.CurrentPlayer.HairHolderTF);
         currentPrefabItemPlayer.SetId(idUIITemShop);
 
         listPrefabItemPlayerContain.Add(currentPrefabItemPlayer);
