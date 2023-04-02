@@ -62,6 +62,10 @@ public class Character : GameUnit
     [SerializeField] protected Transform hairHolderTF;
     public Transform HairHolderTF { get => hairHolderTF; set => hairHolderTF = value; }
 
+    // Current pant
+    [SerializeField] private SkinnedMeshRenderer currentSkin;
+    public SkinnedMeshRenderer CurrentSkin => currentSkin;
+
 
 
     //Current Level Character

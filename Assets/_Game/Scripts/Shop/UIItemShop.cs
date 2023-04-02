@@ -9,7 +9,7 @@ using TMPro;
 public class UIItemShop : MonoBehaviour
 {
     private int id;
-    private TabItem tabItem;
+    private ITabItem tabItem;
     private int price;
 
     [SerializeField] private Image image;
@@ -33,7 +33,7 @@ public class UIItemShop : MonoBehaviour
         this.id = id;
     }
 
-    public void SetTabItem(TabItem tabItem)
+    public void SetTabItem(ITabItem tabItem)
     {
         this.tabItem = tabItem;
     }
@@ -51,7 +51,7 @@ public class UIItemShop : MonoBehaviour
 
     public void Selected() // de dc chon phan tu dau tien
     {
-        tabItem.UICShopDress.UI_SetTextPrice(price);
+        tabItem.GetUICShopDress().UI_SetTextPrice(price);
 
         outline.enabled = true;
         tabItem.PreviewItemOnPlayer(id);
@@ -59,9 +59,9 @@ public class UIItemShop : MonoBehaviour
 
     public void HandleOnClick()
     {
-        if (tabItem.CurrentUIItemShop.id == id) return;
+        if (tabItem.GetCurrentUIItemShop().id == id) return;
 
-        tabItem.UICShopDress.UI_SetTextPrice(price);
+        tabItem.GetUICShopDress().UI_SetTextPrice(price);
 
         tabItem.HandleOutLineButton(id);
         tabItem.PreviewItemOnPlayer(id);

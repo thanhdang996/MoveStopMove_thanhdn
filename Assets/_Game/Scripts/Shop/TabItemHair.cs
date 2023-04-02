@@ -4,12 +4,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TabItem : MonoBehaviour
+public class TabItemHair : ITabItem
 {
     [SerializeField] private int tabIndex;
 
     [SerializeField] private UICShopDress uicShopDress;
-    public UICShopDress UICShopDress => uicShopDress;
 
     [SerializeField] private Transform contentTF;
     [SerializeField] private UIItemShop prefabUIItemShop;
@@ -21,14 +20,12 @@ public class TabItem : MonoBehaviour
 
 
     private UIItemShop currentUIItemShop;
-    public UIItemShop CurrentUIItemShop  => currentUIItemShop;
     [SerializeField] private List<UIItemShop> listUIItemShop;
 
     [SerializeField] private Button button;
     private bool isFirstTimeRender = true;
 
     [SerializeField] private Outline outline;
-    public Outline Outline => outline;
 
 
     private void OnEnable()
@@ -41,7 +38,7 @@ public class TabItem : MonoBehaviour
         button.onClick.RemoveListener(HandleOnClick);
     }
 
-    public void InitItem()
+    public override void InitItem()
     {
         for (int i = 0; i < skinSO.propsItems.Length; i++)
         {
@@ -62,27 +59,27 @@ public class TabItem : MonoBehaviour
         }
     }
 
-    public void PreviewItemOnPlayer(int idUIITemShop)
+    public override void PreviewItemOnPlayer(int idUIITemShop)
     {
         for (int i = 0; i < listPrefabItemPlayerContain.Count; i++)
         {
             if (listPrefabItemPlayerContain[i].Id == idUIITemShop)
             {
-                DeActivePrefabCurrentPlayer();
+                DeActiveitemOnCurrentPlayer();
                 currentPrefabItemPlayer = listPrefabItemPlayerContain[i];
-                ActivePrefabCurrentPlayer();
+                ActiveItemOnCurrentPlayer();
                 return;
             }
         }
-        DeActivePrefabCurrentPlayer();
+        DeActiveitemOnCurrentPlayer();
         currentPrefabItemPlayer = Instantiate(skinSO.propsItems[idUIITemShop].avatarPrefab, LevelManager.Instance.CurrentPlayer.HairHolderTF);
         currentPrefabItemPlayer.SetId(idUIITemShop);
 
         listPrefabItemPlayerContain.Add(currentPrefabItemPlayer);
-        ActivePrefabCurrentPlayer();
+        ActiveItemOnCurrentPlayer();
     }
 
-    public void ActiveAllUIItemShop()
+    public override void ActiveAllUIItemShop()
     {
         if (isFirstTimeRender)
         {
@@ -97,7 +94,7 @@ public class TabItem : MonoBehaviour
         }
         currentUIItemShop.Selected(); // luon select phan tu dau
     }
-    public void DeActiveAllUIItemShop()
+    public override void DeActiveAllUIItemShop()
     {
         for (int i = 0; i < listUIItemShop.Count; i++)
         {
@@ -106,11 +103,11 @@ public class TabItem : MonoBehaviour
     }
 
 
-    public void ActivePrefabCurrentPlayer()
+    public override void ActiveItemOnCurrentPlayer()
     {
         currentPrefabItemPlayer.gameObject.SetActive(true);
     }
-    public void DeActivePrefabCurrentPlayer()
+    public override void DeActiveitemOnCurrentPlayer()
     {
         if (currentPrefabItemPlayer != null)
         {
@@ -119,22 +116,48 @@ public class TabItem : MonoBehaviour
     }
 
 
-    public void HandleOutLineButton(int id)
+    public override void HandleOutLineButton(int id)
     {
         currentUIItemShop.Outline.enabled = false;
         SetCurrentUIItemShop(id);
         currentUIItemShop.Outline.enabled = true;
     }
 
-    public void SetCurrentUIItemShop(int index)
+    public override void SetCurrentUIItemShop(int index)
     {
         // vi luc Instantiate UIItemShop set id = index cua vong lap
         currentUIItemShop = listUIItemShop[index];
     }
 
-    public void HandleOnClick()
+    public override void HandleOnClick()
     {
-        if (uicShopDress.CurrentTabItem.tabIndex == tabIndex) return;
+        if (uicShopDress.CurrentTabItem.GetTabIndex() == tabIndex) return;
         uicShopDress.OpenTab(tabIndex);
     }
+
+    public override void TurnOnOutLine()
+    {
+        outline.enabled = true;
+    }
+
+    public override void TurnOffOutLine()
+    {
+        outline.enabled = false;
+    }
+
+    public override int GetTabIndex()
+    {
+        return tabIndex;
+    }
+
+    public override UICShopDress GetUICShopDress()
+    {
+        return uicShopDress;
+    }
+
+    public override UIItemShop GetCurrentUIItemShop()
+    {
+        return currentUIItemShop;
+    }
+
 }

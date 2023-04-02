@@ -385,6 +385,7 @@ MonoBehaviour:
   weaponHolderTF: {fileID: 3462365545506995613}
   pointRangeWeaponTF: {fileID: 1062660485562202961}
   hairHolderTF: {fileID: 8726099180352625404}
+  currentSkin: {fileID: 5700722385924606487}
   levelCharacter: 0
   aimedGO: {fileID: 1432887701538854761}
   currentPosTarget: {x: 0, y: 0, z: 0}
@@ -2434,7 +2435,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e90200c3656d59245bdecb568ed7bbcf, type: 2}
+  - {fileID: 2100000, guid: a88c2f975ad4a3b49bb5d246ef3d5ef1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

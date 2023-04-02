@@ -211,7 +211,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f12c5b31a8662534388b3d866bd95709, type: 2}
+  - {fileID: 2100000, guid: bfb2cf475befd8b4ca1c60d194cf122b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2261,6 +2261,7 @@ MonoBehaviour:
   weaponHolderTF: {fileID: 1179914792605724733}
   pointRangeWeaponTF: {fileID: 1387969580}
   hairHolderTF: {fileID: 8859770022247182115}
+  currentSkin: {fileID: 2833061999426586469}
   levelCharacter: 0
 --- !u!81 &4501430974022567401
 AudioListener:

@@ -10,9 +10,9 @@ public class UICShopDress : UICanvas
     [SerializeField] private TextMeshProUGUI textCoin;
     [SerializeField] private TextMeshProUGUI textPrice;
 
-    private TabItem currentTabItem;
-    public TabItem CurrentTabItem => currentTabItem;
-    [SerializeField] private List<TabItem> listTabs;
+    private ITabItem currentTabItem;
+    public ITabItem CurrentTabItem => currentTabItem;
+    [SerializeField] private List<ITabItem> listTabs;
 
 
 
@@ -36,16 +36,16 @@ public class UICShopDress : UICanvas
     {
         if(currentTabItem != null)
         {
-            currentTabItem.Outline.enabled = false;
+            currentTabItem.TurnOffOutLine();
 
             // khi chuyen tab, tab cu set button select luon la  vi tri 0 la nut dau tien ( do trong HandleOutLineButton co SetCurrentUIItemShop)
             currentTabItem.HandleOutLineButton(0); 
             currentTabItem.DeActiveAllUIItemShop();
-            currentTabItem.DeActivePrefabCurrentPlayer();
+            currentTabItem.DeActiveitemOnCurrentPlayer();
         }
-        // vi tabIndex bang thu tu cac TabItem trong listTabs( luc keo editor)
+        // vi tabIndex bang thu tu cac TabItemHair trong listTabs( luc keo editor)
         currentTabItem = listTabs[tabIndex]; 
         currentTabItem.ActiveAllUIItemShop();
-        currentTabItem.Outline.enabled = true;
+        currentTabItem.TurnOnOutLine();
     }
 }
