@@ -111,7 +111,7 @@ public class Character : GameUnit
     public virtual void OnDespawn()
     {
         SoundManager.Instance.PlaySoundSFX3D(SoundType.Dead, TF.position);
-
+        ParticlePool.Play(ParticleType.Hit, transform.position + Vector3.up * 2, Quaternion.identity);
         SetPropWhenDeath();
     }
 
