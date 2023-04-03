@@ -9,7 +9,8 @@ public abstract class AbstractTabItem : MonoBehaviour
 
     [SerializeField] protected UICShopDress uicShopDress;
 
-    [SerializeField] protected Transform contentTF;
+    [SerializeField] protected RectTransform contentTF;
+    public RectTransform ContentTF => contentTF;
     [SerializeField] protected UIItemShop prefabUIItemShop;
     
 
@@ -61,7 +62,7 @@ public abstract class AbstractTabItem : MonoBehaviour
     public abstract void DeActiveitemOnCurrentPlayer();
 
 
-    public virtual void HandleOutLineButton(int id)
+    public virtual void ChangeOutLineButton(int id)
     {
         currentUIItemShop.Outline.enabled = false;
         SetCurrentUIItemShop(id);

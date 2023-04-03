@@ -36,12 +36,17 @@ public class UICShopDress : UICanvas
     {
         if(currentTabItem != null)
         {
+            // reset conttent pos to zero x
+            Vector2 currentPos = currentTabItem.ContentTF.anchoredPosition;
+            currentPos.x = 0;
+            currentTabItem.ContentTF.anchoredPosition = currentPos;
+
             currentTabItem.TurnOffOutLine();
 
-            // khi chuyen tab, tab cu set button select luon la  vi tri 0 la nut dau tien ( do trong HandleOutLineButton co SetCurrentUIItemShop)
-            currentTabItem.HandleOutLineButton(0); 
+            // khi chuyen tab, tab cu set button select luon la  vi tri 0 la nut dau tien ( do trong ChangeOutLineButton co SetCurrentUIItemShop)
             currentTabItem.DeActiveAllUIItemShop();
             currentTabItem.DeActiveitemOnCurrentPlayer();
+            currentTabItem.ChangeOutLineButton(0); // change UIItemShop to 0
         }
         // vi tabIndex bang thu tu cac TabItemHair trong listTabs( luc keo editor)
         currentTabItem = listTabs[tabIndex]; 

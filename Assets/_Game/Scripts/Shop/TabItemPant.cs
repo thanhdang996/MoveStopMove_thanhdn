@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TabItemMat : AbstractTabItem
+public class TabItemPant : AbstractTabItem
 {
     [SerializeField] protected PantSO pantSO;
     protected override void InitItem()

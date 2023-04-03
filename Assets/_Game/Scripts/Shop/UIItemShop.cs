@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 using TMPro;
 
 public class UIItemShop : MonoBehaviour
@@ -49,9 +50,9 @@ public class UIItemShop : MonoBehaviour
     }
 
 
-    public void Selected() // de dc chon phan tu dau tien
+    public void Selected() // de dc chon phan tu dau tien ma ko check dk trung
     {
-        tabItem.GetUICShopDress().UI_SetTextPrice(price);
+        tabItem.GetUICShopDress().UI_SetTextPrice(price); // set coin for UIRoot
 
         outline.enabled = true;
         tabItem.PreviewItemOnPlayer(id);
@@ -63,7 +64,7 @@ public class UIItemShop : MonoBehaviour
 
         tabItem.GetUICShopDress().UI_SetTextPrice(price);
 
-        tabItem.HandleOutLineButton(id);
+        tabItem.ChangeOutLineButton(id);
         tabItem.PreviewItemOnPlayer(id);
     }
 }
