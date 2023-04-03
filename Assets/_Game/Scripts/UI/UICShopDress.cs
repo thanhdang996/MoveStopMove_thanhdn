@@ -10,9 +10,9 @@ public class UICShopDress : UICanvas
     [SerializeField] private TextMeshProUGUI textCoin;
     [SerializeField] private TextMeshProUGUI textPrice;
 
-    private ITabItem currentTabItem;
-    public ITabItem CurrentTabItem => currentTabItem;
-    [SerializeField] private List<ITabItem> listTabs;
+    private AbstractTabItem currentTabItem;
+    public AbstractTabItem CurrentTabItem => currentTabItem;
+    [SerializeField] private List<AbstractTabItem> listTabs;
 
 
 

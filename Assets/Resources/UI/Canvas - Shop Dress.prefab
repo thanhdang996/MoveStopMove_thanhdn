@@ -1112,12 +1112,12 @@ MonoBehaviour:
   uicShopDress: {fileID: 8006185830916610104}
   contentTF: {fileID: 8006185830664801683}
   prefabUIItemShop: {fileID: -9043846246535396574, guid: afa9a8d44b08bd94c9177e9695dca244, type: 3}
-  skinSO: {fileID: 11400000, guid: 09be12a1629f933498282a10a6f8682d, type: 2}
-  currentPrefabItemPlayer: {fileID: 0}
-  listPrefabItemPlayerContain: []
   listUIItemShop: []
   button: {fileID: 8006185830340606717}
   outline: {fileID: 4952215658549854539}
+  hairSO: {fileID: 11400000, guid: bf2b52b8ae73549428efb2a8a32b9b6e, type: 2}
+  currentPrefabItemPlayer: {fileID: 0}
+  listPrefabItemPlayerContain: []
 --- !u!114 &4952215658549854539
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1288,11 +1288,10 @@ MonoBehaviour:
   uicShopDress: {fileID: 8006185830916610104}
   contentTF: {fileID: 8006185830664801683}
   prefabUIItemShop: {fileID: -9043846246535396574, guid: afa9a8d44b08bd94c9177e9695dca244, type: 3}
-  skinSO: {fileID: 11400000, guid: 7dcdbcd107239bc4e94e58845a2dbd31, type: 2}
-  currentSkin: {fileID: 0}
   listUIItemShop: []
   button: {fileID: 8006185830418119022}
   outline: {fileID: 1522209999361112590}
+  pantSO: {fileID: 11400000, guid: 7dcdbcd107239bc4e94e58845a2dbd31, type: 2}
 --- !u!1 &8006185830623705934
 GameObject:
   m_ObjectHideFlags: 0

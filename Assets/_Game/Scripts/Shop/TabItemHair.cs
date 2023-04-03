@@ -4,45 +4,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TabItemHair : ITabItem
+public class TabItemHair : AbstractTabItem
 {
-    [SerializeField] private int tabIndex;
-
-    [SerializeField] private UICShopDress uicShopDress;
-
-    [SerializeField] private Transform contentTF;
-    [SerializeField] private UIItemShop prefabUIItemShop;
-    [SerializeField] private SkinSO skinSO;
+    [SerializeField] protected HairSO hairSO;
 
     [SerializeField] private PrefabItemShop currentPrefabItemPlayer;
     [SerializeField] private List<PrefabItemShop> listPrefabItemPlayerContain;
 
-
-
-    private UIItemShop currentUIItemShop;
-    [SerializeField] private List<UIItemShop> listUIItemShop;
-
-    [SerializeField] private Button button;
-    private bool isFirstTimeRender = true;
-
-    [SerializeField] private Outline outline;
-
-
-    private void OnEnable()
+    protected override void InitItem()
     {
-        button.onClick.AddListener(HandleOnClick);
-    }
-
-    private void OnDisable()
-    {
-        button.onClick.RemoveListener(HandleOnClick);
-    }
-
-    public override void InitItem()
-    {
-        for (int i = 0; i < skinSO.propsItems.Length; i++)
+        for (int i = 0; i < hairSO.propsHair.Length; i++)
         {
-            PropsItem propItem = skinSO.propsItems[i];
+            PropsItem propItem = hairSO.propsHair[i];
 
             UIItemShop itemShop = Instantiate(prefabUIItemShop, contentTF);
             listUIItemShop.Add(itemShop);
@@ -72,38 +45,14 @@ public class TabItemHair : ITabItem
             }
         }
         DeActiveitemOnCurrentPlayer();
-        currentPrefabItemPlayer = Instantiate(skinSO.propsItems[idUIITemShop].avatarPrefab, LevelManager.Instance.CurrentPlayer.HairHolderTF);
+        currentPrefabItemPlayer = Instantiate(hairSO.propsHair[idUIITemShop].avatarPrefab, LevelManager.Instance.CurrentPlayer.HairHolderTF);
         currentPrefabItemPlayer.SetId(idUIITemShop);
 
         listPrefabItemPlayerContain.Add(currentPrefabItemPlayer);
         ActiveItemOnCurrentPlayer();
     }
 
-    public override void ActiveAllUIItemShop()
-    {
-        if (isFirstTimeRender)
-        {
-            InitItem();
-            isFirstTimeRender = false;
-            return;
-        }
-
-        for (int i = 0; i < listUIItemShop.Count; i++)
-        {
-            listUIItemShop[i].gameObject.SetActive(true);
-        }
-        currentUIItemShop.Selected(); // luon select phan tu dau
-    }
-    public override void DeActiveAllUIItemShop()
-    {
-        for (int i = 0; i < listUIItemShop.Count; i++)
-        {
-            listUIItemShop[i].gameObject.SetActive(false);
-        }
-    }
-
-
-    public override void ActiveItemOnCurrentPlayer()
+    protected override void ActiveItemOnCurrentPlayer()
     {
         currentPrefabItemPlayer.gameObject.SetActive(true);
     }
@@ -113,51 +62,6 @@ public class TabItemHair : ITabItem
         {
             currentPrefabItemPlayer.gameObject.SetActive(false);
         }
-    }
-
-
-    public override void HandleOutLineButton(int id)
-    {
-        currentUIItemShop.Outline.enabled = false;
-        SetCurrentUIItemShop(id);
-        currentUIItemShop.Outline.enabled = true;
-    }
-
-    public override void SetCurrentUIItemShop(int index)
-    {
-        // vi luc Instantiate UIItemShop set id = index cua vong lap
-        currentUIItemShop = listUIItemShop[index];
-    }
-
-    public override void HandleOnClick()
-    {
-        if (uicShopDress.CurrentTabItem.GetTabIndex() == tabIndex) return;
-        uicShopDress.OpenTab(tabIndex);
-    }
-
-    public override void TurnOnOutLine()
-    {
-        outline.enabled = true;
-    }
-
-    public override void TurnOffOutLine()
-    {
-        outline.enabled = false;
-    }
-
-    public override int GetTabIndex()
-    {
-        return tabIndex;
-    }
-
-    public override UICShopDress GetUICShopDress()
-    {
-        return uicShopDress;
-    }
-
-    public override UIItemShop GetCurrentUIItemShop()
-    {
-        return currentUIItemShop;
     }
 
 }

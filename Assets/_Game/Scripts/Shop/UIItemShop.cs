@@ -9,7 +9,7 @@ using TMPro;
 public class UIItemShop : MonoBehaviour
 {
     private int id;
-    private ITabItem tabItem;
+    private AbstractTabItem tabItem;
     private int price;
 
     [SerializeField] private Image image;
@@ -33,7 +33,7 @@ public class UIItemShop : MonoBehaviour
         this.id = id;
     }
 
-    public void SetTabItem(ITabItem tabItem)
+    public void SetTabItem(AbstractTabItem tabItem)
     {
         this.tabItem = tabItem;
     }
