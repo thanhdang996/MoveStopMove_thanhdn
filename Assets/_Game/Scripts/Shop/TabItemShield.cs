@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TabItemHair : AbstractTabItem
+public class TabItemShield : AbstractTabItem
 {
     [SerializeField] protected HairSO hairSO;
 
@@ -56,7 +56,7 @@ public class TabItemHair : AbstractTabItem
             }
         }
         DeActiveitemOnCurrentPlayer();
-        currentPrefabItemPlayer = Instantiate(hairSO.propsHair[idUIITemShop].avatarPrefab, LevelManager.Instance.CurrentPlayer.HairHolderTF);
+        currentPrefabItemPlayer = Instantiate(hairSO.propsHair[idUIITemShop].avatarPrefab, LevelManager.Instance.CurrentPlayer.ShieldHolderTF);
         currentPrefabItemPlayer.SetId(idUIITemShop);
 
         listPrefabItemPlayerContain.Add(currentPrefabItemPlayer);

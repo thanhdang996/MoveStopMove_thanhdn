@@ -1109,10 +1109,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tabIndex: 0
-  uicShopDress: {fileID: 8006185830916610104}
+  tabRoot: {fileID: 8006185830916610104}
   contentTF: {fileID: 8006185830664801683}
   prefabUIItemShop: {fileID: -9043846246535396574, guid: afa9a8d44b08bd94c9177e9695dca244, type: 3}
-  listUIItemShop: []
   button: {fileID: 8006185830340606717}
   outline: {fileID: 4952215658549854539}
   hairSO: {fileID: 11400000, guid: bf2b52b8ae73549428efb2a8a32b9b6e, type: 2}
@@ -1285,10 +1284,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tabIndex: 1
-  uicShopDress: {fileID: 8006185830916610104}
+  tabRoot: {fileID: 8006185830916610104}
   contentTF: {fileID: 8006185830664801683}
   prefabUIItemShop: {fileID: -9043846246535396574, guid: afa9a8d44b08bd94c9177e9695dca244, type: 3}
-  listUIItemShop: []
   button: {fileID: 8006185830418119022}
   outline: {fileID: 1522209999361112590}
   pantSO: {fileID: 11400000, guid: 7dcdbcd107239bc4e94e58845a2dbd31, type: 2}
@@ -1917,6 +1915,8 @@ MonoBehaviour:
   listTabs:
   - {fileID: 4472634308477925780}
   - {fileID: 7513538583579393914}
+  - {fileID: 2744013233865627069}
+  listUIItemShop: []
 --- !u!1 &8006185831316634588
 GameObject:
   m_ObjectHideFlags: 0
@@ -2192,6 +2192,7 @@ GameObject:
   - component: {fileID: 8006185831891876880}
   - component: {fileID: 8006185831891876881}
   - component: {fileID: 1826683626868759158}
+  - component: {fileID: 2744013233865627069}
   m_Layer: 5
   m_Name: Tab Strength
   m_TagString: Untagged
@@ -2317,6 +2318,27 @@ MonoBehaviour:
   m_EffectColor: {r: 0.9245283, g: 0.056692798, b: 0.056692798, a: 1}
   m_EffectDistance: {x: 5, y: -5}
   m_UseGraphicAlpha: 1
+--- !u!114 &2744013233865627069
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8006185831891876883}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb18142fbc8c6b74bb88ea98dba20357, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tabIndex: 2
+  tabRoot: {fileID: 8006185830916610104}
+  contentTF: {fileID: 8006185830664801683}
+  prefabUIItemShop: {fileID: -9043846246535396574, guid: afa9a8d44b08bd94c9177e9695dca244, type: 3}
+  button: {fileID: 8006185831891876881}
+  outline: {fileID: 1826683626868759158}
+  hairSO: {fileID: 11400000, guid: fb204979592aa8d4b9e3fdc2659aac49, type: 2}
+  currentPrefabItemPlayer: {fileID: 0}
+  listPrefabItemPlayerContain: []
 --- !u!1 &8006185832014848299
 GameObject:
   m_ObjectHideFlags: 0

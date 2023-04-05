@@ -16,6 +16,10 @@ public class UICShopDress : UICanvas
 
 
 
+    [SerializeField] private List<UIItemShop> listUIItemShop;
+    public List<UIItemShop> ListUIItemShop => listUIItemShop;
+
+
     public override void Open()
     {
         base.Open();
@@ -44,7 +48,6 @@ public class UICShopDress : UICanvas
             currentTabItem.TurnOffOutLine();
 
             // khi chuyen tab, tab cu set button select luon la  vi tri 0 la nut dau tien ( do trong ChangeOutLineButton co SetCurrentUIItemShop)
-            currentTabItem.DeActiveAllUIItemShop();
             currentTabItem.DeActiveitemOnCurrentPlayer();
             currentTabItem.ChangeOutLineButton(0); // change UIItemShop to 0
         }

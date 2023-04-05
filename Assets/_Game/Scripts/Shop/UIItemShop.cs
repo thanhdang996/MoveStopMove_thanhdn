@@ -19,6 +19,8 @@ public class UIItemShop : MonoBehaviour
     public Outline Outline => outline;
 
 
+
+
     private void OnEnable()
     {
         button.onClick.AddListener(HandleOnClick);
@@ -49,10 +51,17 @@ public class UIItemShop : MonoBehaviour
         this.price = price;
     }
 
+    public void SetData(int id, AbstractTabItem tabItem, Sprite spriteImage, int price)
+    {
+        SetId(id);
+        SetTabItem(tabItem);
+        SetSprite(spriteImage);
+        SetPrice(price);
+    }
 
     public void Selected() // de dc chon phan tu dau tien ma ko check dk trung
     {
-        tabItem.GetUICShopDress().UI_SetTextPrice(price); // set coin for UIRoot
+        tabItem.GetTabRoot().UI_SetTextPrice(price); // set coin for UIRoot
 
         outline.enabled = true;
         tabItem.PreviewItemOnPlayer(id);
@@ -62,7 +71,7 @@ public class UIItemShop : MonoBehaviour
     {
         if (tabItem.GetCurrentUIItemShop().id == id) return;
 
-        tabItem.GetUICShopDress().UI_SetTextPrice(price);
+        tabItem.GetTabRoot().UI_SetTextPrice(price);
 
         tabItem.ChangeOutLineButton(id);
         tabItem.PreviewItemOnPlayer(id);

@@ -60,13 +60,16 @@ public class Character : GameUnit
 
     // Current Hair
     [SerializeField] protected Transform hairHolderTF;
-    public Transform HairHolderTF { get => hairHolderTF; set => hairHolderTF = value; }
+    public Transform HairHolderTF => hairHolderTF;
 
     // Current pant
     [SerializeField] private SkinnedMeshRenderer currentSkin;
     public SkinnedMeshRenderer CurrentSkin => currentSkin;
 
 
+    // Current Shield 
+    [SerializeField] protected Transform shieldHolderTF;
+    public Transform ShieldHolderTF => shieldHolderTF;
 
     //Current Level Character
     [SerializeField] protected int levelCharacter = 0;

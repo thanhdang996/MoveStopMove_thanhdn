@@ -6,25 +6,37 @@ using UnityEngine.UI;
 public class TabItemPant : AbstractTabItem
 {
     [SerializeField] protected PantSO pantSO;
-    protected override void InitItem()
+
+    public override void ActiveAllUIItemShop()
     {
-        for (int i = 0; i < pantSO.propsPants.Length; i++)
+        PropsPant[] propPants = pantSO.propsPants;
+        int totalItemData = propPants.Length;
+        int numberItemShow = tabRoot.ListUIItemShop.Count;
+
+        int diff = Mathf.Abs(totalItemData - numberItemShow);
+        if (totalItemData >= numberItemShow)
         {
-            PropsItem propItem = pantSO.propsPants[i];
-
-            UIItemShop itemShop = Instantiate(prefabUIItemShop, contentTF);
-            listUIItemShop.Add(itemShop);
-            itemShop.SetId(i);
-            itemShop.SetTabItem(this);
-            itemShop.SetSprite(propItem.spriteImage);
-            itemShop.SetPrice(propItem.price);
-
-            if (i == 0)
+            for (int i = 0; i < diff; i++)
             {
-                SetCurrentUIItemShop(0);
-                itemShop.Selected();
+                UIItemShop itemShop = Instantiate(prefabUIItemShop, contentTF);
+                tabRoot.ListUIItemShop.Add(itemShop);
             }
         }
+        else
+        {
+            for (int i = 0; i < diff; i++)
+            {
+                tabRoot.ListUIItemShop[tabRoot.ListUIItemShop.Count - i - 1].gameObject.SetActive(false);
+            }
+        }
+
+        for (int i = 0; i < propPants.Length; i++)
+        {
+            tabRoot.ListUIItemShop[i].gameObject.SetActive(true);
+            tabRoot.ListUIItemShop[i].SetData(i, this, propPants[i].spriteImage, propPants[i].price);
+        }
+        SetCurrentUIItemShop(0);
+        tabRoot.ListUIItemShop[0].Selected();
     }
 
 
