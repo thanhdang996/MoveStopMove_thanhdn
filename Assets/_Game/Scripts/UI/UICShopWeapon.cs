@@ -93,7 +93,7 @@ public class UICShopWeapon : UICanvas
                 int coinRemain = GetCoinInData() - GetCurrentWeaponPrice();
                 DataManager.Instance.Data.SetCoinToData(coinRemain);
 
-                DataManager.Instance.Data.WeaponOwner.Add(currentWeaponTypeInShop);
+                DataManager.Instance.Data.ListWeaponOwner.Add(currentWeaponTypeInShop);
                 DataManager.Instance.Data.ChangeCurrentWeaponData(currentWeaponTypeInShop);
 
                 DataManager.Instance.SaveData();
@@ -152,7 +152,7 @@ public class UICShopWeapon : UICanvas
 
     public List<WeaponType> GetListWeaponOwnerInData()
     {
-        return DataManager.Instance.Data.WeaponOwner;
+        return DataManager.Instance.Data.ListWeaponOwner;
     }
 
     public int GetCoinInData()

@@ -59,8 +59,12 @@ public class Character : GameUnit
 
 
     // Current Hair
+    [SerializeField] protected HairSO hairSO;
+    [SerializeField] protected int currentHair;
     [SerializeField] protected Transform hairHolderTF;
     public Transform HairHolderTF => hairHolderTF;
+    protected GameObject currentHairAvaGO;
+    public GameObject CurrentHairAvaGO => currentHairAvaGO;
 
     // Current pant
     [SerializeField] private SkinnedMeshRenderer currentSkin;
@@ -269,4 +273,5 @@ public class Character : GameUnit
             anim.SetTrigger(currentAnimName);
         }
     }
+
 }

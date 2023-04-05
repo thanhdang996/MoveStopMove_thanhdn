@@ -124,7 +124,7 @@ public class Player : Character
 
     public void CreateAllWeaponPlayerOwner()
     {
-        List<WeaponType> listWeaponOwner = DataManager.Instance.Data.WeaponOwner;
+        List<WeaponType> listWeaponOwner = DataManager.Instance.Data.ListWeaponOwner;
         foreach (WeaponType weapon in listWeaponOwner)
         {
             Instantiate(weaponSO.propWeapons[(int)weapon].weaponAvatarPrefabs, weaponHolderTF).SetActive(false);
@@ -143,7 +143,7 @@ public class Player : Character
 
     public void GetCurrentWeaponDataAndActive()
     {
-        List<WeaponType> listWeaponOwner = DataManager.Instance.Data.WeaponOwner;
+        List<WeaponType> listWeaponOwner = DataManager.Instance.Data.ListWeaponOwner;
         WeaponType currentWeaponTypeInData = DataManager.Instance.Data.CurrentWeapon;
         int getIndexInWeaponHolder = listWeaponOwner.IndexOf(currentWeaponTypeInData);
         if (getIndexInWeaponHolder == -1)
@@ -163,6 +163,13 @@ public class Player : Character
         GetCurrentWeaponDataAndActive();
         HandleAttackRangeBaseOnRangeWeapon();
         HandleCamPlayerBaseOnRangeWeapon();
+    }
+
+    public void LoadHair()
+    {
+        int currentHairInData = DataManager.Instance.Data.CurrentHair;
+        if (currentHairInData == -1) return;
+        currentHairAvaGO = Instantiate(hairSO.propsHair[currentHairInData].avatarPrefab, hairHolderTF).gameObject;
     }
 
     public void HandleCamPlayerBaseOnRangeWeapon()

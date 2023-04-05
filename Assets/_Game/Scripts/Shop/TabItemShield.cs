@@ -75,4 +75,9 @@ public class TabItemShield : AbstractTabItem
         }
     }
 
+    private void OnDisable()
+    {
+        DeActiveitemOnCurrentPlayer();
+    }
+
 }

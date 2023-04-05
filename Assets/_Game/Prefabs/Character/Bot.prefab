@@ -384,6 +384,8 @@ MonoBehaviour:
   currentWeaponType: 0
   weaponHolderTF: {fileID: 3462365545506995613}
   pointRangeWeaponTF: {fileID: 1062660485562202961}
+  hairSO: {fileID: 11400000, guid: bf2b52b8ae73549428efb2a8a32b9b6e, type: 2}
+  currentHair: 0
   hairHolderTF: {fileID: 8726099180352625404}
   currentSkin: {fileID: 5700722385924606487}
   shieldHolderTF: {fileID: 8074689001375358725}
@@ -2455,7 +2457,7 @@ SkinnedMeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7813228411039906800}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -2468,7 +2470,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a88c2f975ad4a3b49bb5d246ef3d5ef1, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

@@ -160,7 +160,7 @@ public class Bot : Character
 
     public void CreateWeaponBotBaseOnPlayerOwner()
     {
-        List<WeaponType> listWeaponOwner = DataManager.Instance.Data.WeaponOwner;
+        List<WeaponType> listWeaponOwner = DataManager.Instance.Data.ListWeaponOwner;
         foreach (WeaponType weapon in listWeaponOwner)
         {
             Instantiate(weaponSO.propWeapons[(int)weapon].weaponAvatarPrefabs, weaponHolderTF).SetActive(false);
@@ -169,7 +169,7 @@ public class Bot : Character
 
     public void ActiveRandomWeapon()
     {
-        List<WeaponType> listWeaponOwner = DataManager.Instance.Data.WeaponOwner;
+        List<WeaponType> listWeaponOwner = DataManager.Instance.Data.ListWeaponOwner;
         WeaponType getRandomWeaponTypeInData = listWeaponOwner[Random.Range(0, listWeaponOwner.Count)];
         int getIndexInWeaponHolder = listWeaponOwner.IndexOf(getRandomWeaponTypeInData);
         if (getIndexInWeaponHolder == -1)

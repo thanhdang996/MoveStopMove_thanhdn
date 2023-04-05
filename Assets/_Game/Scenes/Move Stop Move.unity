@@ -185,8 +185,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data:
     coin: 0
-    weaponOwner: 00000000
     currentWeapon: 0
+    listWeaponOwner: 00000000
+    currentHair: -1
+    listHairOwner: 
+    currentPant: -1
+    listPantOwner: 
+    currenShield: -1
+    listShieldOwner: 
     levelId: 1
     bgMusicVolume: 1
     sfxVolume: 1

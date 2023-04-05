@@ -24,7 +24,15 @@ public class UICShopDress : UICanvas
     {
         base.Open();
         UI_UpdateTextCoin();
+        LevelManager.Instance.CurrentPlayer.CurrentHairAvaGO.SetActive(false);
         OpenTab(tabIndex: 0);
+    }
+
+    public override void CloseDirectly()
+    {
+        base.CloseDirectly();
+        LevelManager.Instance.CurrentPlayer.CurrentHairAvaGO.SetActive(true);
+
     }
 
     public void UI_UpdateTextCoin()
@@ -38,7 +46,7 @@ public class UICShopDress : UICanvas
 
     public void OpenTab(int tabIndex)
     {
-        if(currentTabItem != null)
+        if (currentTabItem != null)
         {
             // reset conttent pos to zero x
             Vector2 currentPos = currentTabItem.ContentTF.anchoredPosition;

@@ -9,12 +9,37 @@ public class GameData
     public int Coin => coin;
 
 
-    [SerializeField] private List<WeaponType> weaponOwner = new List<WeaponType>() { WeaponType.Axe };
-    public List<WeaponType> WeaponOwner { get { return weaponOwner; } }
-
-
-    [SerializeField] private WeaponType currentWeapon =  WeaponType.Axe;
+    // weapon
+    [SerializeField] private WeaponType currentWeapon = WeaponType.Axe;
     public WeaponType CurrentWeapon { get { return currentWeapon; } }
+
+    [SerializeField] private List<WeaponType> listWeaponOwner = new List<WeaponType>() { WeaponType.Axe };
+    public List<WeaponType> ListWeaponOwner { get { return listWeaponOwner; } }
+
+
+
+    // hair
+    [SerializeField] private int currentHair = -1;
+    public int CurrentHair { get { return currentHair; } }
+
+    [SerializeField] private List<int> listHairOwner = new List<int>();
+    public List<int> ListHairOwner { get { return listHairOwner; } }
+
+
+    // pants
+    [SerializeField] private int currentPant = -1;
+    public int CurrentPant { get { return currentPant; } }
+
+    [SerializeField] private List<int> listPantOwner = new List<int>();
+    public List<int> ListPantOwner { get { return listPantOwner; } }
+
+    // shield
+    [SerializeField] private int currenShield = -1;
+    public int CurrentShield { get { return currenShield; } }
+
+    [SerializeField] private List<int> listShieldOwner = new List<int>();
+    public List<int> ListShieldOwner { get { return listShieldOwner; } }
+
 
 
     [SerializeField] private int levelId = 1;
@@ -34,7 +59,7 @@ public class GameData
     }
     public void SetCoinToData(int coin)
     {
-        this.coin= coin;
+        this.coin = coin;
     }
 
     public void AddLevelToData()

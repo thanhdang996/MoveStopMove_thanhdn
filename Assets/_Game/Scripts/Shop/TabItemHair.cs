@@ -75,4 +75,9 @@ public class TabItemHair : AbstractTabItem
         }
     }
 
+    private void OnDisable()
+    {
+        DeActiveitemOnCurrentPlayer();
+    }
+
 }

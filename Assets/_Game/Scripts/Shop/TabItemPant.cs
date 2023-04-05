@@ -42,6 +42,7 @@ public class TabItemPant : AbstractTabItem
 
     public override void PreviewItemOnPlayer(int idUIITemShop)
     {
+        ActiveItemOnCurrentPlayer();
         LevelManager.Instance.CurrentPlayer.CurrentSkin.material = pantSO.propsPants[idUIITemShop].mat;
     }
     protected override void ActiveItemOnCurrentPlayer()
@@ -50,6 +51,11 @@ public class TabItemPant : AbstractTabItem
     }
     public override void DeActiveitemOnCurrentPlayer()
     {
-        LevelManager.Instance.CurrentPlayer.CurrentSkin.enabled = true;
+        LevelManager.Instance.CurrentPlayer.CurrentSkin.enabled = false;
+    }
+
+    private void OnDisable()
+    {
+        DeActiveitemOnCurrentPlayer();
     }
 }
