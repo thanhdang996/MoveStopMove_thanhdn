@@ -31,6 +31,8 @@ public class UICShopDress : UICanvas
     public override void CloseDirectly()
     {
         base.CloseDirectly();
+        UIManager.Instance.OpenUI<UICMainMenu>();
+        UIManager.Instance.GetUI<UICMainMenu>().UI_UpdateTextCoin();
         LevelManager.Instance.CurrentPlayer.CurrentHairAvaGO.SetActive(true);
 
     }

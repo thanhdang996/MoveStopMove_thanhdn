@@ -19,7 +19,7 @@ public class UICShopWeapon : UICanvas
     [SerializeField] private Button buttonBuy;
     [SerializeField] private TextMeshProUGUI textButton;
 
-    private float snapPerItem = 4;
+    private float snapPerItem = 5;
     public int MaxWeaponIndex => listWeaponTF.childCount - 1;
 
     public override void Open()
@@ -32,6 +32,7 @@ public class UICShopWeapon : UICanvas
     public override void CloseDirectly()
     {
         base.CloseDirectly();
+        UIManager.Instance.OpenUI<UICMainMenu>();
         UIManager.Instance.GetUI<UICMainMenu>().UI_UpdateTextCoin(); // vi MainMenu van o duoi UICShopWeapon
     }
 

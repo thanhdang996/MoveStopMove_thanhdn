@@ -26,11 +26,13 @@ public class UICMainMenu : UICanvas
     public void Button_Open_UICWeapon()
     {
         UIManager.Instance.OpenUI<UICShopWeapon>();
+        CloseDirectly();
     }
 
     public void Button_Open_UICShopDress()
     {
         UIManager.Instance.OpenUI<UICShopDress>();
+        CloseDirectly();
     }
 
     public void Button_PlayGame()
