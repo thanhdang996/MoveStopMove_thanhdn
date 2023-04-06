@@ -3,12 +3,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class UICShopDress : UICanvas
 {
+    private enum BuySkinnButtonType { None, Equipped, UnEquipped, Buy }
+    private BuySkinnButtonType currentButtonType;
+
+    [SerializeField] private Button buttonBuy;
+    [SerializeField] private TextMeshProUGUI textPrice;
+
+    [SerializeField] private Button buttonEquipped;
+    [SerializeField] private TextMeshProUGUI textEquipped;
+
 
     [SerializeField] private TextMeshProUGUI textCoin;
-    [SerializeField] private TextMeshProUGUI textPrice;
 
     private AbstractTabItem currentTabItem;
     public AbstractTabItem CurrentTabItem => currentTabItem;
@@ -19,12 +28,22 @@ public class UICShopDress : UICanvas
     [SerializeField] private List<UIItemShop> listUIItemShop;
     public List<UIItemShop> ListUIItemShop => listUIItemShop;
 
+    [SerializeField] private RectTransform contentTF;
+    public RectTransform ContentTF => contentTF;
+
+    [SerializeField] private UIItemShop prefabUIItemShop;
+    public UIItemShop PrefabUIItemShop => prefabUIItemShop;
+
+
 
     public override void Open()
     {
         base.Open();
         UI_UpdateTextCoin();
-        LevelManager.Instance.CurrentPlayer.CurrentHairAvaGO.SetActive(false);
+        //if (LevelManager.Instance.CurrentPlayer.CurrentHairAvaGO != null)
+        //{
+        //    LevelManager.Instance.CurrentPlayer.CurrentHairAvaGO.SetActive(false);
+        //}
         OpenTab(tabIndex: 0);
     }
 
@@ -33,8 +52,6 @@ public class UICShopDress : UICanvas
         base.CloseDirectly();
         UIManager.Instance.OpenUI<UICMainMenu>();
         UIManager.Instance.GetUI<UICMainMenu>().UI_UpdateTextCoin();
-        LevelManager.Instance.CurrentPlayer.CurrentHairAvaGO.SetActive(true);
-
     }
 
     public void UI_UpdateTextCoin()
@@ -51,19 +68,39 @@ public class UICShopDress : UICanvas
         if (currentTabItem != null)
         {
             // reset conttent pos to zero x
-            Vector2 currentPos = currentTabItem.ContentTF.anchoredPosition;
+            Vector2 currentPos = contentTF.anchoredPosition;
             currentPos.x = 0;
-            currentTabItem.ContentTF.anchoredPosition = currentPos;
+            contentTF.anchoredPosition = currentPos;
 
+            currentTabItem.CurrentUIItemShop.Outline.enabled = false;
             currentTabItem.TurnOffOutLine();
-
-            // khi chuyen tab, tab cu set button select luon la  vi tri 0 la nut dau tien ( do trong ChangeOutLineButton co SetCurrentUIItemShop)
             currentTabItem.DeActiveitemOnCurrentPlayer();
-            currentTabItem.ChangeOutLineButton(0); // change UIItemShop to 0
         }
         // vi tabIndex bang thu tu cac TabItemHair trong listTabs( luc keo editor)
-        currentTabItem = listTabs[tabIndex]; 
+        currentTabItem = listTabs[tabIndex];
         currentTabItem.ActiveAllUIItemShop();
         currentTabItem.TurnOnOutLine();
+    }
+
+    public void ShowButtonEquipped(int idUIITemShop, int currentItemTab)
+    {
+        if (idUIITemShop == currentItemTab)
+        {
+            currentButtonType = BuySkinnButtonType.Equipped;
+        }
+        else
+        {
+            currentButtonType = BuySkinnButtonType.UnEquipped;
+        }
+        buttonBuy.gameObject.SetActive(false);
+        buttonEquipped.gameObject.SetActive(true);
+        textEquipped.text = currentButtonType.ToString();
+
+    }
+    public void ShowButtonBuy()
+    {
+        currentButtonType = BuySkinnButtonType.Buy;
+        buttonEquipped.gameObject.SetActive(false);
+        buttonBuy.gameObject.SetActive(true);
     }
 }

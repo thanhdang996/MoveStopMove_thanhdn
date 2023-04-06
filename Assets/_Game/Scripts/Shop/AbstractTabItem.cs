@@ -9,16 +9,15 @@ public abstract class AbstractTabItem : MonoBehaviour
 
     [SerializeField] protected UICShopDress tabRoot;
 
-    [SerializeField] protected RectTransform contentTF;
-    public RectTransform ContentTF => contentTF;
-    [SerializeField] protected UIItemShop prefabUIItemShop;
 
     private UIItemShop currentUIItemShop;
+    public UIItemShop CurrentUIItemShop => currentUIItemShop;
 
 
     [SerializeField] protected Button button;
 
     [SerializeField] protected Outline outline;
+
 
     private void OnEnable()
     {
@@ -37,11 +36,10 @@ public abstract class AbstractTabItem : MonoBehaviour
     public abstract void DeActiveitemOnCurrentPlayer();
 
 
-    public virtual void ChangeOutLineButton(int id)
+    public virtual void ChangeOutLineButtonAndSetNewCurrentUI(int id)
     {
         currentUIItemShop.Outline.enabled = false;
         SetCurrentUIItemShop(id);
-        currentUIItemShop.Outline.enabled = true;
     }
 
     public virtual void TurnOnOutLine()
@@ -58,14 +56,14 @@ public abstract class AbstractTabItem : MonoBehaviour
         return tabRoot;
     }
 
-    protected virtual void SetCurrentUIItemShop(int idUIITemShop)
+    public virtual void SetCurrentUIItemShop(int idUIITemShop)
     {
         // vi luc Instantiate UIItemShop set id = idUIITemShop cua vong lap
         currentUIItemShop = tabRoot.ListUIItemShop[idUIITemShop];
     }
     public virtual UIItemShop GetCurrentUIItemShop()
     {
-        return currentUIItemShop;
+        return currentUIItemShop; 
     }
 
     protected virtual void HandleOnClick()
@@ -73,4 +71,7 @@ public abstract class AbstractTabItem : MonoBehaviour
         if (tabRoot.CurrentTabItem.tabIndex == tabIndex) return;
         tabRoot.OpenTab(tabIndex);
     }
+
+    public abstract int GetCurrentItemInData();
+
 }

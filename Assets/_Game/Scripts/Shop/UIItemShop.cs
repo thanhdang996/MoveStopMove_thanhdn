@@ -13,11 +13,14 @@ public class UIItemShop : MonoBehaviour
     private AbstractTabItem tabItem;
     private int price;
 
-    [SerializeField] private Image image;
+    [SerializeField] private Image imageItem;
+    [SerializeField] private Image imageLock;
     [SerializeField] private Button button;
     [SerializeField] private Outline outline;
     public Outline Outline => outline;
 
+    [SerializeField] private TextMeshProUGUI textEquip;
+    private bool isUnlock;
 
 
 
@@ -43,12 +46,16 @@ public class UIItemShop : MonoBehaviour
 
     public void SetSprite(Sprite spriteImage)
     {
-        image.sprite = spriteImage;
+        imageItem.sprite = spriteImage;
     }
 
     public void SetPrice(int price)
     {
         this.price = price;
+    }
+    public void SetUnlock(bool isUnlock)
+    {
+        this.isUnlock = isUnlock;
     }
 
     public void SetData(int id, AbstractTabItem tabItem, Sprite spriteImage, int price)
@@ -61,19 +68,44 @@ public class UIItemShop : MonoBehaviour
 
     public void Selected() // de dc chon phan tu dau tien ma ko check dk trung
     {
-        tabItem.GetTabRoot().UI_SetTextPrice(price); // set coin for UIRoot
+        CheckIfItemUnlockChangeButtonTabRoot();
 
         outline.enabled = true;
         tabItem.PreviewItemOnPlayer(id);
     }
 
+
+
     public void HandleOnClick()
     {
         if (tabItem.GetCurrentUIItemShop().id == id) return;
 
-        tabItem.GetTabRoot().UI_SetTextPrice(price);
+        CheckIfItemUnlockChangeButtonTabRoot();
 
-        tabItem.ChangeOutLineButton(id);
+        outline.enabled = true;
+        tabItem.ChangeOutLineButtonAndSetNewCurrentUI(id);
         tabItem.PreviewItemOnPlayer(id);
+    }
+
+    private void CheckIfItemUnlockChangeButtonTabRoot()
+    {
+        if (isUnlock)
+        {
+            tabItem.GetTabRoot().ShowButtonEquipped(id, tabItem.GetCurrentItemInData());
+        }
+        else
+        {
+            tabItem.GetTabRoot().ShowButtonBuy();
+            tabItem.GetTabRoot().UI_SetTextPrice(price);
+        }
+    }
+
+    public void ChangeActiveImageLock(bool active)
+    {
+        imageLock.enabled = active;
+    }
+    public void ChangeActiveTextEquip(bool active)
+    {
+        textEquip.enabled = active;
     }
 }

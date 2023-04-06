@@ -18,7 +18,7 @@ public class TabItemPant : AbstractTabItem
         {
             for (int i = 0; i < diff; i++)
             {
-                UIItemShop itemShop = Instantiate(prefabUIItemShop, contentTF);
+                UIItemShop itemShop = Instantiate(tabRoot.PrefabUIItemShop, tabRoot.ContentTF);
                 tabRoot.ListUIItemShop.Add(itemShop);
             }
         }
@@ -30,13 +30,40 @@ public class TabItemPant : AbstractTabItem
             }
         }
 
+
+
+
+        int currentPant = GetCurrentItemInData();
         for (int i = 0; i < propPants.Length; i++)
         {
             tabRoot.ListUIItemShop[i].gameObject.SetActive(true);
             tabRoot.ListUIItemShop[i].SetData(i, this, propPants[i].spriteImage, propPants[i].price);
+            if (currentPant == i)
+            {
+                SetCurrentUIItemShop(currentPant);
+                CurrentUIItemShop.ChangeActiveImageLock(false);
+                CurrentUIItemShop.ChangeActiveTextEquip(true);
+                CurrentUIItemShop.SetUnlock(true);
+                CurrentUIItemShop.Selected();
+                continue;
+            }
+            bool isContainItem = DataManager.Instance.Data.ListPantOwner.Contains(i);
+            if (isContainItem)
+            {
+                tabRoot.ListUIItemShop[i].ChangeActiveImageLock(false);
+                tabRoot.ListUIItemShop[i].ChangeActiveTextEquip(false);
+                tabRoot.ListUIItemShop[i].SetUnlock(true);
+                continue;
+            }
+            tabRoot.ListUIItemShop[i].ChangeActiveImageLock(true);
+            tabRoot.ListUIItemShop[i].ChangeActiveTextEquip(false);
+            tabRoot.ListUIItemShop[i].SetUnlock(false);
         }
-        SetCurrentUIItemShop(0);
-        tabRoot.ListUIItemShop[0].Selected();
+        if (currentPant == -1)
+        {
+            SetCurrentUIItemShop(0);
+            CurrentUIItemShop.Selected();
+        }
     }
 
 
@@ -57,5 +84,10 @@ public class TabItemPant : AbstractTabItem
     private void OnDisable()
     {
         DeActiveitemOnCurrentPlayer();
+    }
+
+    public override int GetCurrentItemInData()
+    {
+        return DataManager.Instance.Data.CurrentPant;
     }
 }

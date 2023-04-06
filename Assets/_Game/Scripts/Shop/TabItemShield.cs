@@ -9,12 +9,12 @@ public class TabItemShield : AbstractTabItem
     [SerializeField] protected HairSO hairSO;
 
     [SerializeField] private PrefabItemShop currentPrefabItemPlayer;
-    [SerializeField] private List<PrefabItemShop> listPrefabItemPlayerContain;
+    private List<PrefabItemShop> listPrefabItemPlayerContain = new List<PrefabItemShop>();
 
     public override void ActiveAllUIItemShop()
     {
-        PropsHair[] propsHair = hairSO.propsHair;
-        int totalItemData = propsHair.Length;
+        PropsHair[] propsShield = hairSO.propsHair;
+        int totalItemData = propsShield.Length;
         int numberItemShow = tabRoot.ListUIItemShop.Count;
 
         int diff = Mathf.Abs(totalItemData - numberItemShow);
@@ -22,11 +22,11 @@ public class TabItemShield : AbstractTabItem
         {
             for (int i = 0; i < diff; i++)
             {
-                UIItemShop itemShop = Instantiate(prefabUIItemShop, contentTF);
+                UIItemShop itemShop = Instantiate(tabRoot.PrefabUIItemShop, tabRoot.ContentTF);
                 tabRoot.ListUIItemShop.Add(itemShop);
             }
         }
-        else //if (totalItemData < numberItemShow)
+        else
         {
             for (int i = 0; i < diff; i++)
             {
@@ -34,13 +34,39 @@ public class TabItemShield : AbstractTabItem
             }
         }
 
-        for (int i = 0; i < propsHair.Length; i++)
+
+
+        int currentShield = GetCurrentItemInData();
+        for (int i = 0; i < propsShield.Length; i++)
         {
             tabRoot.ListUIItemShop[i].gameObject.SetActive(true);
-            tabRoot.ListUIItemShop[i].SetData(i, this, propsHair[i].spriteImage, propsHair[i].price);
+            tabRoot.ListUIItemShop[i].SetData(i, this, propsShield[i].spriteImage, propsShield[i].price);
+            if (currentShield == i)
+            {
+                SetCurrentUIItemShop(currentShield);
+                CurrentUIItemShop.ChangeActiveImageLock(false);
+                CurrentUIItemShop.ChangeActiveTextEquip(true);
+                CurrentUIItemShop.SetUnlock(true);
+                CurrentUIItemShop.Selected();
+                continue;
+            }
+            bool isContainItem = DataManager.Instance.Data.ListShieldOwner.Contains(i);
+            if (isContainItem)
+            {
+                tabRoot.ListUIItemShop[i].ChangeActiveImageLock(false);
+                tabRoot.ListUIItemShop[i].ChangeActiveTextEquip(false);
+                tabRoot.ListUIItemShop[i].SetUnlock(true);
+                continue;
+            }
+            tabRoot.ListUIItemShop[i].ChangeActiveImageLock(true);
+            tabRoot.ListUIItemShop[i].ChangeActiveTextEquip(false);
+            tabRoot.ListUIItemShop[i].SetUnlock(false);
         }
-        SetCurrentUIItemShop(0);
-        tabRoot.ListUIItemShop[0].Selected();
+        if (currentShield == -1)
+        {
+            SetCurrentUIItemShop(0);
+            CurrentUIItemShop.Selected();
+        }
     }
 
     public override void PreviewItemOnPlayer(int idUIITemShop)
@@ -80,4 +106,8 @@ public class TabItemShield : AbstractTabItem
         DeActiveitemOnCurrentPlayer();
     }
 
+    public override int GetCurrentItemInData()
+    {
+        return DataManager.Instance.Data.CurrentShield;
+    }
 }
