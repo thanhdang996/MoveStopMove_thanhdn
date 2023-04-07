@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -89,5 +90,24 @@ public class TabItemPant : AbstractTabItem
     public override int GetCurrentItemInData()
     {
         return DataManager.Instance.Data.CurrentPant;
+    }
+
+    public override List<int> GetItemOwnerInData()
+    {
+        return DataManager.Instance.Data.ListPantOwner;
+    }
+    public override void ChangeCurrentItemInData(int idUIITemShop)
+    {
+        DataManager.Instance.Data.ChangeCurrentPantData(idUIITemShop);
+    }
+
+    public override void AttachItemToCharacter()
+    {
+        //LevelManager.Instance.CurrentPlayer.CurrentHairAvaGO = currentPrefabItemPlayer.gameObject;
+    }
+
+    public override void DeAttachItemToCharacter()
+    {
+        //throw new NotImplementedException();
     }
 }

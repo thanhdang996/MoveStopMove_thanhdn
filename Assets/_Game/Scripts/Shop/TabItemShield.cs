@@ -110,4 +110,23 @@ public class TabItemShield : AbstractTabItem
     {
         return DataManager.Instance.Data.CurrentShield;
     }
+
+    public override List<int> GetItemOwnerInData()
+    {
+        return DataManager.Instance.Data.ListShieldOwner;
+    }
+    public override void ChangeCurrentItemInData(int idUIITemShop)
+    {
+        DataManager.Instance.Data.ChangeCurrentShieldData(idUIITemShop);
+    }
+
+    public override void AttachItemToCharacter()
+    {
+        LevelManager.Instance.CurrentPlayer.CurrentHairAvaGO = currentPrefabItemPlayer.gameObject;
+    }
+
+    public override void DeAttachItemToCharacter()
+    {
+        LevelManager.Instance.CurrentPlayer.CurrentHairAvaGO = null;
+    }
 }

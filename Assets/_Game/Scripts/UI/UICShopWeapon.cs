@@ -38,7 +38,7 @@ public class UICShopWeapon : UICanvas
 
 
 
-    public void UI_UpdateTextCoin()
+    private void UI_UpdateTextCoin()
     {
         textCoin.text = DataManager.Instance.Data.Coin.ToString();
     }
@@ -117,7 +117,7 @@ public class UICShopWeapon : UICanvas
     }
 
 
-    public void ChangeStateButtonBaseIndexWeapon()
+    private void ChangeStateButtonBaseIndexWeapon()
     {
 
         if ((currentWeaponTypeInShop == GetCurrentWeaponIndexInData()))
@@ -128,7 +128,7 @@ public class UICShopWeapon : UICanvas
             return;
         }
 
-        if(GetListWeaponOwnerInData().Contains(currentWeaponTypeInShop))
+        if (GetListWeaponOwnerInData().Contains(currentWeaponTypeInShop))
         {
             buttonBuy.interactable = true;
             currentButtonType = BuyWeaponButtonType.Select;
@@ -146,21 +146,21 @@ public class UICShopWeapon : UICanvas
         }
     }
 
-    public WeaponType GetCurrentWeaponIndexInData()
+    private WeaponType GetCurrentWeaponIndexInData()
     {
         return DataManager.Instance.Data.CurrentWeapon;
     }
 
-    public List<WeaponType> GetListWeaponOwnerInData()
+    private List<WeaponType> GetListWeaponOwnerInData()
     {
         return DataManager.Instance.Data.ListWeaponOwner;
     }
 
-    public int GetCoinInData()
+    private int GetCoinInData()
     {
         return DataManager.Instance.Data.Coin;
     }
-    public int GetCurrentWeaponPrice()
+    private int GetCurrentWeaponPrice()
     {
         return weaponSO.propWeapons[(int)currentWeaponTypeInShop].price;
     }

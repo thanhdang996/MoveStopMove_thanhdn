@@ -73,5 +73,11 @@ public abstract class AbstractTabItem : MonoBehaviour
     }
 
     public abstract int GetCurrentItemInData();
+    public abstract List<int> GetItemOwnerInData();
+
+    public abstract void ChangeCurrentItemInData(int id);
+
+    public abstract void AttachItemToCharacter();
+    public abstract void DeAttachItemToCharacter();
 
 }

@@ -112,4 +112,23 @@ public class TabItemHair : AbstractTabItem
     {
         return DataManager.Instance.Data.CurrentHair;
     }
+
+    public override List<int> GetItemOwnerInData()
+    {
+        return DataManager.Instance.Data.ListHairOwner;
+    }
+    public override void ChangeCurrentItemInData(int idUIITemShop)
+    {
+        DataManager.Instance.Data.ChangeCurrentHairData(idUIITemShop);
+    }
+
+    public override void AttachItemToCharacter()
+    {
+        LevelManager.Instance.CurrentPlayer.CurrentHairAvaGO = currentPrefabItemPlayer.gameObject;
+    }
+
+    public override void DeAttachItemToCharacter()
+    {
+        LevelManager.Instance.CurrentPlayer.CurrentHairAvaGO = null;
+    }
 }

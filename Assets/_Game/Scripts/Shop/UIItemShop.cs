@@ -10,6 +10,7 @@ using TMPro;
 public class UIItemShop : MonoBehaviour
 {
     private int id;
+    public int Id => id;
     private AbstractTabItem tabItem;
     private int price;
 

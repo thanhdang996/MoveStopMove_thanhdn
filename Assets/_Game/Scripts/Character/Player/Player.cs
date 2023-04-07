@@ -170,10 +170,6 @@ public class Player : Character
         int currentHairInData = DataManager.Instance.Data.CurrentHair;
         if (currentHairInData == -1) return;
         currentHairAvaGO = Instantiate(hairSO.propsHair[currentHairInData].avatarPrefab, hairHolderTF).gameObject;
-        if(currentHairAvaGO == null)
-        {
-            print("Khong co hair do");
-        }
     }
 
     public void HandleCamPlayerBaseOnRangeWeapon()

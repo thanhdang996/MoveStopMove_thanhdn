@@ -80,5 +80,16 @@ public class GameData
     {
         currentWeapon = weaponType;
     }
-
+    public void ChangeCurrentHairData(int id)
+    {
+        currentHair = id;
+    }
+    public void ChangeCurrentPantData(int id)
+    {
+        currentPant = id;
+    }
+    public void ChangeCurrentShieldData(int id)
+    {
+        currenShield = id;
+    }
 }
