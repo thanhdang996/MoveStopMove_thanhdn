@@ -391,7 +391,7 @@ MonoBehaviour:
   pantSO: {fileID: 11400000, guid: 7dcdbcd107239bc4e94e58845a2dbd31, type: 2}
   currentMatAttach: {fileID: 0}
   transparentMat: {fileID: 2100000, guid: e9d1d24357506634abe67682cde44e7e, type: 2}
-  currentSkin: {fileID: 5700722385924606487}
+  currentSkinPant: {fileID: 5700722385924606487}
   shieldHolderTF: {fileID: 8074689001375358725}
   levelCharacter: 0
   aimedGO: {fileID: 1432887701538854761}

@@ -70,8 +70,8 @@ public class Character : GameUnit
     [SerializeField] protected PantSO pantSO;
     [SerializeField] protected Material currentMatAttach;
     [SerializeField] protected Material transparentMat;
-    [SerializeField] protected SkinnedMeshRenderer currentSkin;
-    public SkinnedMeshRenderer CurrentSkin => currentSkin;
+    [SerializeField] protected SkinnedMeshRenderer currentSkinPant;
+    public SkinnedMeshRenderer CurrentSkinPant => currentSkinPant;
 
 
     // Current Shield 

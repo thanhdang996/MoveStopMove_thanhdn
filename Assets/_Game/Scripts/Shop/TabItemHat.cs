@@ -9,7 +9,7 @@ public class TabItemHat : AbstractTabItem
     [SerializeField] private HatSO hatSO;
 
     [SerializeField] private PrefabItemShop currentPrefabItemPreviewOnPlayer;
-    [SerializeField] private List<PrefabItemShop> listPrefabItemPlayerContain = new List<PrefabItemShop>();
+    [SerializeField] private List<PrefabItemShop> listPrefabItemPreviewPlayerContain = new List<PrefabItemShop>();
 
 
     public override void ActiveAllUIItemShop()
@@ -73,12 +73,12 @@ public class TabItemHat : AbstractTabItem
 
     public override void PreviewItemOnPlayer(int idUIITemShop)
     {
-        for (int i = 0; i < listPrefabItemPlayerContain.Count; i++)
+        for (int i = 0; i < listPrefabItemPreviewPlayerContain.Count; i++)
         {
-            if (listPrefabItemPlayerContain[i].Id == idUIITemShop)
+            if (listPrefabItemPreviewPlayerContain[i].Id == idUIITemShop)
             {
                 DeActiveitemOnCurrentPlayer();
-                currentPrefabItemPreviewOnPlayer = listPrefabItemPlayerContain[i];
+                currentPrefabItemPreviewOnPlayer = listPrefabItemPreviewPlayerContain[i];
                 ActiveItemOnCurrentPlayer();
                 return;
             }
@@ -87,7 +87,7 @@ public class TabItemHat : AbstractTabItem
         currentPrefabItemPreviewOnPlayer = Instantiate(hatSO.propsHats[idUIITemShop].avatarPrefab, LevelManager.Instance.CurrentPlayer.HatHolderTF);
         currentPrefabItemPreviewOnPlayer.SetId(idUIITemShop);
 
-        listPrefabItemPlayerContain.Add(currentPrefabItemPreviewOnPlayer);
+        listPrefabItemPreviewPlayerContain.Add(currentPrefabItemPreviewOnPlayer);
         ActiveItemOnCurrentPlayer();
     }
 

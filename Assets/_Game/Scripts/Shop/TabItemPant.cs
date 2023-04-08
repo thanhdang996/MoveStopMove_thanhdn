@@ -74,15 +74,15 @@ public class TabItemPant : AbstractTabItem
     {
         ActiveItemOnCurrentPlayer();
         currentMatPreview = pantSO.propsPants[idUIITemShop].mat;
-        LevelManager.Instance.CurrentPlayer.CurrentSkin.material = currentMatPreview;
+        LevelManager.Instance.CurrentPlayer.CurrentSkinPant.material = currentMatPreview;
     }
     protected override void ActiveItemOnCurrentPlayer()
     {
-        LevelManager.Instance.CurrentPlayer.CurrentSkin.enabled = true;
+        LevelManager.Instance.CurrentPlayer.CurrentSkinPant.enabled = true;
     }
     public override void DeActiveitemOnCurrentPlayer()
     {
-        LevelManager.Instance.CurrentPlayer.CurrentSkin.enabled = false;
+        LevelManager.Instance.CurrentPlayer.CurrentSkinPant.enabled = false;
     }
 
     protected override void OnEnable()
@@ -94,7 +94,7 @@ public class TabItemPant : AbstractTabItem
     protected override void OnDisable()
     {
         base.OnEnable();
-        LevelManager.Instance.CurrentPlayer.SetMat();
+        LevelManager.Instance.CurrentPlayer.SetMatAttach();
         ActiveItemOnCurrentPlayer();
     }
 

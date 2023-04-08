@@ -179,11 +179,11 @@ public class Player : Character
         if (currentPantInData == -1)
         {
             currentMatAttach = transparentMat;
-            currentSkin.material = currentMatAttach;
+            currentSkinPant.material = currentMatAttach;
             return;
         }
         currentMatAttach = pantSO.propsPants[currentPantInData].mat;
-        currentSkin.material = currentMatAttach;
+        currentSkinPant.material = currentMatAttach;
 
     }
 
@@ -231,12 +231,12 @@ public class Player : Character
     public void AttachPant(int id)
     {
         currentMatAttach = pantSO.propsPants[id].mat;
-        currentSkin.material = currentMatAttach;
+        currentSkinPant.material = currentMatAttach;
     }
 
-    public void SetMat()
+    public void SetMatAttach()
     {
-        currentSkin.material = currentMatAttach;
+        currentSkinPant.material = currentMatAttach;
     }
 
     public void DeAttachPant()
