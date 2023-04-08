@@ -25,6 +25,7 @@ public class UICShopWeapon : UICanvas
     public override void Open()
     {
         base.Open();
+        HandleCamToShowWeaponCurrent();
         UI_UpdateTextCoin();
         ChangeStateButtonBaseIndexWeapon();
     }
@@ -36,6 +37,13 @@ public class UICShopWeapon : UICanvas
         UIManager.Instance.GetUI<UICMainMenu>().UI_UpdateTextCoin(); // vi MainMenu van o duoi UICShopWeapon
     }
 
+    private void HandleCamToShowWeaponCurrent()
+    {
+        currentWeaponTypeInShop = GetCurrentWeaponIndexInData();
+        Vector3 pos = camTF.localPosition;
+        pos.x = snapPerItem * ((int)currentWeaponTypeInShop);
+        camTF.localPosition = pos;
+    }
 
 
     private void UI_UpdateTextCoin()
