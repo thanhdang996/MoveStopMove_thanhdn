@@ -39,4 +39,4 @@ MonoBehaviour:
     mat: {fileID: 2100000, guid: 259ae4fb256573f4f9300d23ad7fc030, type: 2}
   - price: 450
     spriteImage: {fileID: 21300000, guid: ea825fe722542b04389bc363e83cef30, type: 3}
-    mat: {fileID: 2100000, guid: e90200c3656d59245bdecb568ed7bbcf, type: 2}
+    mat: {fileID: 2100000, guid: 4117fba10fbfe0941b658b73144f7800, type: 2}

@@ -229,7 +229,7 @@ SkinnedMeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 297853273117324930}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -242,7 +242,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: e9d1d24357506634abe67682cde44e7e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2295,9 +2295,14 @@ MonoBehaviour:
   hairSO: {fileID: 11400000, guid: bf2b52b8ae73549428efb2a8a32b9b6e, type: 2}
   currentHair: 0
   hairHolderTF: {fileID: 8859770022247182115}
+  currentHairAvaGOAttach: {fileID: 0}
+  pantSO: {fileID: 11400000, guid: 7dcdbcd107239bc4e94e58845a2dbd31, type: 2}
+  currentMatAttach: {fileID: 0}
+  transparentMat: {fileID: 2100000, guid: e9d1d24357506634abe67682cde44e7e, type: 2}
   currentSkin: {fileID: 2833061999426586469}
   shieldHolderTF: {fileID: 1044183599}
   levelCharacter: 0
+  listContainHair: []
 --- !u!81 &4501430974022567401
 AudioListener:
   m_ObjectHideFlags: 0
