@@ -72,7 +72,7 @@ public class UICShopDress : UICanvas
             currentTabItem.TurnOffOutLine();
             currentTabItem.DeActiveitemOnCurrentPlayer();
         }
-        // vi tabIndex bang thu tu cac TabItemHair trong listTabs( luc keo editor)
+        // vi tabIndex bang thu tu cac TabItemHat trong listTabs( luc keo editor)
         currentTabItem = listTabs[tabIndex];
         currentTabItem.ActiveAllUIItemShop();
         currentTabItem.TurnOnOutLine();

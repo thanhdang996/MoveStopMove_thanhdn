@@ -58,13 +58,13 @@ public class Character : GameUnit
     [SerializeField] private Transform pointRangeWeaponTF;
 
 
-    // Current Hair
-    [SerializeField] protected HairSO hairSO;
-    [SerializeField] protected int currentHair;
-    [SerializeField] protected Transform hairHolderTF;
-    public Transform HairHolderTF => hairHolderTF;
-    [SerializeField] protected GameObject currentHairAvaGOAttach;
-    public GameObject CurrentHairAvaGO => currentHairAvaGOAttach;
+    // Current Hat
+    [SerializeField] protected HatSO hatSO;
+    [SerializeField] protected int currentHat;
+    [SerializeField] protected Transform hatHolderTF;
+    public Transform HatHolderTF => hatHolderTF;
+    [SerializeField] protected GameObject currentHatAvaGOAttach;
+    public GameObject CurrentHatAvaGOAttach => currentHatAvaGOAttach;
 
     // Current pant
     [SerializeField] protected PantSO pantSO;

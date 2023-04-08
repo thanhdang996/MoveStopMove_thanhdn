@@ -63,7 +63,7 @@ public class LevelManager : Singleton<LevelManager>
         currentPlayer = SimplePool.Spawn<Player>(PoolType.Player);
         currentPlayer.TF.position = currentLevel.SpawnPosForPlayerTF.position;
 
-        currentPlayer.LoadHair();
+        currentPlayer.LoadHat();
         currentPlayer.LoadPant();
         currentPlayer.CreateAllWeaponPlayerOwner();
         currentPlayer.GetCurrentWeaponDataAndActive();

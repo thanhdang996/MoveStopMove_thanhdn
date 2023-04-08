@@ -18,12 +18,12 @@ public class GameData
 
 
 
-    // hair
-    [SerializeField] private int currentHair = -1;
-    public int CurrentHair { get { return currentHair; } }
+    // hat
+    [SerializeField] private int currentHat = -1;
+    public int CurrentHat { get { return currentHat; } }
 
-    [SerializeField] private List<int> listHairOwner = new List<int>();
-    public List<int> ListHairOwner { get { return listHairOwner; } }
+    [SerializeField] private List<int> listHatOwner = new List<int>();
+    public List<int> ListHatOwner { get { return listHatOwner; } }
 
 
     // pants
@@ -80,9 +80,9 @@ public class GameData
     {
         currentWeapon = weaponType;
     }
-    public void ChangeCurrentHairData(int id)
+    public void ChangeCurrentHatData(int id)
     {
-        currentHair = id;
+        currentHat = id;
     }
     public void ChangeCurrentPantData(int id)
     {

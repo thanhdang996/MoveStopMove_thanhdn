@@ -13,7 +13,7 @@ public class Player : Character
 
     private CameraFollow cam;
 
-    [SerializeField] private List<PrefabItemShop> listContainHair;
+    [SerializeField] private List<PrefabItemShop> listContainHat;
 
 
     private bool isWin;
@@ -167,11 +167,11 @@ public class Player : Character
         HandleCamPlayerBaseOnRangeWeapon();
     }
 
-    public void LoadHair()
+    public void LoadHat()
     {
-        int currentHairInData = DataManager.Instance.Data.CurrentHair;
-        if (currentHairInData == -1) return;
-        currentHairAvaGOAttach = Instantiate(hairSO.propsHair[currentHairInData].avatarPrefab, hairHolderTF).gameObject;
+        int currentHatInData = DataManager.Instance.Data.CurrentHat;
+        if (currentHatInData == -1) return;
+        currentHatAvaGOAttach = Instantiate(hatSO.propsHats[currentHatInData].avatarPrefab, hatHolderTF).gameObject;
     }
     public void LoadPant()
     {
@@ -202,28 +202,28 @@ public class Player : Character
     }
 
 
-    // hair
-    public void AttachHair(int id)
+    // hat
+    public void AttachHat(int id)
     {
-        for (int i = 0; i < listContainHair.Count; i++)
+        for (int i = 0; i < listContainHat.Count; i++)
         {
-            if (listContainHair[i].Id == id)
+            if (listContainHat[i].Id == id)
             {
-                currentHairAvaGOAttach = listContainHair[i].gameObject;
-                currentHairAvaGOAttach.SetActive(false);
+                currentHatAvaGOAttach = listContainHat[i].gameObject;
+                currentHatAvaGOAttach.SetActive(false);
                 return;
             }
         }
 
-        PrefabItemShop itemHair = Instantiate(hairSO.propsHair[id].avatarPrefab, hairHolderTF);
-        itemHair.SetId(id);
-        listContainHair.Add(itemHair);
-        currentHairAvaGOAttach = itemHair.gameObject;
-        currentHairAvaGOAttach.SetActive(false);
+        PrefabItemShop itemHat = Instantiate(hatSO.propsHats[id].avatarPrefab, hatHolderTF);
+        itemHat.SetId(id);
+        listContainHat.Add(itemHat);
+        currentHatAvaGOAttach = itemHat.gameObject;
+        currentHatAvaGOAttach.SetActive(false);
     }
-    public void DeAttachHair()
+    public void DeAttachHat()
     {
-        currentHairAvaGOAttach = null;
+        currentHatAvaGOAttach = null;
     }
 
 

@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TabItemHair : AbstractTabItem
+public class TabItemHat : AbstractTabItem
 {
-    [SerializeField] private HairSO hairSO;
+    [SerializeField] private HatSO hatSO;
 
     [SerializeField] private PrefabItemShop currentPrefabItemPreviewOnPlayer;
     [SerializeField] private List<PrefabItemShop> listPrefabItemPlayerContain = new List<PrefabItemShop>();
@@ -15,8 +15,8 @@ public class TabItemHair : AbstractTabItem
     public override void ActiveAllUIItemShop()
     {
         // check to Instantiate item , deactive item in contentTF
-        PropsHair[] propsHair = hairSO.propsHair;
-        int totalItemData = propsHair.Length;
+        PropsHat[] propsHats = hatSO.propsHats;
+        int totalItemData = propsHats.Length;
         int numberItemShow = tabRoot.ListUIItemShop.Count;
 
         int diff = Mathf.Abs(totalItemData - numberItemShow);
@@ -38,21 +38,21 @@ public class TabItemHair : AbstractTabItem
 
 
         // check to active, deactive image lock, text equip base on current TabItem
-        int currentHair = GetCurrentItemInData();
-        for (int i = 0; i < propsHair.Length; i++)
+        int currentHat = GetCurrentItemInData();
+        for (int i = 0; i < propsHats.Length; i++)
         {
             tabRoot.ListUIItemShop[i].gameObject.SetActive(true); // bat tat ca 
-            tabRoot.ListUIItemShop[i].SetData(i, this, propsHair[i].spriteImage, propsHair[i].price);
-            if (currentHair == i)
+            tabRoot.ListUIItemShop[i].SetData(i, this, propsHats[i].spriteImage, propsHats[i].price);
+            if (currentHat == i)
             {
-                SetCurrentUIItemShop(currentHair);
+                SetCurrentUIItemShop(currentHat);
                 CurrentUIItemShop.ChangeActiveImageLock(false);
                 CurrentUIItemShop.ChangeActiveTextEquip(true);
                 CurrentUIItemShop.SetUnlock(true);
                 CurrentUIItemShop.Selected();
                 continue;
             }
-            bool isContainItem = DataManager.Instance.Data.ListHairOwner.Contains(i);
+            bool isContainItem = DataManager.Instance.Data.ListHatOwner.Contains(i);
             if (isContainItem)
             {
                 tabRoot.ListUIItemShop[i].ChangeActiveImageLock(false);
@@ -64,7 +64,7 @@ public class TabItemHair : AbstractTabItem
             tabRoot.ListUIItemShop[i].ChangeActiveTextEquip(false);
             tabRoot.ListUIItemShop[i].SetUnlock(false);
         }
-        if (currentHair == -1)
+        if (currentHat == -1)
         {
             SetCurrentUIItemShop(0); // neu chua co item owner thi hightlight default item 0
             CurrentUIItemShop.Selected();
@@ -84,7 +84,7 @@ public class TabItemHair : AbstractTabItem
             }
         }
         DeActiveitemOnCurrentPlayer();
-        currentPrefabItemPreviewOnPlayer = Instantiate(hairSO.propsHair[idUIITemShop].avatarPrefab, LevelManager.Instance.CurrentPlayer.HairHolderTF);
+        currentPrefabItemPreviewOnPlayer = Instantiate(hatSO.propsHats[idUIITemShop].avatarPrefab, LevelManager.Instance.CurrentPlayer.HatHolderTF);
         currentPrefabItemPreviewOnPlayer.SetId(idUIITemShop);
 
         listPrefabItemPlayerContain.Add(currentPrefabItemPreviewOnPlayer);
@@ -106,9 +106,9 @@ public class TabItemHair : AbstractTabItem
     protected override void OnEnable()
     {
         base.OnEnable();
-        if (LevelManager.Instance.CurrentPlayer.CurrentHairAvaGO != null)
+        if (LevelManager.Instance.CurrentPlayer.CurrentHatAvaGOAttach != null)
         {
-            LevelManager.Instance.CurrentPlayer.CurrentHairAvaGO.SetActive(false);
+            LevelManager.Instance.CurrentPlayer.CurrentHatAvaGOAttach.SetActive(false);
         }
     }
 
@@ -117,33 +117,33 @@ public class TabItemHair : AbstractTabItem
         base.OnEnable();
         DeActiveitemOnCurrentPlayer();
 
-        if (LevelManager.Instance.CurrentPlayer.CurrentHairAvaGO != null)
+        if (LevelManager.Instance.CurrentPlayer.CurrentHatAvaGOAttach != null)
         {
-            LevelManager.Instance.CurrentPlayer.CurrentHairAvaGO.SetActive(true);
+            LevelManager.Instance.CurrentPlayer.CurrentHatAvaGOAttach.SetActive(true);
         }
     }
 
     public override int GetCurrentItemInData()
     {
-        return DataManager.Instance.Data.CurrentHair;
+        return DataManager.Instance.Data.CurrentHat;
     }
 
     public override List<int> GetItemOwnerInData()
     {
-        return DataManager.Instance.Data.ListHairOwner;
+        return DataManager.Instance.Data.ListHatOwner;
     }
     public override void ChangeCurrentItemInData(int idUIITemShop)
     {
-        DataManager.Instance.Data.ChangeCurrentHairData(idUIITemShop);
+        DataManager.Instance.Data.ChangeCurrentHatData(idUIITemShop);
     }
 
     public override void AttachItemToPlayer()
     {
-        LevelManager.Instance.CurrentPlayer.AttachHair(currentUIItemShop.Id);
+        LevelManager.Instance.CurrentPlayer.AttachHat(currentUIItemShop.Id);
     }
 
     public override void DeAttachItemToPlayer()
     {
-        LevelManager.Instance.CurrentPlayer.DeAttachHair();
+        LevelManager.Instance.CurrentPlayer.DeAttachHat();
     }
 }

@@ -187,8 +187,8 @@ MonoBehaviour:
     coin: 0
     currentWeapon: 0
     listWeaponOwner: 00000000
-    currentHair: -1
-    listHairOwner: 
+    currentHat: -1
+    listHatOwner: 
     currentPant: -1
     listPantOwner: 
     currenShield: -1

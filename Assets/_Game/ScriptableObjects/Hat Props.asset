@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 82db44a50180fce47915aa552ffca93d, type: 3}
-  m_Name: Hair Props
+  m_Name: Hat Props
   m_EditorClassIdentifier: 
-  propsHair:
+  propsHats:
   - price: 50
     spriteImage: {fileID: 21300000, guid: 72edaa3edb9bac44d893fab941421c6b, type: 3}
     avatarPrefab: {fileID: -4049232330901227769, guid: a5edc822c1c5e8948b7df6a2e6d38b58, type: 3}

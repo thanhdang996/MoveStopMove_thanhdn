@@ -384,11 +384,12 @@ MonoBehaviour:
   currentWeaponType: 0
   weaponHolderTF: {fileID: 3462365545506995613}
   pointRangeWeaponTF: {fileID: 1062660485562202961}
-  hairSO: {fileID: 11400000, guid: bf2b52b8ae73549428efb2a8a32b9b6e, type: 2}
-  currentHair: 0
-  hairHolderTF: {fileID: 8726099180352625404}
-  currentHairAvaGO: {fileID: 0}
+  hatSO: {fileID: 0}
+  currentHat: 0
+  hatHolderTF: {fileID: 8726099180352625404}
+  currentHatAvaGOAttach: {fileID: 0}
   pantSO: {fileID: 11400000, guid: 7dcdbcd107239bc4e94e58845a2dbd31, type: 2}
+  currentMatAttach: {fileID: 0}
   transparentMat: {fileID: 2100000, guid: e9d1d24357506634abe67682cde44e7e, type: 2}
   currentSkin: {fileID: 5700722385924606487}
   shieldHolderTF: {fileID: 8074689001375358725}
@@ -1076,7 +1077,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8726099180352625404}
   m_Layer: 0
-  m_Name: Hair Holder
+  m_Name: Hat Holder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

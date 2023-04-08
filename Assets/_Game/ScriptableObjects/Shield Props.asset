@@ -9,10 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 82db44a50180fce47915aa552ffca93d, type: 3}
+  m_Script: {fileID: 11500000, guid: d55553b4f7c3bde4381f385940d3382c, type: 3}
   m_Name: Shield Props
   m_EditorClassIdentifier: 
-  propsHair:
+  propsShields:
   - price: 100
     spriteImage: {fileID: 21300000, guid: 9cd86c9a121a3a74b88bbc7a957a96aa, type: 3}
     avatarPrefab: {fileID: -713547897346733286, guid: 63b44e8c7d4504044b7f67acbb78b6e5, type: 3}
+  - price: 200
+    spriteImage: {fileID: 21300000, guid: 8045d15c2648b0344a35162c44fe24b8, type: 3}
+    avatarPrefab: {fileID: -4735977772813554188, guid: e189aa6ca01e6f04ea18770b841aafcf, type: 3}

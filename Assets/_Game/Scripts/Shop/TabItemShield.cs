@@ -6,14 +6,14 @@ using UnityEngine.UI;
 
 public class TabItemShield : AbstractTabItem
 {
-    [SerializeField] private HairSO hairSO;
+    [SerializeField] private ShieldSO shieldSO;
 
     [SerializeField] private PrefabItemShop currentPrefabItemPlayer;
     private List<PrefabItemShop> listPrefabItemPlayerContain = new List<PrefabItemShop>();
 
     public override void ActiveAllUIItemShop()
     {
-        PropsHair[] propsShield = hairSO.propsHair;
+        PropsShield[] propsShield = shieldSO.propsShields;
         int totalItemData = propsShield.Length;
         int numberItemShow = tabRoot.ListUIItemShop.Count;
 
@@ -82,7 +82,7 @@ public class TabItemShield : AbstractTabItem
             }
         }
         DeActiveitemOnCurrentPlayer();
-        currentPrefabItemPlayer = Instantiate(hairSO.propsHair[idUIITemShop].avatarPrefab, LevelManager.Instance.CurrentPlayer.ShieldHolderTF);
+        currentPrefabItemPlayer = Instantiate(shieldSO.propsShields[idUIITemShop].avatarPrefab, LevelManager.Instance.CurrentPlayer.ShieldHolderTF);
         currentPrefabItemPlayer.SetId(idUIITemShop);
 
         listPrefabItemPlayerContain.Add(currentPrefabItemPlayer);
@@ -123,11 +123,11 @@ public class TabItemShield : AbstractTabItem
 
     public override void AttachItemToPlayer()
     {
-        //LevelManager.Instance.CurrentPlayer.CurrentHairAvaGO = currentPrefabItemPreviewOnPlayer.gameObject;
+        //LevelManager.Instance.CurrentPlayer.CurrentHatAvaGOAttach = currentPrefabItemPreviewOnPlayer.gameObject;
     }
 
     public override void DeAttachItemToPlayer()
     {
-        //LevelManager.Instance.CurrentPlayer.CurrentHairAvaGO = null;
+        //LevelManager.Instance.CurrentPlayer.CurrentHatAvaGOAttach = null;
     }
 }

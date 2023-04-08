@@ -8,7 +8,13 @@ public class PropsItem
 }
 
 [System.Serializable]
-public class PropsHair : PropsItem
+public class PropsHat : PropsItem
+{
+    public PrefabItemShop avatarPrefab;
+}
+
+[System.Serializable]
+public class PropsShield : PropsItem
 {
     public PrefabItemShop avatarPrefab;
 }
