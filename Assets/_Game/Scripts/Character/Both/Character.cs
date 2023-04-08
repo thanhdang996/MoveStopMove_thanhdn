@@ -60,7 +60,6 @@ public class Character : GameUnit
 
     // Current Hat
     [SerializeField] protected HatSO hatSO;
-    [SerializeField] protected int currentHat;
     [SerializeField] protected Transform hatHolderTF;
     public Transform HatHolderTF => hatHolderTF;
     [SerializeField] protected GameObject currentHatAvaGOAttach;
@@ -75,8 +74,11 @@ public class Character : GameUnit
 
 
     // Current Shield 
+    [SerializeField] protected ShieldSO shieldSO;
     [SerializeField] protected Transform shieldHolderTF;
     public Transform ShieldHolderTF => shieldHolderTF;
+    [SerializeField] protected GameObject currenShieldAvaGOAttach;
+    public GameObject CurrentShieldAvaGOAttach => currenShieldAvaGOAttach;
 
     //Current Level Character
     [SerializeField] protected int levelCharacter = 0;

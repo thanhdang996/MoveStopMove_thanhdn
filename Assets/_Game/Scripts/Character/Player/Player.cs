@@ -14,6 +14,7 @@ public class Player : Character
     private CameraFollow cam;
 
     [SerializeField] private List<PrefabItemShop> listContainHat;
+    [SerializeField] private List<PrefabItemShop> listContainShield;
 
 
     private bool isWin;
@@ -187,6 +188,13 @@ public class Player : Character
 
     }
 
+    public void LoadShield()
+    {
+        int currentShieldInData = DataManager.Instance.Data.CurrentShield;
+        if (currentShieldInData == -1) return;
+        currenShieldAvaGOAttach = Instantiate(shieldSO.propsShields[currentShieldInData].avatarPrefab, shieldHolderTF).gameObject;
+    }
+
     public void HandleCamPlayerBaseOnRangeWeapon()
     {
         cam.ChangeOffSetBaseRangeWeapon(attackRangeCurrentWeapon);
@@ -243,5 +251,32 @@ public class Player : Character
     {
         currentMatAttach = transparentMat;
     }
+
+    // Shield
+    public void AttachShield(int id)
+    {
+        for (int i = 0; i < listContainShield.Count; i++)
+        {
+            if (listContainShield[i].Id == id)
+            {
+                currenShieldAvaGOAttach = listContainShield[i].gameObject;
+                currenShieldAvaGOAttach.SetActive(false);
+                return;
+            }
+        }
+
+        PrefabItemShop itemShield = Instantiate(shieldSO.propsShields[id].avatarPrefab, shieldHolderTF);
+        itemShield.SetId(id);
+        listContainShield.Add(itemShield);
+        currenShieldAvaGOAttach = itemShield.gameObject;
+        currenShieldAvaGOAttach.SetActive(false);
+    }
+    public void DeAttachShield()
+    {
+        currenShieldAvaGOAttach = null;
+    }
+
+
+
 }
 

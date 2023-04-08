@@ -101,10 +101,24 @@ public class TabItemShield : AbstractTabItem
         }
     }
 
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+        if (LevelManager.Instance.CurrentPlayer.CurrentShieldAvaGOAttach != null)
+        {
+            LevelManager.Instance.CurrentPlayer.CurrentShieldAvaGOAttach.SetActive(false);
+        }
+    }
+
     protected override void OnDisable()
     {
         base.OnEnable();
         DeActiveitemOnCurrentPlayer();
+
+        if (LevelManager.Instance.CurrentPlayer.CurrentShieldAvaGOAttach != null)
+        {
+            LevelManager.Instance.CurrentPlayer.CurrentShieldAvaGOAttach.SetActive(true);
+        }
     }
 
     public override int GetCurrentItemInData()
@@ -123,11 +137,11 @@ public class TabItemShield : AbstractTabItem
 
     public override void AttachItemToPlayer()
     {
-        //LevelManager.Instance.CurrentPlayer.CurrentHatAvaGOAttach = currentPrefabItemPreviewOnPlayer.gameObject;
+        LevelManager.Instance.CurrentPlayer.AttachShield(currentUIItemShop.Id);
     }
 
     public override void DeAttachItemToPlayer()
     {
-        //LevelManager.Instance.CurrentPlayer.CurrentHatAvaGOAttach = null;
+        LevelManager.Instance.CurrentPlayer.DeAttachShield();
     }
 }

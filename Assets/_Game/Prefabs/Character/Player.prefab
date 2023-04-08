@@ -2293,14 +2293,15 @@ MonoBehaviour:
   weaponHolderTF: {fileID: 1179914792605724733}
   pointRangeWeaponTF: {fileID: 1387969580}
   hatSO: {fileID: 11400000, guid: bf2b52b8ae73549428efb2a8a32b9b6e, type: 2}
-  currentHat: 0
   hatHolderTF: {fileID: 8859770022247182115}
   currentHatAvaGOAttach: {fileID: 0}
   pantSO: {fileID: 11400000, guid: 7dcdbcd107239bc4e94e58845a2dbd31, type: 2}
   currentMatAttach: {fileID: 0}
   transparentMat: {fileID: 2100000, guid: e9d1d24357506634abe67682cde44e7e, type: 2}
   currentSkinPant: {fileID: 2833061999426586469}
+  shieldSO: {fileID: 11400000, guid: fb204979592aa8d4b9e3fdc2659aac49, type: 2}
   shieldHolderTF: {fileID: 1044183599}
+  currenShieldAvaGOAttach: {fileID: 0}
   levelCharacter: 0
   listContainHat: []
 --- !u!81 &4501430974022567401
