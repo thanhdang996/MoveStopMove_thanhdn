@@ -39,15 +39,8 @@ public class UICShopDress : UICanvas
     public override void Open()
     {
         base.Open();
-        if (LevelManager.Instance.CurrentPlayer.CurrentHairAvaGO != null)
-        {
-            LevelManager.Instance.CurrentPlayer.CurrentHairAvaGO.SetActive(false);
-        }
         UI_UpdateTextCoin();
         OpenTab(tabIndex: 0);
-
-        // check if have hair
-        
     }
 
     public override void CloseDirectly()
@@ -55,11 +48,6 @@ public class UICShopDress : UICanvas
         base.CloseDirectly();
         UIManager.Instance.OpenUI<UICMainMenu>();
         UIManager.Instance.GetUI<UICMainMenu>().UI_UpdateTextCoin();
-
-        if (LevelManager.Instance.CurrentPlayer.CurrentHairAvaGO != null)
-        {
-            LevelManager.Instance.CurrentPlayer.CurrentHairAvaGO.SetActive(true);
-        }
     }
 
     public void UI_UpdateTextCoin()
@@ -137,7 +125,7 @@ public class UICShopDress : UICanvas
             currentButtonType = BuySkinnButtonType.Equipped;
             textEquipped.text = currentButtonType.ToString();
 
-            // thay doi TextEquip item prev
+            // thay doi TextEquip item previous
             if (currentTabItem.GetCurrentItemInData() != -1)
             {
                 listUIItemShop[currentTabItem.GetCurrentItemInData()].ChangeActiveTextEquip(false);

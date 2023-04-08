@@ -6,9 +6,9 @@ using UnityEngine.UI;
 
 public class TabItemHair : AbstractTabItem
 {
-    [SerializeField] protected HairSO hairSO;
+    [SerializeField] private HairSO hairSO;
 
-    [SerializeField] private PrefabItemShop currentPrefabItemPlayer;
+    [SerializeField] private PrefabItemShop currentPrefabItemPreviewOnPlayer;
     [SerializeField] private List<PrefabItemShop> listPrefabItemPlayerContain = new List<PrefabItemShop>();
 
 
@@ -78,34 +78,49 @@ public class TabItemHair : AbstractTabItem
             if (listPrefabItemPlayerContain[i].Id == idUIITemShop)
             {
                 DeActiveitemOnCurrentPlayer();
-                currentPrefabItemPlayer = listPrefabItemPlayerContain[i];
+                currentPrefabItemPreviewOnPlayer = listPrefabItemPlayerContain[i];
                 ActiveItemOnCurrentPlayer();
                 return;
             }
         }
         DeActiveitemOnCurrentPlayer();
-        currentPrefabItemPlayer = Instantiate(hairSO.propsHair[idUIITemShop].avatarPrefab, LevelManager.Instance.CurrentPlayer.HairHolderTF);
-        currentPrefabItemPlayer.SetId(idUIITemShop);
+        currentPrefabItemPreviewOnPlayer = Instantiate(hairSO.propsHair[idUIITemShop].avatarPrefab, LevelManager.Instance.CurrentPlayer.HairHolderTF);
+        currentPrefabItemPreviewOnPlayer.SetId(idUIITemShop);
 
-        listPrefabItemPlayerContain.Add(currentPrefabItemPlayer);
+        listPrefabItemPlayerContain.Add(currentPrefabItemPreviewOnPlayer);
         ActiveItemOnCurrentPlayer();
     }
 
     protected override void ActiveItemOnCurrentPlayer()
     {
-        currentPrefabItemPlayer.gameObject.SetActive(true);
+        currentPrefabItemPreviewOnPlayer.gameObject.SetActive(true);
     }
     public override void DeActiveitemOnCurrentPlayer()
     {
-        if (currentPrefabItemPlayer != null)
+        if (currentPrefabItemPreviewOnPlayer != null)
         {
-            currentPrefabItemPlayer.gameObject.SetActive(false);
+            currentPrefabItemPreviewOnPlayer.gameObject.SetActive(false);
         }
     }
 
-    private void OnDisable()
+    protected override void OnEnable()
     {
+        base.OnEnable();
+        if (LevelManager.Instance.CurrentPlayer.CurrentHairAvaGO != null)
+        {
+            LevelManager.Instance.CurrentPlayer.CurrentHairAvaGO.SetActive(false);
+        }
+    }
+
+    protected override void OnDisable()
+    {
+        base.OnEnable();
         DeActiveitemOnCurrentPlayer();
+
+        if (LevelManager.Instance.CurrentPlayer.CurrentHairAvaGO != null)
+        {
+            LevelManager.Instance.CurrentPlayer.CurrentHairAvaGO.SetActive(true);
+        }
     }
 
     public override int GetCurrentItemInData()

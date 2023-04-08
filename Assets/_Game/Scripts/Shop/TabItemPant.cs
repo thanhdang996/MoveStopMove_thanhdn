@@ -6,7 +6,9 @@ using UnityEngine.UI;
 
 public class TabItemPant : AbstractTabItem
 {
-    [SerializeField] protected PantSO pantSO;
+    [SerializeField] private PantSO pantSO;
+
+    [SerializeField] private Material currentMatPreview;
 
     public override void ActiveAllUIItemShop()
     {
@@ -71,7 +73,8 @@ public class TabItemPant : AbstractTabItem
     public override void PreviewItemOnPlayer(int idUIITemShop)
     {
         ActiveItemOnCurrentPlayer();
-        LevelManager.Instance.CurrentPlayer.CurrentSkin.material = pantSO.propsPants[idUIITemShop].mat;
+        currentMatPreview = pantSO.propsPants[idUIITemShop].mat;
+        LevelManager.Instance.CurrentPlayer.CurrentSkin.material = currentMatPreview;
     }
     protected override void ActiveItemOnCurrentPlayer()
     {
@@ -82,9 +85,17 @@ public class TabItemPant : AbstractTabItem
         LevelManager.Instance.CurrentPlayer.CurrentSkin.enabled = false;
     }
 
-    private void OnDisable()
+    protected override void OnEnable()
     {
+        base.OnEnable();
         DeActiveitemOnCurrentPlayer();
+    }
+
+    protected override void OnDisable()
+    {
+        base.OnEnable();
+        LevelManager.Instance.CurrentPlayer.SetMat();
+        ActiveItemOnCurrentPlayer();
     }
 
     public override int GetCurrentItemInData()
@@ -103,11 +114,11 @@ public class TabItemPant : AbstractTabItem
 
     public override void AttachItemToPlayer()
     {
-        //LevelManager.Instance.CurrentPlayer.CurrentHairAvaGO = currentPrefabItemPlayer.gameObject;
+        LevelManager.Instance.CurrentPlayer.AttachPant(currentUIItemShop.Id);
     }
 
     public override void DeAttachItemToPlayer()
     {
-        //throw new NotImplementedException();
+        LevelManager.Instance.CurrentPlayer.DeAttachPant();
     }
 }

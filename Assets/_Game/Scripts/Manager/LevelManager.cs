@@ -64,6 +64,7 @@ public class LevelManager : Singleton<LevelManager>
         currentPlayer.TF.position = currentLevel.SpawnPosForPlayerTF.position;
 
         currentPlayer.LoadHair();
+        currentPlayer.LoadPant();
         currentPlayer.CreateAllWeaponPlayerOwner();
         currentPlayer.GetCurrentWeaponDataAndActive();
         currentPlayer.HandleAttackRangeBaseOnRangeWeapon();

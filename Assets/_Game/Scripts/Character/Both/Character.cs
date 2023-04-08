@@ -63,11 +63,14 @@ public class Character : GameUnit
     [SerializeField] protected int currentHair;
     [SerializeField] protected Transform hairHolderTF;
     public Transform HairHolderTF => hairHolderTF;
-    [SerializeField] protected GameObject currentHairAvaGO;
-    public GameObject CurrentHairAvaGO => currentHairAvaGO;
+    [SerializeField] protected GameObject currentHairAvaGOAttach;
+    public GameObject CurrentHairAvaGO => currentHairAvaGOAttach;
 
     // Current pant
-    [SerializeField] private SkinnedMeshRenderer currentSkin;
+    [SerializeField] protected PantSO pantSO;
+    [SerializeField] protected Material currentMatAttach;
+    [SerializeField] protected Material transparentMat;
+    [SerializeField] protected SkinnedMeshRenderer currentSkin;
     public SkinnedMeshRenderer CurrentSkin => currentSkin;
 
 

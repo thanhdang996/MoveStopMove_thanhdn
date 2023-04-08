@@ -171,7 +171,20 @@ public class Player : Character
     {
         int currentHairInData = DataManager.Instance.Data.CurrentHair;
         if (currentHairInData == -1) return;
-        currentHairAvaGO = Instantiate(hairSO.propsHair[currentHairInData].avatarPrefab, hairHolderTF).gameObject;
+        currentHairAvaGOAttach = Instantiate(hairSO.propsHair[currentHairInData].avatarPrefab, hairHolderTF).gameObject;
+    }
+    public void LoadPant()
+    {
+        int currentPantInData = DataManager.Instance.Data.CurrentPant;
+        if (currentPantInData == -1)
+        {
+            currentMatAttach = transparentMat;
+            currentSkin.material = currentMatAttach;
+            return;
+        }
+        currentMatAttach = pantSO.propsPants[currentPantInData].mat;
+        currentSkin.material = currentMatAttach;
+
     }
 
     public void HandleCamPlayerBaseOnRangeWeapon()
@@ -188,14 +201,16 @@ public class Player : Character
         DataManager.Instance.SaveData();
     }
 
+
+    // hair
     public void AttachHair(int id)
     {
         for (int i = 0; i < listContainHair.Count; i++)
         {
             if (listContainHair[i].Id == id)
             {
-                currentHairAvaGO = listContainHair[i].gameObject;
-                currentHairAvaGO.SetActive(false);
+                currentHairAvaGOAttach = listContainHair[i].gameObject;
+                currentHairAvaGOAttach.SetActive(false);
                 return;
             }
         }
@@ -203,12 +218,30 @@ public class Player : Character
         PrefabItemShop itemHair = Instantiate(hairSO.propsHair[id].avatarPrefab, hairHolderTF);
         itemHair.SetId(id);
         listContainHair.Add(itemHair);
-        currentHairAvaGO = itemHair.gameObject;
-        currentHairAvaGO.SetActive(false);
+        currentHairAvaGOAttach = itemHair.gameObject;
+        currentHairAvaGOAttach.SetActive(false);
     }
     public void DeAttachHair()
     {
-        currentHairAvaGO = null;
+        currentHairAvaGOAttach = null;
+    }
+
+
+    // pant
+    public void AttachPant(int id)
+    {
+        currentMatAttach = pantSO.propsPants[id].mat;
+        currentSkin.material = currentMatAttach;
+    }
+
+    public void SetMat()
+    {
+        currentSkin.material = currentMatAttach;
+    }
+
+    public void DeAttachPant()
+    {
+        currentMatAttach = transparentMat;
     }
 }
 

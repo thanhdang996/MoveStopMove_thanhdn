@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class TabItemShield : AbstractTabItem
 {
-    [SerializeField] protected HairSO hairSO;
+    [SerializeField] private HairSO hairSO;
 
     [SerializeField] private PrefabItemShop currentPrefabItemPlayer;
     private List<PrefabItemShop> listPrefabItemPlayerContain = new List<PrefabItemShop>();
@@ -101,8 +101,9 @@ public class TabItemShield : AbstractTabItem
         }
     }
 
-    private void OnDisable()
+    protected override void OnDisable()
     {
+        base.OnEnable();
         DeActiveitemOnCurrentPlayer();
     }
 
@@ -122,7 +123,7 @@ public class TabItemShield : AbstractTabItem
 
     public override void AttachItemToPlayer()
     {
-        //LevelManager.Instance.CurrentPlayer.CurrentHairAvaGO = currentPrefabItemPlayer.gameObject;
+        //LevelManager.Instance.CurrentPlayer.CurrentHairAvaGO = currentPrefabItemPreviewOnPlayer.gameObject;
     }
 
     public override void DeAttachItemToPlayer()

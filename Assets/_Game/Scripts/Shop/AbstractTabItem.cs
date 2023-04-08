@@ -19,12 +19,12 @@ public abstract class AbstractTabItem : MonoBehaviour
     [SerializeField] protected Outline outline;
 
 
-    private void OnEnable()
+    protected virtual void OnEnable()
     {
         button.onClick.AddListener(HandleOnClick);
     }
 
-    private void OnDisable()
+    protected virtual void OnDisable()
     {
         button.onClick.RemoveListener(HandleOnClick);
     }
