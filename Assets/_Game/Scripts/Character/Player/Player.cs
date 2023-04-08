@@ -13,6 +13,8 @@ public class Player : Character
 
     private CameraFollow cam;
 
+    [SerializeField] private List<PrefabItemShop> listContainHair;
+
 
     private bool isWin;
     public bool IsWin { get => isWin; set => isWin = value; }
@@ -185,4 +187,28 @@ public class Player : Character
         DataManager.Instance.Data.AddCoinToData();
         DataManager.Instance.SaveData();
     }
+
+    public void AttachHair(int id)
+    {
+        for (int i = 0; i < listContainHair.Count; i++)
+        {
+            if (listContainHair[i].Id == id)
+            {
+                currentHairAvaGO = listContainHair[i].gameObject;
+                currentHairAvaGO.SetActive(false);
+                return;
+            }
+        }
+
+        PrefabItemShop itemHair = Instantiate(hairSO.propsHair[id].avatarPrefab, hairHolderTF);
+        itemHair.SetId(id);
+        listContainHair.Add(itemHair);
+        currentHairAvaGO = itemHair.gameObject;
+        currentHairAvaGO.SetActive(false);
+    }
+    public void DeAttachHair()
+    {
+        currentHairAvaGO = null;
+    }
 }
+

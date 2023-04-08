@@ -101,12 +101,12 @@ public class TabItemPant : AbstractTabItem
         DataManager.Instance.Data.ChangeCurrentPantData(idUIITemShop);
     }
 
-    public override void AttachItemToCharacter()
+    public override void AttachItemToPlayer()
     {
         //LevelManager.Instance.CurrentPlayer.CurrentHairAvaGO = currentPrefabItemPlayer.gameObject;
     }
 
-    public override void DeAttachItemToCharacter()
+    public override void DeAttachItemToPlayer()
     {
         //throw new NotImplementedException();
     }

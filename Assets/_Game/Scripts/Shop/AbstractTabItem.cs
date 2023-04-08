@@ -10,7 +10,7 @@ public abstract class AbstractTabItem : MonoBehaviour
     [SerializeField] protected UICShopDress tabRoot;
 
 
-    private UIItemShop currentUIItemShop;
+    protected UIItemShop currentUIItemShop;
     public UIItemShop CurrentUIItemShop => currentUIItemShop;
 
 
@@ -77,7 +77,7 @@ public abstract class AbstractTabItem : MonoBehaviour
 
     public abstract void ChangeCurrentItemInData(int id);
 
-    public abstract void AttachItemToCharacter();
-    public abstract void DeAttachItemToCharacter();
+    public abstract void AttachItemToPlayer();
+    public abstract void DeAttachItemToPlayer();
 
 }

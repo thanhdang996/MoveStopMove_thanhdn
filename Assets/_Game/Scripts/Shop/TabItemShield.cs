@@ -120,13 +120,13 @@ public class TabItemShield : AbstractTabItem
         DataManager.Instance.Data.ChangeCurrentShieldData(idUIITemShop);
     }
 
-    public override void AttachItemToCharacter()
+    public override void AttachItemToPlayer()
     {
-        LevelManager.Instance.CurrentPlayer.CurrentHairAvaGO = currentPrefabItemPlayer.gameObject;
+        //LevelManager.Instance.CurrentPlayer.CurrentHairAvaGO = currentPrefabItemPlayer.gameObject;
     }
 
-    public override void DeAttachItemToCharacter()
+    public override void DeAttachItemToPlayer()
     {
-        LevelManager.Instance.CurrentPlayer.CurrentHairAvaGO = null;
+        //LevelManager.Instance.CurrentPlayer.CurrentHairAvaGO = null;
     }
 }

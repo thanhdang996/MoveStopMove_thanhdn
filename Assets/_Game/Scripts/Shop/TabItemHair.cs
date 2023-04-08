@@ -9,7 +9,7 @@ public class TabItemHair : AbstractTabItem
     [SerializeField] protected HairSO hairSO;
 
     [SerializeField] private PrefabItemShop currentPrefabItemPlayer;
-    private List<PrefabItemShop> listPrefabItemPlayerContain = new List<PrefabItemShop>();
+    [SerializeField] private List<PrefabItemShop> listPrefabItemPlayerContain = new List<PrefabItemShop>();
 
 
     public override void ActiveAllUIItemShop()
@@ -122,13 +122,13 @@ public class TabItemHair : AbstractTabItem
         DataManager.Instance.Data.ChangeCurrentHairData(idUIITemShop);
     }
 
-    public override void AttachItemToCharacter()
+    public override void AttachItemToPlayer()
     {
-        LevelManager.Instance.CurrentPlayer.CurrentHairAvaGO = currentPrefabItemPlayer.gameObject;
+        LevelManager.Instance.CurrentPlayer.AttachHair(currentUIItemShop.Id);
     }
 
-    public override void DeAttachItemToCharacter()
+    public override void DeAttachItemToPlayer()
     {
-        LevelManager.Instance.CurrentPlayer.CurrentHairAvaGO = null;
+        LevelManager.Instance.CurrentPlayer.DeAttachHair();
     }
 }

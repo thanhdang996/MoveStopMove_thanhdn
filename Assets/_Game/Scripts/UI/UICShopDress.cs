@@ -120,7 +120,6 @@ public class UICShopDress : UICanvas
             DataManager.Instance.Data.SetCoinToData(coinRemain);
 
             currentTabItem.GetItemOwnerInData().Add(currentTabItem.CurrentUIItemShop.Id);
-            //currentTabItem.ChangeCurrentItemInData(Id);
             DataManager.Instance.SaveData();
 
             currentTabItem.CurrentUIItemShop.SetUnlock(true);
@@ -138,6 +137,7 @@ public class UICShopDress : UICanvas
             currentButtonType = BuySkinnButtonType.Equipped;
             textEquipped.text = currentButtonType.ToString();
 
+            // thay doi TextEquip item prev
             if (currentTabItem.GetCurrentItemInData() != -1)
             {
                 listUIItemShop[currentTabItem.GetCurrentItemInData()].ChangeActiveTextEquip(false);
@@ -145,7 +145,7 @@ public class UICShopDress : UICanvas
 
             currentTabItem.ChangeCurrentItemInData(currentTabItem.CurrentUIItemShop.Id);
             currentTabItem.CurrentUIItemShop.ChangeActiveTextEquip(true);
-            currentTabItem.AttachItemToCharacter();
+            currentTabItem.AttachItemToPlayer();
             DataManager.Instance.SaveData();
             return;
         }
@@ -155,7 +155,7 @@ public class UICShopDress : UICanvas
             textEquipped.text = currentButtonType.ToString();
 
             currentTabItem.ChangeCurrentItemInData(-1);
-            currentTabItem.DeAttachItemToCharacter();
+            currentTabItem.DeAttachItemToPlayer();
             currentTabItem.CurrentUIItemShop.ChangeActiveTextEquip(false);
 
             DataManager.Instance.SaveData();
