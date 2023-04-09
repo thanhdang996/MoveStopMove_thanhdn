@@ -2365,20 +2365,16 @@ MonoBehaviour:
   currentSkinPant: {fileID: 2833061999426586469}
   shieldSO: {fileID: 11400000, guid: fb204979592aa8d4b9e3fdc2659aac49, type: 2}
   shieldHolderTF: {fileID: 1044183599}
-  currenShieldAvaGOAttach: {fileID: 0}
+  currentShieldAvaGOAttach: {fileID: 0}
   setSO: {fileID: 11400000, guid: dd6bde5e276aeb1478bf07a4d911eaf9, type: 2}
+  currentSetMatAttach: {fileID: 0}
+  currentSkinSet: {fileID: 6390629237606072838}
   wingHolderTF: {fileID: 6470064072365239333}
   tailHolderTF: {fileID: 505733366}
-  currentWingAvaGOAttach: {fileID: 0}
-  currentTailAvaGOAttach: {fileID: 0}
-  currentSetMatAttach: {fileID: 0}
-  defaultPlayerMat: {fileID: 2100000, guid: 6a6836249dda1e44390eb721e011eb65, type: 2}
-  currentSkinSet: {fileID: 6390629237606072838}
   levelCharacter: 0
+  defaultPlayerMat: {fileID: 2100000, guid: 6a6836249dda1e44390eb721e011eb65, type: 2}
   listContainHat: []
   listContainShield: []
-  listContainWing: []
-  listContainTail: []
 --- !u!81 &4501430974022567401
 AudioListener:
   m_ObjectHideFlags: 0

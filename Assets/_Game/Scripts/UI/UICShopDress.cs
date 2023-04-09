@@ -126,6 +126,15 @@ public class UICShopDress : UICanvas
         {
             SetPropButtonUnEquip();
 
+            // logic only pick one item in one tab
+            int numTab = currentTabItem.TabIndex;
+            for (int i = 0; i < listTabs.Count; i++)
+            {
+                if (i == numTab) continue;
+                listTabs[i].ChangeCurrentItemInData(-1);
+                listTabs[i].DeAttachItemToPlayer();
+            }
+
             // thay doi TextEquip item previous
             if (currentTabItem.GetCurrentItemInData() != -1)
             {

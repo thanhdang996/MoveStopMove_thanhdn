@@ -69,7 +69,6 @@ public class TabItemSet : AbstractTabItem
 
     public override void PreviewItemOnPlayer(int idUIITemShop)
     {
-        ActiveItemOnCurrentPlayer();
         currentMatPreview = setSO.propsSets[idUIITemShop].mat;
         LevelManager.Instance.CurrentPlayer.SetSetMat(currentMatPreview);
     }

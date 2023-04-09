@@ -193,6 +193,8 @@ MonoBehaviour:
     listPantOwner: 
     currenShield: -1
     listShieldOwner: 
+    currentSet: -1
+    listSetOwner: 
     levelId: 1
     bgMusicVolume: 1
     sfxVolume: 1

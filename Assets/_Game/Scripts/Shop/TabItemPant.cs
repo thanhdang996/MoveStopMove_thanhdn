@@ -72,17 +72,16 @@ public class TabItemPant : AbstractTabItem
 
     public override void PreviewItemOnPlayer(int idUIITemShop)
     {
-        ActiveItemOnCurrentPlayer();
         currentMatPreview = pantSO.propsPants[idUIITemShop].mat;
         LevelManager.Instance.CurrentPlayer.SetPantMat(currentMatPreview);
     }
-    protected override void ActiveItemOnCurrentPlayer()
+    protected override void ActiveItemOnCurrentPlayer() //show tren nguoi player luon
     {
         LevelManager.Instance.CurrentPlayer.SetPantMatCurrent();
     }
     public override void DeActiveitemOnCurrentPlayer()
     {
-        LevelManager.Instance.CurrentPlayer.SetTransparentPant();
+        LevelManager.Instance.CurrentPlayer.SetTransparentPant(); //hide tren nguoi player luon
     }
 
     protected override void OnEnable()

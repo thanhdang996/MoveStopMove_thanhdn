@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public abstract class AbstractTabItem : MonoBehaviour
 {
     [SerializeField] protected int tabIndex;
+    public int TabIndex => tabIndex;
 
     [SerializeField] protected UICShopDress tabRoot;
 

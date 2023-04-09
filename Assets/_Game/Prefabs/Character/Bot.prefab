@@ -384,7 +384,7 @@ MonoBehaviour:
   currentWeaponType: 0
   weaponHolderTF: {fileID: 3462365545506995613}
   pointRangeWeaponTF: {fileID: 1062660485562202961}
-  hatSO: {fileID: 0}
+  hatSO: {fileID: 11400000, guid: bf2b52b8ae73549428efb2a8a32b9b6e, type: 2}
   hatHolderTF: {fileID: 8726099180352625404}
   currentHatAvaGOAttach: {fileID: 0}
   pantSO: {fileID: 11400000, guid: 7dcdbcd107239bc4e94e58845a2dbd31, type: 2}
@@ -393,14 +393,12 @@ MonoBehaviour:
   currentSkinPant: {fileID: 5700722385924606487}
   shieldSO: {fileID: 11400000, guid: fb204979592aa8d4b9e3fdc2659aac49, type: 2}
   shieldHolderTF: {fileID: 8074689001375358725}
-  currenShieldAvaGOAttach: {fileID: 0}
+  currentShieldAvaGOAttach: {fileID: 0}
   setSO: {fileID: 11400000, guid: dd6bde5e276aeb1478bf07a4d911eaf9, type: 2}
-  wingHolderTF: {fileID: 955722912420790578}
-  tailHolderTF: {fileID: 8362881411234354244}
-  currentWingAvaGOAttach: {fileID: 0}
-  currentTailAvaGOAttach: {fileID: 0}
   currentSetMatAttach: {fileID: 0}
   currentSkinSet: {fileID: 3529719572588515188}
+  wingHolderTF: {fileID: 955722912420790578}
+  tailHolderTF: {fileID: 8362881411234354244}
   levelCharacter: 0
   aimedGO: {fileID: 1432887701538854761}
   currentPosTarget: {x: 0, y: 0, z: 0}

@@ -93,9 +93,9 @@ public class TabItemHat : AbstractTabItem
 
     protected override void ActiveItemOnCurrentPlayer()
     {
-        currentPrefabItemPreviewOnPlayer.gameObject.SetActive(true);
+        currentPrefabItemPreviewOnPlayer.gameObject.SetActive(true); //show tren nguoi player nhung la prefab
     }
-    public override void DeActiveitemOnCurrentPlayer()
+    public override void DeActiveitemOnCurrentPlayer() //hide tren nguoi player nhung la prefab
     {
         if (currentPrefabItemPreviewOnPlayer != null)
         {
@@ -106,7 +106,7 @@ public class TabItemHat : AbstractTabItem
     protected override void OnEnable()
     {
         base.OnEnable();
-        LevelManager.Instance.CurrentPlayer.HideHatAvaAttach();
+        LevelManager.Instance.CurrentPlayer.HideHatAvaAttach(); //hide tren nguoi player nhung la currentHatAvaGOAttach that
 
     }
 
@@ -114,7 +114,7 @@ public class TabItemHat : AbstractTabItem
     {
         base.OnDisable();
         DeActiveitemOnCurrentPlayer();
-        LevelManager.Instance.CurrentPlayer.ShowHatAvaAttach();
+        LevelManager.Instance.CurrentPlayer.ShowHatAvaAttach(); //show tren nguoi player nhung la currentHatAvaGOAttach that
     }
 
     public override int GetCurrentItemInData()
