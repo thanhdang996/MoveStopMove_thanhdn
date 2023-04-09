@@ -388,12 +388,19 @@ MonoBehaviour:
   hatHolderTF: {fileID: 8726099180352625404}
   currentHatAvaGOAttach: {fileID: 0}
   pantSO: {fileID: 11400000, guid: 7dcdbcd107239bc4e94e58845a2dbd31, type: 2}
-  currentMatAttach: {fileID: 0}
+  currentPantMatAttach: {fileID: 0}
   transparentMat: {fileID: 2100000, guid: e9d1d24357506634abe67682cde44e7e, type: 2}
   currentSkinPant: {fileID: 5700722385924606487}
   shieldSO: {fileID: 11400000, guid: fb204979592aa8d4b9e3fdc2659aac49, type: 2}
   shieldHolderTF: {fileID: 8074689001375358725}
   currenShieldAvaGOAttach: {fileID: 0}
+  setSO: {fileID: 11400000, guid: dd6bde5e276aeb1478bf07a4d911eaf9, type: 2}
+  wingHolderTF: {fileID: 955722912420790578}
+  tailHolderTF: {fileID: 8362881411234354244}
+  currentWingAvaGOAttach: {fileID: 0}
+  currentTailAvaGOAttach: {fileID: 0}
+  currentSetMatAttach: {fileID: 0}
+  currentSkinSet: {fileID: 3529719572588515188}
   levelCharacter: 0
   aimedGO: {fileID: 1432887701538854761}
   currentPosTarget: {x: 0, y: 0, z: 0}
@@ -686,6 +693,37 @@ Transform:
   m_Father: {fileID: 323425293274888857}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1589006605117682265
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8362881411234354244}
+  m_Layer: 0
+  m_Name: Tail Holder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8362881411234354244
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1589006605117682265}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8447228284886700034}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1614364852087720930
 GameObject:
   m_ObjectHideFlags: 0
@@ -750,6 +788,37 @@ Transform:
   m_Father: {fileID: 239822440757580783}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -0.000015342444, y: 0.0000014724496, z: 0.0000009816326}
+--- !u!1 &1722867632851709595
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 955722912420790578}
+  m_Layer: 0
+  m_Name: Wing Holder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &955722912420790578
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1722867632851709595}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7183366258158412563}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1724566019318422108
 GameObject:
   m_ObjectHideFlags: 0
@@ -1065,6 +1134,7 @@ Transform:
   - {fileID: 646844913069264107}
   - {fileID: 6613610506373937507}
   - {fileID: 8435915562909734308}
+  - {fileID: 8362881411234354244}
   m_Father: {fileID: 5651539339916507402}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -3.8944118, y: 43.684093, z: -0.597378}
@@ -2293,6 +2363,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2217880825053467763}
+  - {fileID: 955722912420790578}
   m_Father: {fileID: 7957144174236915699}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: -1.0150884, y: -0.28487885, z: 0.17639622}

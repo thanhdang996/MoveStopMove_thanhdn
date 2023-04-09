@@ -25,6 +25,14 @@ public class PropsPant : PropsItem
     public Material mat;
 }
 
+[System.Serializable]
+public class PropsSet : PropsItem
+{
+    public Material mat;
+    public PrefabItemShop wingPrefab;
+    public PrefabItemShop tailPrefab;
+}
+
 
 
 
