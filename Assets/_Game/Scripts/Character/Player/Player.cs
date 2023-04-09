@@ -13,6 +13,8 @@ public class Player : Character
 
     private CameraFollow cam;
 
+    [SerializeField] private Material defaultPlayerMat;
+
     [SerializeField] private List<PrefabItemShop> listContainHat;
     [SerializeField] private List<PrefabItemShop> listContainShield;
 
@@ -179,12 +181,12 @@ public class Player : Character
         int currentPantInData = DataManager.Instance.Data.CurrentPant;
         if (currentPantInData == -1)
         {
-            currentMatAttach = transparentMat;
-            currentSkinPant.material = currentMatAttach;
+            currentPantMatAttach = transparentMat;
+            currentSkinPant.material = currentPantMatAttach;
             return;
         }
-        currentMatAttach = pantSO.propsPants[currentPantInData].mat;
-        currentSkinPant.material = currentMatAttach;
+        currentPantMatAttach = pantSO.propsPants[currentPantInData].mat;
+        currentSkinPant.material = currentPantMatAttach;
 
     }
 
@@ -192,7 +194,20 @@ public class Player : Character
     {
         int currentShieldInData = DataManager.Instance.Data.CurrentShield;
         if (currentShieldInData == -1) return;
-        currenShieldAvaGOAttach = Instantiate(shieldSO.propsShields[currentShieldInData].avatarPrefab, shieldHolderTF).gameObject;
+        currentShieldAvaGOAttach = Instantiate(shieldSO.propsShields[currentShieldInData].avatarPrefab, shieldHolderTF).gameObject;
+    }
+
+    public void LoadSet()
+    {
+        int currentSetInData = DataManager.Instance.Data.CurrentSet;
+        if (currentSetInData == -1)
+        {
+            currentSetMatAttach = defaultPlayerMat;
+            currentSkinSet.material = currentSetMatAttach;
+            return;
+        }
+        currentSetMatAttach = setSO.propsSets[currentSetInData].mat;
+        currentSkinSet.material = currentSetMatAttach;
     }
 
     public void HandleCamPlayerBaseOnRangeWeapon()
@@ -234,23 +249,47 @@ public class Player : Character
         currentHatAvaGOAttach = null;
     }
 
+    public void ShowHatAvaAttach()
+    {
+        if(currentHatAvaGOAttach!= null)
+        {
+            currentHatAvaGOAttach.SetActive(true);
+        }
+    }
+    public void HideHatAvaAttach()
+    {
+        if (currentHatAvaGOAttach != null)
+        {
+            currentHatAvaGOAttach.SetActive(false);
+        }
+    }
+
 
     // pant
     public void AttachPant(int id)
     {
-        currentMatAttach = pantSO.propsPants[id].mat;
-        currentSkinPant.material = currentMatAttach;
+        currentPantMatAttach = pantSO.propsPants[id].mat;
+        currentSkinPant.material = currentPantMatAttach;
     }
-
-    public void SetMatAttach()
-    {
-        currentSkinPant.material = currentMatAttach;
-    }
-
     public void DeAttachPant()
     {
-        currentMatAttach = transparentMat;
+        currentPantMatAttach = transparentMat;
     }
+
+    public void SetPantMatCurrent()
+    {
+        currentSkinPant.material = currentPantMatAttach;
+    }
+    public void SetTransparentPant()
+    {
+        currentSkinPant.material = transparentMat;
+    }
+    public void SetPantMat(Material mat)
+    {
+        currentSkinPant.material = mat;
+    }
+
+
 
     // Shield
     public void AttachShield(int id)
@@ -259,8 +298,8 @@ public class Player : Character
         {
             if (listContainShield[i].Id == id)
             {
-                currenShieldAvaGOAttach = listContainShield[i].gameObject;
-                currenShieldAvaGOAttach.SetActive(false);
+                currentShieldAvaGOAttach = listContainShield[i].gameObject;
+                currentShieldAvaGOAttach.SetActive(false);
                 return;
             }
         }
@@ -268,15 +307,53 @@ public class Player : Character
         PrefabItemShop itemShield = Instantiate(shieldSO.propsShields[id].avatarPrefab, shieldHolderTF);
         itemShield.SetId(id);
         listContainShield.Add(itemShield);
-        currenShieldAvaGOAttach = itemShield.gameObject;
-        currenShieldAvaGOAttach.SetActive(false);
+        currentShieldAvaGOAttach = itemShield.gameObject;
+        currentShieldAvaGOAttach.SetActive(false);
     }
     public void DeAttachShield()
     {
-        currenShieldAvaGOAttach = null;
+        currentShieldAvaGOAttach = null;
     }
 
 
+    public void ShowShieldAvaAttach()
+    {
+        if (currentShieldAvaGOAttach != null)
+        {
+            currentShieldAvaGOAttach.SetActive(true);
+        }
+    }
+    public void HideShieldAvaAttach()
+    {
+        if (currentShieldAvaGOAttach != null)
+        {
+            currentShieldAvaGOAttach.SetActive(false);
+        }
+    }
 
+    // Set
+    public void AttachSet(int id)
+    {
+        currentSetMatAttach = setSO.propsSets[id].mat;
+        currentSkinSet.material = currentSetMatAttach;
+    }
+
+    public void DeAttachSet()
+    {
+        currentSetMatAttach = defaultPlayerMat;
+    }
+
+    public void SetSetMatCurrent()
+    {
+        currentSkinSet.material = currentSetMatAttach;
+    }
+    public void SetTransparentSet()
+    {
+        currentSkinSet.material = defaultPlayerMat;
+    }
+    public void SetSetMat(Material mat)
+    {
+        currentSkinSet.material = mat;
+    }
 }
 

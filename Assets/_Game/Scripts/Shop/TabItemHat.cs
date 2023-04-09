@@ -106,21 +106,15 @@ public class TabItemHat : AbstractTabItem
     protected override void OnEnable()
     {
         base.OnEnable();
-        if (LevelManager.Instance.CurrentPlayer.CurrentHatAvaGOAttach != null)
-        {
-            LevelManager.Instance.CurrentPlayer.CurrentHatAvaGOAttach.SetActive(false);
-        }
+        LevelManager.Instance.CurrentPlayer.HideHatAvaAttach();
+
     }
 
     protected override void OnDisable()
     {
         base.OnDisable();
         DeActiveitemOnCurrentPlayer();
-
-        if (LevelManager.Instance.CurrentPlayer.CurrentHatAvaGOAttach != null)
-        {
-            LevelManager.Instance.CurrentPlayer.CurrentHatAvaGOAttach.SetActive(true);
-        }
+        LevelManager.Instance.CurrentPlayer.ShowHatAvaAttach();
     }
 
     public override int GetCurrentItemInData()

@@ -63,22 +63,33 @@ public class Character : GameUnit
     [SerializeField] protected Transform hatHolderTF;
     public Transform HatHolderTF => hatHolderTF;
     [SerializeField] protected GameObject currentHatAvaGOAttach;
-    public GameObject CurrentHatAvaGOAttach => currentHatAvaGOAttach;
 
     // Current pant
     [SerializeField] protected PantSO pantSO;
-    [SerializeField] protected Material currentMatAttach;
+    [SerializeField] protected Material currentPantMatAttach;
     [SerializeField] protected Material transparentMat;
     [SerializeField] protected SkinnedMeshRenderer currentSkinPant;
-    public SkinnedMeshRenderer CurrentSkinPant => currentSkinPant;
 
 
     // Current Shield 
     [SerializeField] protected ShieldSO shieldSO;
     [SerializeField] protected Transform shieldHolderTF;
     public Transform ShieldHolderTF => shieldHolderTF;
-    [SerializeField] protected GameObject currenShieldAvaGOAttach;
-    public GameObject CurrentShieldAvaGOAttach => currenShieldAvaGOAttach;
+    [SerializeField] protected GameObject currentShieldAvaGOAttach;
+
+
+    // Current Set
+    [SerializeField] protected SetSO setSO;
+    [SerializeField] protected Material currentSetMatAttach;
+    [SerializeField] protected SkinnedMeshRenderer currentSkinSet;
+
+
+    //wing and tail de trong
+    [SerializeField] protected Transform wingHolderTF;
+    public Transform WingHolderTF => wingHolderTF;
+    [SerializeField] protected Transform tailHolderTF;
+    public Transform TailHolderTF => tailHolderTF;
+
 
     //Current Level Character
     [SerializeField] protected int levelCharacter = 0;

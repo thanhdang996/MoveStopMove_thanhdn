@@ -1,23 +1,22 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class TabItemPant : AbstractTabItem
+public class TabItemSet : AbstractTabItem
 {
-    [SerializeField] private PantSO pantSO;
-
+    [SerializeField] private SetSO setSO;
     [SerializeField] private Material currentMatPreview;
 
+   
     public override void ActiveAllUIItemShop()
     {
-        PropsPant[] propPants = pantSO.propsPants;
-        int totalItemData = propPants.Length;
+        // check to Instantiate item , deactive item in contentTF
+        PropsSet[] propsSets = setSO.propsSets;
+        int totalItemData = propsSets.Length;
         int numberItemShow = tabRoot.ListUIItemShop.Count;
 
         int diff = Mathf.Abs(totalItemData - numberItemShow);
-        if (totalItemData >= numberItemShow)
+        if (totalItemData >= numberItemShow) // Instantiate
         {
             for (int i = 0; i < diff; i++)
             {
@@ -25,7 +24,7 @@ public class TabItemPant : AbstractTabItem
                 tabRoot.ListUIItemShop.Add(itemShop);
             }
         }
-        else
+        else // deactive
         {
             for (int i = 0; i < diff; i++)
             {
@@ -34,23 +33,22 @@ public class TabItemPant : AbstractTabItem
         }
 
 
-
-
-        int currentPant = GetCurrentItemInData();
-        for (int i = 0; i < propPants.Length; i++)
+        // check to active, deactive image lock, text equip base on current TabItem
+        int currentHat = GetCurrentItemInData();
+        for (int i = 0; i < propsSets.Length; i++)
         {
-            tabRoot.ListUIItemShop[i].gameObject.SetActive(true);
-            tabRoot.ListUIItemShop[i].SetData(i, this, propPants[i].spriteImage, propPants[i].price);
-            if (currentPant == i)
+            tabRoot.ListUIItemShop[i].gameObject.SetActive(true); // bat tat ca 
+            tabRoot.ListUIItemShop[i].SetData(i, this, propsSets[i].spriteImage, propsSets[i].price);
+            if (currentHat == i)
             {
-                SetCurrentUIItemShop(currentPant);
+                SetCurrentUIItemShop(currentHat);
                 CurrentUIItemShop.ChangeActiveImageLock(false);
                 CurrentUIItemShop.ChangeActiveTextEquip(true);
                 CurrentUIItemShop.SetUnlock(true);
                 CurrentUIItemShop.Selected();
                 continue;
             }
-            bool isContainItem = DataManager.Instance.Data.ListPantOwner.Contains(i);
+            bool isContainItem = DataManager.Instance.Data.ListHatOwner.Contains(i);
             if (isContainItem)
             {
                 tabRoot.ListUIItemShop[i].ChangeActiveImageLock(false);
@@ -62,27 +60,28 @@ public class TabItemPant : AbstractTabItem
             tabRoot.ListUIItemShop[i].ChangeActiveTextEquip(false);
             tabRoot.ListUIItemShop[i].SetUnlock(false);
         }
-        if (currentPant == -1)
+        if (currentHat == -1)
         {
-            SetCurrentUIItemShop(0);
+            SetCurrentUIItemShop(0); // neu chua co item owner thi hightlight default item 0
             CurrentUIItemShop.Selected();
         }
     }
 
-
     public override void PreviewItemOnPlayer(int idUIITemShop)
     {
         ActiveItemOnCurrentPlayer();
-        currentMatPreview = pantSO.propsPants[idUIITemShop].mat;
-        LevelManager.Instance.CurrentPlayer.SetPantMat(currentMatPreview);
+        currentMatPreview = setSO.propsSets[idUIITemShop].mat;
+        LevelManager.Instance.CurrentPlayer.SetSetMat(currentMatPreview);
     }
+
+
     protected override void ActiveItemOnCurrentPlayer()
     {
-        LevelManager.Instance.CurrentPlayer.SetPantMatCurrent();
+        LevelManager.Instance.CurrentPlayer.SetSetMatCurrent();
     }
     public override void DeActiveitemOnCurrentPlayer()
     {
-        LevelManager.Instance.CurrentPlayer.SetTransparentPant();
+        LevelManager.Instance.CurrentPlayer.SetTransparentSet();
     }
 
     protected override void OnEnable()
@@ -99,25 +98,26 @@ public class TabItemPant : AbstractTabItem
 
     public override int GetCurrentItemInData()
     {
-        return DataManager.Instance.Data.CurrentPant;
+        return DataManager.Instance.Data.CurrentSet;
     }
 
     public override List<int> GetItemOwnerInData()
     {
-        return DataManager.Instance.Data.ListPantOwner;
+        return DataManager.Instance.Data.ListSetOwner;
     }
     public override void ChangeCurrentItemInData(int idUIITemShop)
     {
-        DataManager.Instance.Data.ChangeCurrentPantData(idUIITemShop);
+        DataManager.Instance.Data.ChangeCurrentSetData(idUIITemShop);
     }
+
 
     public override void AttachItemToPlayer()
     {
-        LevelManager.Instance.CurrentPlayer.AttachPant(currentUIItemShop.Id);
+        LevelManager.Instance.CurrentPlayer.AttachSet(currentUIItemShop.Id);
     }
 
     public override void DeAttachItemToPlayer()
     {
-        LevelManager.Instance.CurrentPlayer.DeAttachPant();
+        LevelManager.Instance.CurrentPlayer.DeAttachSet();
     }
 }

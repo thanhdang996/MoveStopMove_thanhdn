@@ -66,6 +66,7 @@ public class LevelManager : Singleton<LevelManager>
         currentPlayer.LoadHat();
         currentPlayer.LoadPant();
         currentPlayer.LoadShield();
+        currentPlayer.LoadSet();
 
         currentPlayer.CreateAllWeaponPlayerOwner();
         currentPlayer.GetCurrentWeaponDataAndActive();

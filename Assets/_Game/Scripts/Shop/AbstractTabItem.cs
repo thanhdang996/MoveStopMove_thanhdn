@@ -75,7 +75,7 @@ public abstract class AbstractTabItem : MonoBehaviour
     public abstract int GetCurrentItemInData();
     public abstract List<int> GetItemOwnerInData();
 
-    public abstract void ChangeCurrentItemInData(int id);
+    public abstract void ChangeCurrentItemInData(int idUIITemShop);
 
     public abstract void AttachItemToPlayer();
     public abstract void DeAttachItemToPlayer();

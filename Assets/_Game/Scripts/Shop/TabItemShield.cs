@@ -104,21 +104,14 @@ public class TabItemShield : AbstractTabItem
     protected override void OnEnable()
     {
         base.OnEnable();
-        if (LevelManager.Instance.CurrentPlayer.CurrentShieldAvaGOAttach != null)
-        {
-            LevelManager.Instance.CurrentPlayer.CurrentShieldAvaGOAttach.SetActive(false);
-        }
+        LevelManager.Instance.CurrentPlayer.HideShieldAvaAttach();
     }
 
     protected override void OnDisable()
     {
         base.OnDisable();
         DeActiveitemOnCurrentPlayer();
-
-        if (LevelManager.Instance.CurrentPlayer.CurrentShieldAvaGOAttach != null)
-        {
-            LevelManager.Instance.CurrentPlayer.CurrentShieldAvaGOAttach.SetActive(true);
-        }
+        LevelManager.Instance.CurrentPlayer.ShowShieldAvaAttach();
     }
 
     public override int GetCurrentItemInData()

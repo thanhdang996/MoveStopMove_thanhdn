@@ -2229,6 +2229,7 @@ MonoBehaviour:
   - {fileID: 4472634308477925780}
   - {fileID: 7513538583579393914}
   - {fileID: 2744013233865627069}
+  - {fileID: 5870782804092508236}
   listUIItemShop: []
   contentTF: {fileID: 8006185830664801683}
   prefabUIItemShop: {fileID: -9043846246535396574, guid: afa9a8d44b08bd94c9177e9695dca244, type: 3}
@@ -2370,8 +2371,9 @@ GameObject:
   - component: {fileID: 8006185831842438322}
   - component: {fileID: 8006185831842438323}
   - component: {fileID: 8228789121469070169}
+  - component: {fileID: 5870782804092508236}
   m_Layer: 5
-  m_Name: Tab Skin
+  m_Name: Tab Set
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2495,6 +2497,25 @@ MonoBehaviour:
   m_EffectColor: {r: 0.9245283, g: 0.056692798, b: 0.056692798, a: 1}
   m_EffectDistance: {x: 5, y: -5}
   m_UseGraphicAlpha: 1
+--- !u!114 &5870782804092508236
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8006185831842438325}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9db04e1ddf583b441a28c886aceef6ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tabIndex: 3
+  tabRoot: {fileID: 8006185830916610104}
+  button: {fileID: 8006185831842438323}
+  outline: {fileID: 8228789121469070169}
+  setSO: {fileID: 11400000, guid: dd6bde5e276aeb1478bf07a4d911eaf9, type: 2}
+  currentPrefabItemPreviewOnPlayer: {fileID: 0}
+  listPrefabItemPreviewPlayerContain: []
 --- !u!1 &8006185831891876883
 GameObject:
   m_ObjectHideFlags: 0

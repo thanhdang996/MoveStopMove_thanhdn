@@ -41,6 +41,14 @@ public class GameData
     public List<int> ListShieldOwner { get { return listShieldOwner; } }
 
 
+    // set
+    [SerializeField] private int currentSet = -1;
+    public int CurrentSet { get { return currentSet; } }
+
+    [SerializeField] private List<int> listSetOwner = new List<int>();
+    public List<int> ListSetOwner { get { return listSetOwner; } }
+
+
 
     [SerializeField] private int levelId = 1;
     public int LevelId { get { return levelId; } }
@@ -91,5 +99,10 @@ public class GameData
     public void ChangeCurrentShieldData(int id)
     {
         currenShield = id;
+    }
+
+    public void ChangeCurrentSetData(int id)
+    {
+        currentSet = id;
     }
 }
