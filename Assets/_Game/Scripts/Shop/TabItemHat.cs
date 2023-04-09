@@ -114,7 +114,7 @@ public class TabItemHat : AbstractTabItem
 
     protected override void OnDisable()
     {
-        base.OnEnable();
+        base.OnDisable();
         DeActiveitemOnCurrentPlayer();
 
         if (LevelManager.Instance.CurrentPlayer.CurrentHatAvaGOAttach != null)

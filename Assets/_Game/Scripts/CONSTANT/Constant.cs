@@ -16,6 +16,9 @@ public class Constant : MonoBehaviour
 
     public const string TAG_OBSTACLE = "Obstacle";
 
+    public const string BUTTON_TEXT_SELECT = "Select";
+    public const string BUTTON_TEXT_UNEQUIP = "Unequip";
+
 
 
     public static PoolType ConvertWeaponTypeToObjectType(WeaponType weaponType)

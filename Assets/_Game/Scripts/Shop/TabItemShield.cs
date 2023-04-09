@@ -112,7 +112,7 @@ public class TabItemShield : AbstractTabItem
 
     protected override void OnDisable()
     {
-        base.OnEnable();
+        base.OnDisable();
         DeActiveitemOnCurrentPlayer();
 
         if (LevelManager.Instance.CurrentPlayer.CurrentShieldAvaGOAttach != null)

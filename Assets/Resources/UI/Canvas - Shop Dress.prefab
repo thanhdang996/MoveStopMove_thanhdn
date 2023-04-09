@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4009072238360203400}
   - component: {fileID: 3317288983258909180}
   m_Layer: 5
-  m_Name: Text Equip
+  m_Name: Text Dressing
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -923,7 +923,7 @@ GameObject:
   - component: {fileID: 6739524164379774216}
   - component: {fileID: 7168316076172368299}
   m_Layer: 5
-  m_Name: Button Equip
+  m_Name: Button Dressing
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1034,7 +1034,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 8006185830916610104}
         m_TargetAssemblyTypeName: UICShopDress, Assembly-CSharp
-        m_MethodName: Button_HandleEquippedItem
+        m_MethodName: Button_HandleDressingItem
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1422,7 +1422,7 @@ MonoBehaviour:
   outline: {fileID: 4952215658549854539}
   hatSO: {fileID: 11400000, guid: bf2b52b8ae73549428efb2a8a32b9b6e, type: 2}
   currentPrefabItemPreviewOnPlayer: {fileID: 0}
-  listPrefabItemPlayerContain: []
+  listPrefabItemPreviewPlayerContain: []
 --- !u!114 &4952215658549854539
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2218,8 +2218,12 @@ MonoBehaviour:
   currentButtonType: 0
   buttonBuy: {fileID: 592156104276757279}
   textPrice: {fileID: 3068233680430226566}
-  buttonEquipped: {fileID: 6739524164379774216}
-  textEquipped: {fileID: 3317288983258909180}
+  buttonDressing: {fileID: 6739524164379774216}
+  textDressing: {fileID: 3317288983258909180}
+  selectColor: {r: 0.90196085, g: 0.49411768, b: 0.13333334, a: 1}
+  unEquipColor: {r: 0.5137255, g: 0.54509807, b: 0.58431375, a: 1}
+  selectImage: {fileID: 21300000, guid: 2545520b7e2e1e44882016922b6dd32f, type: 3}
+  unEquipImage: {fileID: 21300000, guid: e1732a753a36ceb46b74d69c3fc9f553, type: 3}
   textCoin: {fileID: 5418362183211826153}
   listTabs:
   - {fileID: 4472634308477925780}

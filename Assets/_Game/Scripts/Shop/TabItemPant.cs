@@ -93,7 +93,7 @@ public class TabItemPant : AbstractTabItem
 
     protected override void OnDisable()
     {
-        base.OnEnable();
+        base.OnDisable();
         LevelManager.Instance.CurrentPlayer.SetMatAttach();
         ActiveItemOnCurrentPlayer();
     }

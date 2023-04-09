@@ -7,15 +7,19 @@ using UnityEngine.UI;
 
 public class UICShopDress : UICanvas
 {
-    private enum BuySkinnButtonType { None, Equipped, UnEquipped, Buy }
+    private enum BuySkinnButtonType { None, Select, UnEquip, Buy }
     [SerializeField] private BuySkinnButtonType currentButtonType;
 
     [SerializeField] private Button buttonBuy;
     [SerializeField] private TextMeshProUGUI textPrice;
 
-    [SerializeField] private Button buttonEquipped;
-    [SerializeField] private TextMeshProUGUI textEquipped;
+    [SerializeField] private Button buttonDressing;
+    [SerializeField] private TextMeshProUGUI textDressing;
 
+    [SerializeField] private Color selectColor;
+    [SerializeField] private Color unEquipColor;
+    [SerializeField] private Sprite selectImage;
+    [SerializeField] private Sprite unEquipImage;
 
     [SerializeField] private TextMeshProUGUI textCoin;
 
@@ -78,25 +82,23 @@ public class UICShopDress : UICanvas
         currentTabItem.TurnOnOutLine();
     }
 
-    public void ShowButtonEquipped(int idUIITemShop, int currentItemTab)
+    public void ShowButtonDressing(int idUIITemShop, int currentItemTab)
     {
         if (idUIITemShop == currentItemTab)
         {
-            currentButtonType = BuySkinnButtonType.Equipped;
+            SetPropButtonUnEquip();
         }
         else
         {
-            currentButtonType = BuySkinnButtonType.UnEquipped;
+            SetPropButtonSelect();
         }
         buttonBuy.gameObject.SetActive(false);
-        buttonEquipped.gameObject.SetActive(true);
-        textEquipped.text = currentButtonType.ToString();
-
+        buttonDressing.gameObject.SetActive(true);
     }
     public void ShowButtonBuy()
     {
         currentButtonType = BuySkinnButtonType.Buy;
-        buttonEquipped.gameObject.SetActive(false);
+        buttonDressing.gameObject.SetActive(false);
         buttonBuy.gameObject.SetActive(true);
     }
 
@@ -112,18 +114,17 @@ public class UICShopDress : UICanvas
 
             currentTabItem.CurrentUIItemShop.SetUnlock(true);
             currentTabItem.CurrentUIItemShop.ChangeActiveImageLock(false);
-            ShowButtonEquipped(currentTabItem.CurrentUIItemShop.Id, currentTabItem.GetCurrentItemInData());
+            ShowButtonDressing(currentTabItem.CurrentUIItemShop.Id, currentTabItem.GetCurrentItemInData()); // luc nao cung se la nut Select
 
             UI_UpdateTextCoin();
         }
     }
 
-    public void Button_HandleEquippedItem()
+    public void Button_HandleDressingItem()
     {
-        if (currentButtonType == BuySkinnButtonType.UnEquipped)
+        if (currentButtonType == BuySkinnButtonType.Select)
         {
-            currentButtonType = BuySkinnButtonType.Equipped;
-            textEquipped.text = currentButtonType.ToString();
+            SetPropButtonUnEquip();
 
             // thay doi TextEquip item previous
             if (currentTabItem.GetCurrentItemInData() != -1)
@@ -137,10 +138,9 @@ public class UICShopDress : UICanvas
             DataManager.Instance.SaveData();
             return;
         }
-        if (currentButtonType == BuySkinnButtonType.Equipped)
+        if (currentButtonType == BuySkinnButtonType.UnEquip)
         {
-            currentButtonType = BuySkinnButtonType.UnEquipped;
-            textEquipped.text = currentButtonType.ToString();
+            SetPropButtonSelect();
 
             currentTabItem.ChangeCurrentItemInData(-1);
             currentTabItem.DeAttachItemToPlayer();
@@ -149,6 +149,22 @@ public class UICShopDress : UICanvas
             DataManager.Instance.SaveData();
             return;
         }
+    }
+
+    public void SetPropButtonSelect()
+    {
+        currentButtonType = BuySkinnButtonType.Select;
+        buttonDressing.GetComponent<Image>().sprite = selectImage;
+        buttonDressing.GetComponentInChildren<TextMeshProUGUI>().color = selectColor;
+        textDressing.text = Constant.BUTTON_TEXT_SELECT;
+    }
+
+    public void SetPropButtonUnEquip()
+    {
+        currentButtonType = BuySkinnButtonType.UnEquip;
+        buttonDressing.GetComponent<Image>().sprite = unEquipImage;
+        buttonDressing.GetComponentInChildren<TextMeshProUGUI>().color = unEquipColor;
+        textDressing.text = Constant.BUTTON_TEXT_UNEQUIP;
     }
 
     private int GetCoinInData()

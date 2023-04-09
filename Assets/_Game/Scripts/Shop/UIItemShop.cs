@@ -92,7 +92,7 @@ public class UIItemShop : MonoBehaviour
     {
         if (isUnlock)
         {
-            tabItem.GetTabRoot().ShowButtonEquipped(id, tabItem.GetCurrentItemInData());
+            tabItem.GetTabRoot().ShowButtonDressing(id, tabItem.GetCurrentItemInData());
         }
         else
         {
