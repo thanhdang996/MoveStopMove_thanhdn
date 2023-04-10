@@ -133,7 +133,7 @@ public class TabItemHat : AbstractTabItem
 
     public override void AttachItemToPlayer()
     {
-        LevelManager.Instance.CurrentPlayer.AttachHat(currentUIItemShop.Id);
+        LevelManager.Instance.CurrentPlayer.AttachHat(currentPrefabItemPreviewOnPlayer);
     }
 
     public override void DeAttachItemToPlayer()

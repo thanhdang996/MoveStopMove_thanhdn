@@ -15,8 +15,8 @@ public class Player : Character
 
     [SerializeField] private Material defaultPlayerMat;
 
-    [SerializeField] private List<PrefabItemShop> listContainHat;
-    [SerializeField] private List<PrefabItemShop> listContainShield;
+    //[SerializeField] private List<PrefabItemShop> listContainHat;
+    //[SerializeField] private List<PrefabItemShop> listContainShield;
 
 
     private bool isWin;
@@ -226,24 +226,31 @@ public class Player : Character
 
 
     // hat
-    public void AttachHat(int id)
-    {
-        for (int i = 0; i < listContainHat.Count; i++)
-        {
-            if (listContainHat[i].Id == id)
-            {
-                currentHatAvaGOAttach = listContainHat[i].gameObject;
-                currentHatAvaGOAttach.SetActive(false);
-                return;
-            }
-        }
 
-        PrefabItemShop itemHat = Instantiate(hatSO.propsHats[id].avatarPrefab, hatHolderTF);
-        itemHat.SetId(id);
-        listContainHat.Add(itemHat);
-        currentHatAvaGOAttach = itemHat.gameObject;
-        currentHatAvaGOAttach.SetActive(false);
+    //public void AttachHat(int id)
+    //{
+    //    for (int i = 0; i < listContainHat.Count; i++)
+    //    {
+    //        if (listContainHat[i].Id == id)
+    //        {
+    //            currentHatAvaGOAttach = listContainHat[i].gameObject;
+    //            currentHatAvaGOAttach.SetActive(false);
+    //            return;
+    //        }
+    //    }
+
+    //    PrefabItemShop itemHat = Instantiate(hatSO.propsHats[id].avatarPrefab, hatHolderTF);
+    //    itemHat.SetId(id);
+    //    listContainHat.Add(itemHat);
+    //    currentHatAvaGOAttach = itemHat.gameObject;
+    //    currentHatAvaGOAttach.SetActive(false);
+    //}
+
+    public void AttachHat(PrefabItemShop currentPrefabItemPlayer)
+    {
+        currentHatAvaGOAttach = currentPrefabItemPlayer.gameObject;
     }
+
     public void DeAttachHat()
     {
         currentHatAvaGOAttach = null;
@@ -292,24 +299,32 @@ public class Player : Character
 
 
     // Shield
-    public void AttachShield(int id)
-    {
-        for (int i = 0; i < listContainShield.Count; i++)
-        {
-            if (listContainShield[i].Id == id)
-            {
-                currentShieldAvaGOAttach = listContainShield[i].gameObject;
-                currentShieldAvaGOAttach.SetActive(false);
-                return;
-            }
-        }
 
-        PrefabItemShop itemShield = Instantiate(shieldSO.propsShields[id].avatarPrefab, shieldHolderTF);
-        itemShield.SetId(id);
-        listContainShield.Add(itemShield);
-        currentShieldAvaGOAttach = itemShield.gameObject;
-        currentShieldAvaGOAttach.SetActive(false);
+    //public void AttachShield(int id)
+    //{
+    //    for (int i = 0; i < listContainShield.Count; i++)
+    //    {
+    //        if (listContainShield[i].Id == id)
+    //        {
+    //            currentShieldAvaGOAttach = listContainShield[i].gameObject;
+    //            currentShieldAvaGOAttach.SetActive(false);
+    //            return;
+    //        }
+    //    }
+
+    //    PrefabItemShop itemShield = Instantiate(shieldSO.propsShields[id].avatarPrefab, shieldHolderTF);
+    //    itemShield.SetId(id);
+    //    listContainShield.Add(itemShield);
+    //    currentShieldAvaGOAttach = itemShield.gameObject;
+    //    currentShieldAvaGOAttach.SetActive(false);
+    //}
+
+    public void AttachShield(PrefabItemShop currentPrefabItemPlayer)
+    {
+        currentShieldAvaGOAttach = currentPrefabItemPlayer.gameObject;
     }
+
+
     public void DeAttachShield()
     {
         currentShieldAvaGOAttach = null;
@@ -355,5 +370,7 @@ public class Player : Character
     {
         currentSkinSet.material = mat;
     }
+
+
 }
 

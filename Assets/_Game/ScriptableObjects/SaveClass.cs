@@ -29,6 +29,7 @@ public class PropsPant : PropsItem
 public class PropsSet : PropsItem
 {
     public Material mat;
+    public PrefabItemShop headPrefab;
 }
 
 

@@ -7,7 +7,7 @@ public class TabItemSet : AbstractTabItem
     [SerializeField] private SetSO setSO;
     [SerializeField] private Material currentMatPreview;
 
-   
+
     public override void ActiveAllUIItemShop()
     {
         // check to Instantiate item , deactive item in contentTF

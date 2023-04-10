@@ -130,7 +130,7 @@ public class TabItemShield : AbstractTabItem
 
     public override void AttachItemToPlayer()
     {
-        LevelManager.Instance.CurrentPlayer.AttachShield(currentUIItemShop.Id);
+        LevelManager.Instance.CurrentPlayer.AttachShield(currentPrefabItemPlayer);
     }
 
     public override void DeAttachItemToPlayer()
