@@ -5,7 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public class GameData
 {
-    [SerializeField] private int coin = 0;
+    [SerializeField] private int coin = 10000;
     public int Coin => coin;
 
 

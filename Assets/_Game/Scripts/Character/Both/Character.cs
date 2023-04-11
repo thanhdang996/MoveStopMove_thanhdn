@@ -90,6 +90,9 @@ public class Character : GameUnit
     [SerializeField] protected Transform tailHolderTF;
     public Transform TailHolderTF => tailHolderTF;
 
+    [SerializeField] protected GameObject currentWingAvaGOAttach;
+    [SerializeField] protected GameObject currentTailAvaGOAttach;
+
 
     //Current Level Character
     [SerializeField] protected int levelCharacter = 0;

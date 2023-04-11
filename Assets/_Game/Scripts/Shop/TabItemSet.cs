@@ -7,6 +7,10 @@ public class TabItemSet : AbstractTabItem
     [SerializeField] private SetSO setSO;
     [SerializeField] private Material currentMatPreview;
 
+    [SerializeField] private PrefabItemShop prefabItemHat;
+    [SerializeField] private PrefabItemShop prefabItemWing;
+    [SerializeField] private PrefabItemShop prefabItemTail;
+
 
     public override void ActiveAllUIItemShop()
     {
@@ -34,21 +38,21 @@ public class TabItemSet : AbstractTabItem
 
 
         // check to active, deactive image lock, text equip base on current TabItem
-        int currentHat = GetCurrentItemInData();
+        int currentSet = GetCurrentItemInData();
         for (int i = 0; i < propsSets.Length; i++)
         {
             tabRoot.ListUIItemShop[i].gameObject.SetActive(true); // bat tat ca 
             tabRoot.ListUIItemShop[i].SetData(i, this, propsSets[i].spriteImage, propsSets[i].price);
-            if (currentHat == i)
+            if (currentSet == i)
             {
-                SetCurrentUIItemShop(currentHat);
+                SetCurrentUIItemShop(currentSet);
                 CurrentUIItemShop.ChangeActiveImageLock(false);
                 CurrentUIItemShop.ChangeActiveTextEquip(true);
                 CurrentUIItemShop.SetUnlock(true);
                 CurrentUIItemShop.Selected();
                 continue;
             }
-            bool isContainItem = DataManager.Instance.Data.ListHatOwner.Contains(i);
+            bool isContainItem = DataManager.Instance.Data.ListSetOwner.Contains(i);
             if (isContainItem)
             {
                 tabRoot.ListUIItemShop[i].ChangeActiveImageLock(false);
@@ -60,7 +64,7 @@ public class TabItemSet : AbstractTabItem
             tabRoot.ListUIItemShop[i].ChangeActiveTextEquip(false);
             tabRoot.ListUIItemShop[i].SetUnlock(false);
         }
-        if (currentHat == -1)
+        if (currentSet == -1)
         {
             SetCurrentUIItemShop(0); // neu chua co item owner thi hightlight default item 0
             CurrentUIItemShop.Selected();
@@ -69,8 +73,25 @@ public class TabItemSet : AbstractTabItem
 
     public override void PreviewItemOnPlayer(int idUIITemShop)
     {
+        // preview material for set
         currentMatPreview = setSO.propsSets[idUIITemShop].mat;
         LevelManager.Instance.CurrentPlayer.SetSetMat(currentMatPreview);
+
+        //preview for itemPrefab
+        DeactiveItemPrefab();
+
+        if (setSO.HasHat(idUIITemShop))
+        {
+            prefabItemHat = Instantiate(setSO.propsSets[idUIITemShop].hatPrefab, LevelManager.Instance.CurrentPlayer.HatHolderTF);
+        }
+        if(setSO.HasWing(idUIITemShop))
+        {
+            prefabItemWing = Instantiate(setSO.propsSets[idUIITemShop].wingPrefab, LevelManager.Instance.CurrentPlayer.WingHolderTF);
+        }
+        if (setSO.HasTail(idUIITemShop))
+        {
+            prefabItemTail = Instantiate(setSO.propsSets[idUIITemShop].tailPrefab, LevelManager.Instance.CurrentPlayer.TailHolderTF);
+        }
     }
 
 
@@ -80,19 +101,38 @@ public class TabItemSet : AbstractTabItem
     }
     public override void DeActiveitemOnCurrentPlayer()
     {
+        // for material
         LevelManager.Instance.CurrentPlayer.SetTransparentSet();
+
+        // for itemPrefab
+        DeactiveItemPrefab();
+
+    }
+
+    public void DeactiveItemPrefab()
+    {
+        Destroy(prefabItemHat != null ? prefabItemHat.gameObject : null);
+        Destroy(prefabItemWing != null ? prefabItemWing.gameObject : null);
+        Destroy(prefabItemTail != null ? prefabItemTail.gameObject : null);
+
+        prefabItemHat = null;
+        prefabItemWing = null;
+        prefabItemTail = null;
     }
 
     protected override void OnEnable()
     {
         base.OnEnable();
         DeActiveitemOnCurrentPlayer();
+        LevelManager.Instance.CurrentPlayer.HideSetAttach();
     }
 
     protected override void OnDisable()
     {
         base.OnDisable();
+        DeactiveItemPrefab();
         ActiveItemOnCurrentPlayer();
+        LevelManager.Instance.CurrentPlayer.ShowSetAttach();
     }
 
     public override int GetCurrentItemInData()

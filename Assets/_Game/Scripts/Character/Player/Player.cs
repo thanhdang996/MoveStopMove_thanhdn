@@ -208,6 +208,20 @@ public class Player : Character
         }
         currentSetMatAttach = setSO.propsSets[currentSetInData].mat;
         currentSkinSet.material = currentSetMatAttach;
+
+        //load ItemPrefab
+        if (setSO.HasHat(currentSetInData))
+        {
+            currentHatAvaGOAttach = Instantiate(setSO.propsSets[currentSetInData].hatPrefab, hatHolderTF).gameObject;
+        }
+        if (setSO.HasWing(currentSetInData))
+        {
+            currentWingAvaGOAttach = Instantiate(setSO.propsSets[currentSetInData].wingPrefab, wingHolderTF).gameObject;
+        }
+        if (setSO.HasTail(currentSetInData))
+        {
+           currentTailAvaGOAttach = Instantiate(setSO.propsSets[currentSetInData].tailPrefab, tailHolderTF).gameObject;
+        }
     }
 
     public void HandleCamPlayerBaseOnRangeWeapon()
@@ -258,7 +272,7 @@ public class Player : Character
 
     public void ShowHatAvaAttach()
     {
-        if(currentHatAvaGOAttach!= null)
+        if (currentHatAvaGOAttach != null)
         {
             currentHatAvaGOAttach.SetActive(true);
         }
@@ -349,13 +363,81 @@ public class Player : Character
     // Set
     public void AttachSet(int id)
     {
+        // for material
         currentSetMatAttach = setSO.propsSets[id].mat;
         currentSkinSet.material = currentSetMatAttach;
+
+        // for itemprefab;
+        if (setSO.HasHat(id))
+        {
+            currentHatAvaGOAttach = Instantiate(setSO.propsSets[id].hatPrefab, hatHolderTF).gameObject;
+            currentHatAvaGOAttach.SetActive(false);
+        }else
+        {
+            Destroy(currentHatAvaGOAttach);
+        }
+            
+        if (setSO.HasWing(id))
+        {
+            currentWingAvaGOAttach = Instantiate(setSO.propsSets[id].wingPrefab, wingHolderTF).gameObject;
+            currentWingAvaGOAttach.SetActive(false);
+        }
+        else
+        {
+            Destroy(currentWingAvaGOAttach);
+        }
+        if (setSO.HasTail(id))
+        {
+            currentTailAvaGOAttach = Instantiate(setSO.propsSets[id].tailPrefab, tailHolderTF).gameObject;
+            currentTailAvaGOAttach.SetActive(false);
+        }
+        else
+        {
+            Destroy(currentTailAvaGOAttach);
+        }
     }
 
     public void DeAttachSet()
     {
         currentSetMatAttach = defaultPlayerMat;
+
+        Destroy(currentHatAvaGOAttach != null ? currentHatAvaGOAttach : null);
+        Destroy(currentWingAvaGOAttach != null ? currentWingAvaGOAttach : null);
+        Destroy(currentTailAvaGOAttach != null ? currentTailAvaGOAttach : null);
+        currentHatAvaGOAttach = null;
+        currentWingAvaGOAttach = null;
+        currentTailAvaGOAttach = null;
+    }
+
+    public void ShowSetAttach()
+    {
+        if(currentHatAvaGOAttach!= null)
+        {
+            currentHatAvaGOAttach.SetActive(true);
+        }
+        if (currentWingAvaGOAttach != null)
+        {
+            currentWingAvaGOAttach.SetActive(true);
+        }
+        if (currentTailAvaGOAttach != null)
+        {
+            currentTailAvaGOAttach.SetActive(true);
+        }
+    }
+    public void HideSetAttach()
+    {
+        if (currentHatAvaGOAttach != null)
+        {
+            currentHatAvaGOAttach.SetActive(false);
+        }
+        if (currentWingAvaGOAttach != null)
+        {
+            currentWingAvaGOAttach.SetActive(false);
+        }
+        if (currentTailAvaGOAttach != null)
+        {
+            currentTailAvaGOAttach.SetActive(false);
+        }
     }
 
     public void SetSetMatCurrent()
