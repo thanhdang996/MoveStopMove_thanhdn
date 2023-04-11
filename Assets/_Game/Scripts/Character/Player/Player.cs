@@ -320,7 +320,7 @@ public class Player : Character
     }
     #endregion
 
-    // Set
+    #region Set
     public void AttachSet(int id)
     {
         // for material
@@ -347,6 +347,7 @@ public class Player : Character
         {
             Destroy(currentWingAvaGOAttach);
         }
+
         if (setSO.HasTail(id))
         {
             currentTailAvaGOAttach = Instantiate(setSO.propsSets[id].tailPrefab, tailHolderTF).gameObject;
@@ -360,18 +361,21 @@ public class Player : Character
 
     public void DeAttachSet()
     {
+        // for material
         currentSetMatAttach = defaultPlayerMat;
 
-        Destroy(currentHatAvaGOAttach != null ? currentHatAvaGOAttach : null);
-        Destroy(currentWingAvaGOAttach != null ? currentWingAvaGOAttach : null);
-        Destroy(currentTailAvaGOAttach != null ? currentTailAvaGOAttach : null);
-        currentHatAvaGOAttach = null;
-        currentWingAvaGOAttach = null;
-        currentTailAvaGOAttach = null;
+        // for itemprefab;
+        Destroy(currentHatAvaGOAttach);
+        Destroy(currentWingAvaGOAttach);
+        Destroy(currentTailAvaGOAttach);
     }
 
     public void ShowSetAttach()
     {
+        // for material
+        currentSkinSet.material = currentSetMatAttach;
+
+        // for itemprefab;
         if (currentHatAvaGOAttach != null)
         {
             currentHatAvaGOAttach.SetActive(true);
@@ -387,6 +391,10 @@ public class Player : Character
     }
     public void HideSetAttach()
     {
+        // for material
+        currentSkinSet.material = defaultPlayerMat;
+
+        // for itemprefab;
         if (currentHatAvaGOAttach != null)
         {
             currentHatAvaGOAttach.SetActive(false);
@@ -400,20 +408,11 @@ public class Player : Character
             currentTailAvaGOAttach.SetActive(false);
         }
     }
-
-    public void SetSetMatCurrent()
-    {
-        currentSkinSet.material = currentSetMatAttach;
-    }
-    public void SetTransparentSet()
-    {
-        currentSkinSet.material = defaultPlayerMat;
-    }
     public void SetSetMat(Material mat)
     {
         currentSkinSet.material = mat;
     }
-
+    #endregion
 
 }
 

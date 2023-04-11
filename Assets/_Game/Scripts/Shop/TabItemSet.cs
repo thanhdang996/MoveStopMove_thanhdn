@@ -73,13 +73,13 @@ public class TabItemSet : AbstractTabItem
 
     public override void PreviewItem(int idUIITemShop)
     {
+        HidePreviewItem();
+
         // preview material for set
         currentMatPreview = setSO.propsSets[idUIITemShop].mat;
         LevelManager.Instance.CurrentPlayer.SetSetMat(currentMatPreview);
 
         //preview for itemPrefab
-        DeactiveItemPrefab();
-
         if (setSO.HasHat(idUIITemShop))
         {
             prefabItemHat = Instantiate(setSO.propsSets[idUIITemShop].hatPrefab, LevelManager.Instance.CurrentPlayer.HatHolderTF);
@@ -97,42 +97,36 @@ public class TabItemSet : AbstractTabItem
 
     protected override void ShowPreviewItem()
     {
-        LevelManager.Instance.CurrentPlayer.SetSetMatCurrent();
+        LevelManager.Instance.CurrentPlayer.ShowSetAttach();
     }
     public override void HidePreviewItem()
     {
         // for material
-        LevelManager.Instance.CurrentPlayer.SetTransparentSet();
+        LevelManager.Instance.CurrentPlayer.HideSetAttach();
 
         // for itemPrefab
-        DeactiveItemPrefab();
+        DestroyItemPreview();
 
     }
 
-    public void DeactiveItemPrefab()
+    public void DestroyItemPreview()
     {
         Destroy(prefabItemHat != null ? prefabItemHat.gameObject : null);
         Destroy(prefabItemWing != null ? prefabItemWing.gameObject : null);
         Destroy(prefabItemTail != null ? prefabItemTail.gameObject : null);
-
-        prefabItemHat = null;
-        prefabItemWing = null;
-        prefabItemTail = null;
     }
 
     protected override void OnEnable()
     {
         base.OnEnable();
         HidePreviewItem();
-        LevelManager.Instance.CurrentPlayer.HideSetAttach();
     }
 
     protected override void OnDisable()
     {
         base.OnDisable();
-        DeactiveItemPrefab();
+        DestroyItemPreview();
         ShowPreviewItem();
-        LevelManager.Instance.CurrentPlayer.ShowSetAttach();
     }
 
     public override int GetCurrentItemInData()
