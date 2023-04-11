@@ -18,6 +18,7 @@ public class UICShopWeapon : UICanvas
 
     [SerializeField] private Button buttonBuy;
     [SerializeField] private TextMeshProUGUI textButton;
+    [SerializeField] private TextMeshProUGUI textNameWeapon;
 
     private float snapPerItem = 5;
     public int MaxWeaponIndex => listWeaponTF.childCount - 1;
@@ -127,7 +128,7 @@ public class UICShopWeapon : UICanvas
 
     private void ChangeStateButtonBaseIndexWeapon()
     {
-
+        textNameWeapon.text = weaponSO.ReturnNameOfWeapon(currentWeaponTypeInShop);
         if ((currentWeaponTypeInShop == GetCurrentWeaponIndexInData()))
         {
             buttonBuy.interactable = true;

@@ -9,6 +9,7 @@ public enum WeaponType { Axe = 0, Boomerang = 1, Hammer = 2, Cream = 3 }
 public class PropWeapon
 {
     public GameObject weaponAvatarPrefabs;
+    public string name;
     public int attackRangeWeapons;
     public WeaponType weaponType;
     public int price;
@@ -30,5 +31,16 @@ public class WeaponSO : ScriptableObject
             }
         }
         return 0;
+    }
+    public string ReturnNameOfWeapon(WeaponType weaponType)
+    {
+        for (int i = 0; i < propWeapons.Length; i++)
+        {
+            if (propWeapons[i].weaponType == weaponType)
+            {
+                return propWeapons[i].name;
+            }
+        }
+        return "Error Name";
     }
 }
