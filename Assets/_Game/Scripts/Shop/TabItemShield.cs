@@ -8,8 +8,8 @@ public class TabItemShield : AbstractTabItem
 {
     [SerializeField] private ShieldSO shieldSO;
 
-    [SerializeField] private PrefabItemShop currentPrefabItemPlayer;
-    private List<PrefabItemShop> listPrefabItemPlayerContain = new List<PrefabItemShop>();
+    [SerializeField] private ItemShop currentItemPreview;
+    private List<ItemShop> listItemPreviewContain = new List<ItemShop>();
 
     public override void ActiveAllUIItemShop()
     {
@@ -69,35 +69,35 @@ public class TabItemShield : AbstractTabItem
         }
     }
 
-    public override void PreviewItemOnPlayer(int idUIITemShop)
+    public override void PreviewItem(int idUIITemShop)
     {
-        for (int i = 0; i < listPrefabItemPlayerContain.Count; i++)
+        for (int i = 0; i < listItemPreviewContain.Count; i++)
         {
-            if (listPrefabItemPlayerContain[i].Id == idUIITemShop)
+            if (listItemPreviewContain[i].Id == idUIITemShop)
             {
-                DeActiveitemOnCurrentPlayer();
-                currentPrefabItemPlayer = listPrefabItemPlayerContain[i];
-                ActiveItemOnCurrentPlayer();
+                HidePreviewItem();
+                currentItemPreview = listItemPreviewContain[i];
+                ShowPreviewItem();
                 return;
             }
         }
-        DeActiveitemOnCurrentPlayer();
-        currentPrefabItemPlayer = Instantiate(shieldSO.propsShields[idUIITemShop].avatarPrefab, LevelManager.Instance.CurrentPlayer.ShieldHolderTF);
-        currentPrefabItemPlayer.SetId(idUIITemShop);
+        HidePreviewItem();
+        currentItemPreview = Instantiate(shieldSO.propsShields[idUIITemShop].avatarPrefab, LevelManager.Instance.CurrentPlayer.ShieldHolderTF);
+        currentItemPreview.SetId(idUIITemShop);
 
-        listPrefabItemPlayerContain.Add(currentPrefabItemPlayer);
-        ActiveItemOnCurrentPlayer();
+        listItemPreviewContain.Add(currentItemPreview);
+        ShowPreviewItem();
     }
 
-    protected override void ActiveItemOnCurrentPlayer()
+    protected override void ShowPreviewItem()
     {
-        currentPrefabItemPlayer.gameObject.SetActive(true);
+        currentItemPreview.gameObject.SetActive(true);
     }
-    public override void DeActiveitemOnCurrentPlayer()
+    public override void HidePreviewItem()
     {
-        if (currentPrefabItemPlayer != null)
+        if (currentItemPreview != null)
         {
-            currentPrefabItemPlayer.gameObject.SetActive(false);
+            currentItemPreview.gameObject.SetActive(false);
         }
     }
 
@@ -110,7 +110,11 @@ public class TabItemShield : AbstractTabItem
     protected override void OnDisable()
     {
         base.OnDisable();
-        DeActiveitemOnCurrentPlayer();
+        for (int i = 0; i < listItemPreviewContain.Count; i++) // destroy cac list item preview
+        {
+            Destroy(listItemPreviewContain[i].gameObject);
+        }
+        listItemPreviewContain.Clear();
         LevelManager.Instance.CurrentPlayer.ShowShieldAvaAttach();
     }
 
@@ -130,7 +134,7 @@ public class TabItemShield : AbstractTabItem
 
     public override void AttachItemToPlayer()
     {
-        LevelManager.Instance.CurrentPlayer.AttachShield(currentPrefabItemPlayer);
+        LevelManager.Instance.CurrentPlayer.AttachShield(currentUIItemShop.Id);
     }
 
     public override void DeAttachItemToPlayer()

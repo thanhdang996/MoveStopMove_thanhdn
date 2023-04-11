@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PrefabItemShop : MonoBehaviour
+public class ItemShop : MonoBehaviour
 {
     private int id;
     public int Id => id;

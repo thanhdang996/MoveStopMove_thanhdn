@@ -63,7 +63,7 @@ public class UICShopDress : UICanvas
         textPrice.text = price.ToString();
     }
 
-    public void OpenTab(int tabIndex)
+    private void HandleBeforeOpenTab()
     {
         if (currentTabItem != null)
         {
@@ -74,17 +74,23 @@ public class UICShopDress : UICanvas
 
             currentTabItem.CurrentUIItemShop.Outline.enabled = false;
             currentTabItem.TurnOffOutLine();
-            currentTabItem.DeActiveitemOnCurrentPlayer();
+            currentTabItem.HidePreviewItem();
         }
+    }
+
+    public void OpenTab(int tabIndex)
+    {
+        HandleBeforeOpenTab();
+
         // vi tabIndex bang thu tu cac TabItemHat trong listTabs( luc keo editor)
         currentTabItem = listTabs[tabIndex];
         currentTabItem.ActiveAllUIItemShop();
         currentTabItem.TurnOnOutLine();
     }
 
-    public void ShowButtonDressing(int idUIITemShop, int currentItemTab)
+    public void ShowButtonDressing(int idUIITemShop, int currentItemInDataAtTab)
     {
-        if (idUIITemShop == currentItemTab)
+        if (idUIITemShop == currentItemInDataAtTab)
         {
             SetPropButtonUnEquip();
         }

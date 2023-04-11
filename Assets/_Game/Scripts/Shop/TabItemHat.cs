@@ -8,8 +8,8 @@ public class TabItemHat : AbstractTabItem
 {
     [SerializeField] private HatSO hatSO;
 
-    [SerializeField] private PrefabItemShop currentPrefabItemPreviewOnPlayer;
-    [SerializeField] private List<PrefabItemShop> listPrefabItemPreviewPlayerContain = new List<PrefabItemShop>();
+    [SerializeField] private ItemShop currentItemPreview;
+    [SerializeField] private List<ItemShop> listItemPreviewContain = new List<ItemShop>();
 
 
     public override void ActiveAllUIItemShop()
@@ -71,35 +71,36 @@ public class TabItemHat : AbstractTabItem
         }
     }
 
-    public override void PreviewItemOnPlayer(int idUIITemShop)
+
+    public override void PreviewItem(int idUIITemShop)
     {
-        for (int i = 0; i < listPrefabItemPreviewPlayerContain.Count; i++)
+        for (int i = 0; i < listItemPreviewContain.Count; i++) // kiem tra item co trong list chua
         {
-            if (listPrefabItemPreviewPlayerContain[i].Id == idUIITemShop)
+            if (listItemPreviewContain[i].Id == idUIITemShop)
             {
-                DeActiveitemOnCurrentPlayer();
-                currentPrefabItemPreviewOnPlayer = listPrefabItemPreviewPlayerContain[i];
-                ActiveItemOnCurrentPlayer();
+                HidePreviewItem();
+                currentItemPreview = listItemPreviewContain[i];
+                ShowPreviewItem();
                 return;
             }
         }
-        DeActiveitemOnCurrentPlayer();
-        currentPrefabItemPreviewOnPlayer = Instantiate(hatSO.propsHats[idUIITemShop].avatarPrefab, LevelManager.Instance.CurrentPlayer.HatHolderTF);
-        currentPrefabItemPreviewOnPlayer.SetId(idUIITemShop);
+        HidePreviewItem();
+        currentItemPreview = Instantiate(hatSO.propsHats[idUIITemShop].avatarPrefab, LevelManager.Instance.CurrentPlayer.HatHolderTF);
+        currentItemPreview.SetId(idUIITemShop);
 
-        listPrefabItemPreviewPlayerContain.Add(currentPrefabItemPreviewOnPlayer);
-        ActiveItemOnCurrentPlayer();
+        listItemPreviewContain.Add(currentItemPreview);
+        ShowPreviewItem();
     }
 
-    protected override void ActiveItemOnCurrentPlayer()
+    protected override void ShowPreviewItem()
     {
-        currentPrefabItemPreviewOnPlayer.gameObject.SetActive(true); //show tren nguoi player nhung la prefab
+        currentItemPreview.gameObject.SetActive(true); //show tren nguoi player nhung la prefab
     }
-    public override void DeActiveitemOnCurrentPlayer() //hide tren nguoi player nhung la prefab
+    public override void HidePreviewItem() //hide tren nguoi player nhung la prefab
     {
-        if (currentPrefabItemPreviewOnPlayer != null)
+        if (currentItemPreview != null)
         {
-            currentPrefabItemPreviewOnPlayer.gameObject.SetActive(false);
+            currentItemPreview.gameObject.SetActive(false);
         }
     }
 
@@ -113,7 +114,11 @@ public class TabItemHat : AbstractTabItem
     protected override void OnDisable()
     {
         base.OnDisable();
-        DeActiveitemOnCurrentPlayer();
+        for (int i = 0; i < listItemPreviewContain.Count; i++) // destroy cac list item preview
+        {
+            Destroy(listItemPreviewContain[i].gameObject);
+        }
+        listItemPreviewContain.Clear();
         LevelManager.Instance.CurrentPlayer.ShowHatAvaAttach(); //show tren nguoi player nhung la currentHatAvaGOAttach that
     }
 
@@ -133,7 +138,7 @@ public class TabItemHat : AbstractTabItem
 
     public override void AttachItemToPlayer()
     {
-        LevelManager.Instance.CurrentPlayer.AttachHat(currentPrefabItemPreviewOnPlayer);
+        LevelManager.Instance.CurrentPlayer.AttachHat(currentUIItemShop.Id);
     }
 
     public override void DeAttachItemToPlayer()

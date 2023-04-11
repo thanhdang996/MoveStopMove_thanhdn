@@ -10,13 +10,13 @@ public class PropsItem
 [System.Serializable]
 public class PropsHat : PropsItem
 {
-    public PrefabItemShop avatarPrefab;
+    public ItemShop avatarPrefab;
 }
 
 [System.Serializable]
 public class PropsShield : PropsItem
 {
-    public PrefabItemShop avatarPrefab;
+    public ItemShop avatarPrefab;
 }
 
 [System.Serializable]
@@ -29,9 +29,9 @@ public class PropsPant : PropsItem
 public class PropsSet : PropsItem
 {
     public Material mat;
-    public PrefabItemShop hatPrefab;
-    public PrefabItemShop wingPrefab;
-    public PrefabItemShop tailPrefab;
+    public ItemShop hatPrefab;
+    public ItemShop wingPrefab;
+    public ItemShop tailPrefab;
 }
 
 

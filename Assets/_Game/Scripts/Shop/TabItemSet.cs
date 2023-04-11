@@ -7,9 +7,9 @@ public class TabItemSet : AbstractTabItem
     [SerializeField] private SetSO setSO;
     [SerializeField] private Material currentMatPreview;
 
-    [SerializeField] private PrefabItemShop prefabItemHat;
-    [SerializeField] private PrefabItemShop prefabItemWing;
-    [SerializeField] private PrefabItemShop prefabItemTail;
+    [SerializeField] private ItemShop prefabItemHat;
+    [SerializeField] private ItemShop prefabItemWing;
+    [SerializeField] private ItemShop prefabItemTail;
 
 
     public override void ActiveAllUIItemShop()
@@ -71,7 +71,7 @@ public class TabItemSet : AbstractTabItem
         }
     }
 
-    public override void PreviewItemOnPlayer(int idUIITemShop)
+    public override void PreviewItem(int idUIITemShop)
     {
         // preview material for set
         currentMatPreview = setSO.propsSets[idUIITemShop].mat;
@@ -95,11 +95,11 @@ public class TabItemSet : AbstractTabItem
     }
 
 
-    protected override void ActiveItemOnCurrentPlayer()
+    protected override void ShowPreviewItem()
     {
         LevelManager.Instance.CurrentPlayer.SetSetMatCurrent();
     }
-    public override void DeActiveitemOnCurrentPlayer()
+    public override void HidePreviewItem()
     {
         // for material
         LevelManager.Instance.CurrentPlayer.SetTransparentSet();
@@ -123,7 +123,7 @@ public class TabItemSet : AbstractTabItem
     protected override void OnEnable()
     {
         base.OnEnable();
-        DeActiveitemOnCurrentPlayer();
+        HidePreviewItem();
         LevelManager.Instance.CurrentPlayer.HideSetAttach();
     }
 
@@ -131,7 +131,7 @@ public class TabItemSet : AbstractTabItem
     {
         base.OnDisable();
         DeactiveItemPrefab();
-        ActiveItemOnCurrentPlayer();
+        ShowPreviewItem();
         LevelManager.Instance.CurrentPlayer.ShowSetAttach();
     }
 

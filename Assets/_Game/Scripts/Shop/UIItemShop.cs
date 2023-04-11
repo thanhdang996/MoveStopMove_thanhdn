@@ -72,7 +72,7 @@ public class UIItemShop : MonoBehaviour
         CheckIfItemUnlockChangeButtonTabRoot();
 
         outline.enabled = true;
-        tabItem.PreviewItemOnPlayer(id);
+        tabItem.PreviewItem(id);
     }
 
 
@@ -85,7 +85,7 @@ public class UIItemShop : MonoBehaviour
 
         outline.enabled = true;
         tabItem.ChangeOutLineButtonAndSetNewCurrentUI(id);
-        tabItem.PreviewItemOnPlayer(id);
+        tabItem.PreviewItem(id);
     }
 
     private void CheckIfItemUnlockChangeButtonTabRoot()

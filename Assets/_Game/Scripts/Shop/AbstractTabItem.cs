@@ -31,10 +31,10 @@ public abstract class AbstractTabItem : MonoBehaviour
     }
 
     public abstract void ActiveAllUIItemShop();
-    public abstract void PreviewItemOnPlayer(int idUIITemShop);
+    public abstract void PreviewItem(int idUIITemShop);
 
-    protected abstract void ActiveItemOnCurrentPlayer();
-    public abstract void DeActiveitemOnCurrentPlayer();
+    protected abstract void ShowPreviewItem();
+    public abstract void HidePreviewItem();
 
 
     public virtual void ChangeOutLineButtonAndSetNewCurrentUI(int id)

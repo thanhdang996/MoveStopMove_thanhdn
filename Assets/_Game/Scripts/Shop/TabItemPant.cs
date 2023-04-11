@@ -10,6 +10,7 @@ public class TabItemPant : AbstractTabItem
 
     [SerializeField] private Material currentMatPreview;
 
+
     public override void ActiveAllUIItemShop()
     {
         PropsPant[] propPants = pantSO.propsPants;
@@ -70,30 +71,31 @@ public class TabItemPant : AbstractTabItem
     }
 
 
-    public override void PreviewItemOnPlayer(int idUIITemShop)
+    public override void PreviewItem(int idUIITemShop)
     {
+        HidePreviewItem();
         currentMatPreview = pantSO.propsPants[idUIITemShop].mat;
+        ShowPreviewItem();
+    }
+    protected override void ShowPreviewItem() //show tren nguoi player luon
+    {
         LevelManager.Instance.CurrentPlayer.SetPantMat(currentMatPreview);
     }
-    protected override void ActiveItemOnCurrentPlayer() //show tren nguoi player luon
+    public override void HidePreviewItem()
     {
-        LevelManager.Instance.CurrentPlayer.SetPantMatCurrent();
-    }
-    public override void DeActiveitemOnCurrentPlayer()
-    {
-        LevelManager.Instance.CurrentPlayer.SetTransparentPant(); //hide tren nguoi player luon
+        LevelManager.Instance.CurrentPlayer.HidePantAttach(); //hide tren nguoi player luon
     }
 
     protected override void OnEnable()
     {
         base.OnEnable();
-        DeActiveitemOnCurrentPlayer();
+        HidePreviewItem();
     }
 
     protected override void OnDisable()
     {
         base.OnDisable();
-        ActiveItemOnCurrentPlayer();
+        LevelManager.Instance.CurrentPlayer.ShowPantAttach();
     }
 
     public override int GetCurrentItemInData()

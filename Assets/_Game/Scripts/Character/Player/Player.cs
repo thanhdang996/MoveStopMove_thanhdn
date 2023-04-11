@@ -15,8 +15,6 @@ public class Player : Character
 
     [SerializeField] private Material defaultPlayerMat;
 
-    //[SerializeField] private List<PrefabItemShop> listContainHat;
-    //[SerializeField] private List<PrefabItemShop> listContainShield;
 
 
     private bool isWin;
@@ -220,7 +218,7 @@ public class Player : Character
         }
         if (setSO.HasTail(currentSetInData))
         {
-           currentTailAvaGOAttach = Instantiate(setSO.propsSets[currentSetInData].tailPrefab, tailHolderTF).gameObject;
+            currentTailAvaGOAttach = Instantiate(setSO.propsSets[currentSetInData].tailPrefab, tailHolderTF).gameObject;
         }
     }
 
@@ -238,37 +236,18 @@ public class Player : Character
         DataManager.Instance.SaveData();
     }
 
-
-    // hat
-
-    //public void AttachHat(int id)
-    //{
-    //    for (int i = 0; i < listContainHat.Count; i++)
-    //    {
-    //        if (listContainHat[i].Id == id)
-    //        {
-    //            currentHatAvaGOAttach = listContainHat[i].gameObject;
-    //            currentHatAvaGOAttach.SetActive(false);
-    //            return;
-    //        }
-    //    }
-
-    //    PrefabItemShop itemHat = Instantiate(hatSO.propsHats[id].avatarPrefab, hatHolderTF);
-    //    itemHat.SetId(id);
-    //    listContainHat.Add(itemHat);
-    //    currentHatAvaGOAttach = itemHat.gameObject;
-    //    currentHatAvaGOAttach.SetActive(false);
-    //}
-
-    public void AttachHat(PrefabItemShop currentPrefabItemPlayer)
+    
+    #region Hat
+    public void AttachHat(int idUIITemShop)
     {
-        currentHatAvaGOAttach = currentPrefabItemPlayer.gameObject;
+        currentHatAvaGOAttach = Instantiate(hatSO.propsHats[idUIITemShop].avatarPrefab, hatHolderTF).gameObject;
+        currentHatAvaGOAttach.SetActive(false);
     }
-
     public void DeAttachHat()
     {
-        currentHatAvaGOAttach = null;
+        Destroy(currentHatAvaGOAttach);
     }
+
 
     public void ShowHatAvaAttach()
     {
@@ -284,9 +263,11 @@ public class Player : Character
             currentHatAvaGOAttach.SetActive(false);
         }
     }
+    #endregion
 
 
-    // pant
+
+    #region Pant
     public void AttachPant(int id)
     {
         currentPantMatAttach = pantSO.propsPants[id].mat;
@@ -297,11 +278,11 @@ public class Player : Character
         currentPantMatAttach = transparentMat;
     }
 
-    public void SetPantMatCurrent()
+    public void ShowPantAttach()
     {
         currentSkinPant.material = currentPantMatAttach;
     }
-    public void SetTransparentPant()
+    public void HidePantAttach()
     {
         currentSkinPant.material = transparentMat;
     }
@@ -309,39 +290,17 @@ public class Player : Character
     {
         currentSkinPant.material = mat;
     }
+    #endregion
 
-
-
-    // Shield
-
-    //public void AttachShield(int id)
-    //{
-    //    for (int i = 0; i < listContainShield.Count; i++)
-    //    {
-    //        if (listContainShield[i].Id == id)
-    //        {
-    //            currentShieldAvaGOAttach = listContainShield[i].gameObject;
-    //            currentShieldAvaGOAttach.SetActive(false);
-    //            return;
-    //        }
-    //    }
-
-    //    PrefabItemShop itemShield = Instantiate(shieldSO.propsShields[id].avatarPrefab, shieldHolderTF);
-    //    itemShield.SetId(id);
-    //    listContainShield.Add(itemShield);
-    //    currentShieldAvaGOAttach = itemShield.gameObject;
-    //    currentShieldAvaGOAttach.SetActive(false);
-    //}
-
-    public void AttachShield(PrefabItemShop currentPrefabItemPlayer)
+    #region Shield
+    public void AttachShield(int idUIITemShop)
     {
-        currentShieldAvaGOAttach = currentPrefabItemPlayer.gameObject;
+        currentShieldAvaGOAttach = Instantiate(shieldSO.propsShields[idUIITemShop].avatarPrefab, shieldHolderTF).gameObject;
+        currentShieldAvaGOAttach.SetActive(false);
     }
-
-
     public void DeAttachShield()
     {
-        currentShieldAvaGOAttach = null;
+        Destroy(currentShieldAvaGOAttach);
     }
 
 
@@ -359,6 +318,7 @@ public class Player : Character
             currentShieldAvaGOAttach.SetActive(false);
         }
     }
+    #endregion
 
     // Set
     public void AttachSet(int id)
@@ -372,11 +332,12 @@ public class Player : Character
         {
             currentHatAvaGOAttach = Instantiate(setSO.propsSets[id].hatPrefab, hatHolderTF).gameObject;
             currentHatAvaGOAttach.SetActive(false);
-        }else
+        }
+        else
         {
             Destroy(currentHatAvaGOAttach);
         }
-            
+
         if (setSO.HasWing(id))
         {
             currentWingAvaGOAttach = Instantiate(setSO.propsSets[id].wingPrefab, wingHolderTF).gameObject;
@@ -411,7 +372,7 @@ public class Player : Character
 
     public void ShowSetAttach()
     {
-        if(currentHatAvaGOAttach!= null)
+        if (currentHatAvaGOAttach != null)
         {
             currentHatAvaGOAttach.SetActive(true);
         }
