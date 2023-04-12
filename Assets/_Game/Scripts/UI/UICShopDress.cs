@@ -45,6 +45,9 @@ public class UICShopDress : UICanvas
         base.Open();
         UI_UpdateTextCoin();
         OpenTab(tabIndex: 0);
+
+        LevelManager.Instance.CurrentPlayer.IsInShopDress = true;
+        StartCoroutine(LevelManager.Instance.CurrentPlayer.Cam.AnimatCamPullDown());
     }
 
     public override void CloseDirectly()
@@ -52,6 +55,9 @@ public class UICShopDress : UICanvas
         base.CloseDirectly();
         UIManager.Instance.OpenUI<UICMainMenu>();
         UIManager.Instance.GetUI<UICMainMenu>().UI_UpdateTextCoin();
+
+        LevelManager.Instance.CurrentPlayer.IsInShopDress = false;
+        LevelManager.Instance.CurrentPlayer.Cam.StartAnimatCamPullUp();
     }
 
     public void UI_UpdateTextCoin()

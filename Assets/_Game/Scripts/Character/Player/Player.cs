@@ -12,13 +12,18 @@ public class Player : Character
     public PlayerMovement PlayerMovement => playerMovement;
 
     private CameraFollow cam;
+    public CameraFollow Cam => cam;
 
+    [SerializeField] private SpriteRenderer attackRangeSpriteRender;
+    public SpriteRenderer AttackRangeSpriteRender => attackRangeSpriteRender;
     [SerializeField] private Material defaultPlayerMat;
 
 
 
     private bool isWin;
     public bool IsWin { get => isWin; set => isWin = value; }
+
+    public bool IsInShopDress { get; set; }
 
 
     protected override void Awake()
@@ -33,6 +38,7 @@ public class Player : Character
         base.OnInit();
         playerMovement.enabled = true;
         IsWin = false;
+        TF.rotation = Quaternion.Euler(0, 180, 0);
     }
 
     public override void OnDespawn() // check lose
@@ -52,10 +58,10 @@ public class Player : Character
 
     private void Update()
     {
+        HandleAnim();
         if (GameManager.Instance.IsState(GameState.GamePlay))
         {
             CheckTargetNearestAndShowAim();
-            HandleAnim();
 
             if (PlayerMovement.IsMoving()) return;
             if (ListTarget.Count > 0)
@@ -93,7 +99,7 @@ public class Player : Character
 
     private void HandleAnim()
     {
-        if (IsWin)
+        if (IsWin || IsInShopDress)
         {
             ChangeAnim(Constant.ANIM_DANCE);
             return;

@@ -221,6 +221,10 @@ public class LevelManager : Singleton<LevelManager>
     {
         GameManager.Instance.ChangeState(GameState.GamePlay);
 
+        // handle active range sprite and animate cam when start game
+        currentPlayer.AttackRangeSpriteRender.enabled = true;
+        currentPlayer.Cam.AnimateCamera();
+
         for (int i = 0; i < listBotCurrent.Count; i++)
         {
             listBotCurrent[i].ChangeState(new PatrolState());
@@ -243,9 +247,14 @@ public class LevelManager : Singleton<LevelManager>
         CurrentLevel.EnemyRemain = CurrentLevel.GetTotalEnemy();
         RevivePlayer();
         currentPlayer.ResetLevelCharacter(); // reset player moi revive bot, vi level bot base on player
+        currentPlayer.HandleAttackRangeBaseOnRangeWeapon(); // reset size player
         currentPlayer.TF.position = currentLevel.SpawnPosForPlayerTF.position;
 
         ReviveAllRandomBot();
+
+        // handle deactive range sprite and reset pos cam to init pos
+        currentPlayer.AttackRangeSpriteRender.enabled = false;
+        currentPlayer.Cam.SetCamBachToInit();
     }
 
     // next level

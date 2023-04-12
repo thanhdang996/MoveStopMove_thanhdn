@@ -1421,8 +1421,8 @@ MonoBehaviour:
   button: {fileID: 8006185830340606717}
   outline: {fileID: 4952215658549854539}
   hatSO: {fileID: 11400000, guid: bf2b52b8ae73549428efb2a8a32b9b6e, type: 2}
-  currentPrefabItemPreviewOnPlayer: {fileID: 0}
-  listPrefabItemPreviewPlayerContain: []
+  currentItemPreview: {fileID: 0}
+  listItemPreviewContain: []
 --- !u!114 &4952215658549854539
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1910,7 +1910,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8006185830813722779}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -2514,8 +2514,10 @@ MonoBehaviour:
   button: {fileID: 8006185831842438323}
   outline: {fileID: 8228789121469070169}
   setSO: {fileID: 11400000, guid: dd6bde5e276aeb1478bf07a4d911eaf9, type: 2}
-  currentPrefabItemPreviewOnPlayer: {fileID: 0}
-  listPrefabItemPreviewPlayerContain: []
+  currentMatPreview: {fileID: 0}
+  prefabItemHat: {fileID: 0}
+  prefabItemWing: {fileID: 0}
+  prefabItemTail: {fileID: 0}
 --- !u!1 &8006185831891876883
 GameObject:
   m_ObjectHideFlags: 0
@@ -2672,7 +2674,7 @@ MonoBehaviour:
   button: {fileID: 8006185831891876881}
   outline: {fileID: 1826683626868759158}
   shieldSO: {fileID: 11400000, guid: fb204979592aa8d4b9e3fdc2659aac49, type: 2}
-  currentPrefabItemPlayer: {fileID: 0}
+  currentItemPreview: {fileID: 0}
 --- !u!1 &8006185832014848299
 GameObject:
   m_ObjectHideFlags: 0

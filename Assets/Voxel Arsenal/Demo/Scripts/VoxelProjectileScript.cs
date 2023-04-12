@@ -10,7 +10,7 @@ namespace VoxelArsenal
         public GameObject muzzleParticle; // Effect instantly spawned when gameobject is spawned
         [Header("Adjust if not using Sphere Collider")]
         public float colliderRadius = 1f;
-        [Range(0f, 1f)] // This is an offset that moves the impact effect slightly away from the point of impact to reduce clipping of the impact effect
+        [Range(0f, 1f)] // This is an offsetPosCam that moves the impact effect slightly away from the point of impact to reduce clipping of the impact effect
         public float collideOffset = 0.15f;
 
         void Start()
