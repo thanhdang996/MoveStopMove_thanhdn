@@ -6,7 +6,7 @@ using TMPro;
 public class UICMainMenu : UICanvas
 {
     [SerializeField] private TextMeshProUGUI textCoin;
-
+    [SerializeField] private Animation newAnimation;
 
 
     public override void Open()
@@ -37,10 +37,11 @@ public class UICMainMenu : UICanvas
 
     public void Button_PlayGame()
     {
+        newAnimation.Play("Out MainMenu");
         UIManager.Instance.OpenUI<UICGamePlay>();
         UIManager.Instance.IndicatorParent.SetActive(true);
         SoundManager.Instance.PlayBGSoundMusic();
         LevelManager.Instance.OnStartGame();
-        CloseDirectly();
+        //CloseDirectly();
     }
 }
