@@ -29,7 +29,7 @@ public class CameraFollow : MonoBehaviour
     private Vector3 standarPosVector3 = new Vector3(0, 2, -8);
     private Vector3 standarRotationVector3 = new Vector3(11, 0, 0);
 
-    private Vector3 offsetPosCam;
+    [SerializeField] private Vector3 offsetPosCam;
     private Vector3 desRotateCam = new Vector3(40, 0, 0);
 
     private void Awake()

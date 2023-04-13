@@ -8,6 +8,7 @@ public class Bot : Character
 {
     public event System.Action<Bot> OnDeath;
     [SerializeField] private GameObject aimedGO;
+    [SerializeField] private ColorSO colorSO;
 
     private NavMeshAgent navMeshAgent;
     private IState currentState;
@@ -50,6 +51,13 @@ public class Bot : Character
 
         Indicator = SimplePool.Spawn<Indicator>(PoolType.Indicator);
         Indicator.HideIndicator(); // fix loi ruoi bay indicator khi moi sinh bot 
+        Destroy(currentHatAvaGOAttach);
+        Destroy(currentShieldAvaGOAttach);
+
+        RandomColorBot();
+        RandomHatBot();
+        RandomPantBot();
+        RandomShield();
 
         LevelManager.Instance.ListBotCurrent.Add(this);
     }
@@ -58,7 +66,7 @@ public class Bot : Character
     public override void OnDespawn()
     {
         StopMoving();
-        navMeshAgent.enabled= false; // fix when next level not correct pos
+        navMeshAgent.enabled = false; // fix when next level not correct pos
         base.OnDespawn();
 
         LevelManager.Instance.CurrentLevel.MinusOneTotalEnemy();
@@ -80,6 +88,33 @@ public class Bot : Character
         }
     }
 
+    private void RandomColorBot()
+    {
+        int randomIndexColor = Random.Range(0, colorSO.propsColors.Length);
+        Material colorMat = colorSO.propsColors[randomIndexColor].mat;
+        currentSkinSet.material = colorMat;
+    }
+    private void RandomHatBot()
+    {
+        int randomIndex = Random.Range(-1, hatSO.propsHats.Length);
+        if (randomIndex == -1) return;
+        currentHatAvaGOAttach = Instantiate(hatSO.propsHats[randomIndex].avatarPrefab, hatHolderTF).gameObject;
+    }
+    private void RandomPantBot()
+    {
+        int randomIndex = Random.Range(-1, pantSO.propsPants.Length);
+        if (randomIndex == -1) return;
+
+        currentPantMatAttach = pantSO.propsPants[randomIndex].mat;
+        currentSkinPant.material = currentPantMatAttach;
+    }
+    private void RandomShield()
+    {
+        int randomIndex = Random.Range(-1, shieldSO.propsShields.Length);
+        if (randomIndex == -1) return;
+
+        currentShieldAvaGOAttach = Instantiate(shieldSO.propsShields[randomIndex].avatarPrefab, shieldHolderTF).gameObject;
+    }
 
     public void StopMoving()
     {

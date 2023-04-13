@@ -399,8 +399,11 @@ MonoBehaviour:
   currentSkinSet: {fileID: 3529719572588515188}
   wingHolderTF: {fileID: 955722912420790578}
   tailHolderTF: {fileID: 8362881411234354244}
+  currentWingAvaGOAttach: {fileID: 0}
+  currentTailAvaGOAttach: {fileID: 0}
   levelCharacter: 0
   aimedGO: {fileID: 1432887701538854761}
+  colorSO: {fileID: 11400000, guid: 1b29042111cb3b945be6e300fade5cb3, type: 2}
   currentPosTarget: {x: 0, y: 0, z: 0}
   indicator: {fileID: 0}
 --- !u!1 &564957047264644713
@@ -2531,7 +2534,7 @@ SkinnedMeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7813228411039906800}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1

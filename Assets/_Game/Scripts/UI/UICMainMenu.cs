@@ -42,6 +42,6 @@ public class UICMainMenu : UICanvas
         UIManager.Instance.IndicatorParent.SetActive(true);
         SoundManager.Instance.PlayBGSoundMusic();
         LevelManager.Instance.OnStartGame();
-        //CloseDirectly();
+        //CloseDirectly(); call from anim event
     }
 }
