@@ -22,14 +22,14 @@ MonoBehaviour:
     name: Boomerang
     attackRangeWeapons: 15
     weaponType: 1
-    price: 20
+    price: 200
   - weaponAvatarPrefabs: {fileID: 4405965863068892946, guid: a8e0c1da900a7d349a67d00d23b1f98e, type: 3}
     name: Hammer
     attackRangeWeapons: 5
     weaponType: 2
-    price: 40
+    price: 400
   - weaponAvatarPrefabs: {fileID: 3777738539942493345, guid: 4e5a73ca2c050a4428655081788dde46, type: 3}
     name: Cream
     attackRangeWeapons: 7
     weaponType: 3
-    price: 60
+    price: 600

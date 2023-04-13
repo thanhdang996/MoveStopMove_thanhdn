@@ -97,6 +97,8 @@ public class Character : GameUnit
     //Current Level Character
     [SerializeField] protected int levelCharacter = 0;
     public int LevelCharacter => levelCharacter;
+    [SerializeField] protected CanvasShowLevel canvasShowLevel;
+    public CanvasShowLevel CanvasShowLevel => canvasShowLevel;
 
 
     protected virtual void Awake()
@@ -106,6 +108,7 @@ public class Character : GameUnit
 
     public virtual void OnInit()
     {
+        canvasShowLevel.gameObject.SetActive(true);
         capsuleCollider.enabled = true;
         attackRangeGO.SetActive(true);
         IsDead = false;
@@ -142,6 +145,8 @@ public class Character : GameUnit
     {
         SoundManager.Instance.PlaySoundSFX3D(SoundType.Dead, TF.position);
         ParticlePool.Play(ParticleType.Hit, transform.position + Vector3.up * 2, Quaternion.identity);
+        canvasShowLevel.gameObject.SetActive(false);
+
         SetPropWhenDeath();
     }
 
@@ -281,6 +286,7 @@ public class Character : GameUnit
         attackRangeGO.transform.localScale = oriScaleAttackRange + (Vector3.one * scalePerKill);
 
         levelCharacter++;
+        canvasShowLevel.SetTextLevel(levelCharacter);
     }
     protected void ChangeAnim(string animName)
     {

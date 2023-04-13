@@ -35,7 +35,8 @@ public class IndicatorHandle : Singleton<IndicatorHandle>
                 Vector3 fromPos = cam.WorldToScreenPoint(playerTF.position);
                 Vector3 dir = (toPos - fromPos).normalized;
                 float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-                listBotTargets[i].Indicator.RTF.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+                //listBotTargets[i].Indicator.RTF.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+                listBotTargets[i].Indicator.Avatar.transform.rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
 
                 float borderSize = 50;
                 Vector3 targetPosScreenPoint = toPos;
@@ -47,7 +48,8 @@ public class IndicatorHandle : Singleton<IndicatorHandle>
                     if (cappedTargetScreenPos.z < 0)
                     {
                         cappedTargetScreenPos *= -1;
-                        listBotTargets[i].Indicator.RTF.rotation = Quaternion.AngleAxis(angle + 180, Vector3.forward);
+                        //listBotTargets[i].Indicator.RTF.rotation = Quaternion.AngleAxis(angle + 180, Vector3.forward);
+                        listBotTargets[i].Indicator.Avatar.transform.rotation = Quaternion.AngleAxis(angle + 180 - 90, Vector3.forward);
                     }
                     cappedTargetScreenPos.x = Mathf.Clamp(cappedTargetScreenPos.x, borderSize, Screen.width - borderSize);
                     cappedTargetScreenPos.y = Mathf.Clamp(cappedTargetScreenPos.y, borderSize, Screen.height - borderSize);

@@ -207,7 +207,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   poolType: 4
-  speed: 15
+  speed: 10
   weaponType: 1
   rotationSelf: {fileID: 90353529842403373}
   speedReturn: 15

@@ -49,8 +49,14 @@ public class Bot : Character
         navMeshAgent.ResetPath();
         StopMoving();
 
-        Indicator = SimplePool.Spawn<Indicator>(PoolType.Indicator);
-        Indicator.HideIndicator(); // fix loi ruoi bay indicator khi moi sinh bot 
+        indicator = SimplePool.Spawn<Indicator>(PoolType.Indicator);
+        indicator.SetTextLevel(levelCharacter);
+        indicator.HideIndicator(); // fix loi ruoi bay indicator khi moi sinh bot 
+
+
+        canvasShowLevel.SetTextLevel(levelCharacter);
+
+
         Destroy(currentHatAvaGOAttach);
         Destroy(currentShieldAvaGOAttach);
 
@@ -72,7 +78,7 @@ public class Bot : Character
         LevelManager.Instance.CurrentLevel.MinusOneTotalEnemy();
         UIManager.Instance.GetUI<UICGamePlay>().UI_UpdateEnemeRemainText();
 
-        SimplePool.Despawn(Indicator);
+        SimplePool.Despawn(indicator);
         OnDeath?.Invoke(this);
 
         LevelManager.Instance.ListBotCurrent.Remove(this);
@@ -222,5 +228,11 @@ public class Bot : Character
     public void CreateNewWeaponBasePlayerJustAdd(WeaponType indexWeaponOnShop)
     {
         Instantiate(weaponSO.propWeapons[(int)indexWeaponOnShop].weaponAvatarPrefabs, weaponHolderTF).SetActive(false);
+    }
+
+    public override void ChangeScalePerKillAndIncreaseLevel()
+    {
+        base.ChangeScalePerKillAndIncreaseLevel();
+        indicator.SetTextLevel(levelCharacter);
     }
 }

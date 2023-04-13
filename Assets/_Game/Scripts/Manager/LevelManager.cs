@@ -75,6 +75,7 @@ public class LevelManager : Singleton<LevelManager>
         currentPlayer.HandleAttackRangeBaseOnRangeWeapon();
         currentPlayer.HandleCamPlayerBaseOnRangeWeapon();
         currentPlayer.OnInit();
+        currentPlayer.CanvasShowLevel.gameObject.SetActive(false);
 
         currentPlayer.OnDeath += CheckConditionToLose; // cac action  dki 1 lan duy nhat luc tao
     }
@@ -111,8 +112,9 @@ public class LevelManager : Singleton<LevelManager>
 
             bot.CreateWeaponBotBaseOnPlayerOwner();
             bot.ActiveRandomWeapon();
-            bot.HandleAttackRangeBaseOnRangeWeapon();
             bot.OnInit();
+            bot.HandleAttackRangeBaseOnRangeWeapon();
+            bot.CanvasShowLevel.gameObject.SetActive(false);
             bot.ChangeState(null);
             bot.OnDeath += CheckConditionEnemyRemainToSpawnAndCheckWin; // cac action  dki 1 lan duy nhat luc tao
         }
@@ -129,6 +131,7 @@ public class LevelManager : Singleton<LevelManager>
             bot.OnInit();
             bot.HandleAttackRangeBaseOnRangeWeapon();
             bot.ChangeState(null);
+            bot.CanvasShowLevel.gameObject.SetActive(false);
         }
     }
 
@@ -152,8 +155,8 @@ public class LevelManager : Singleton<LevelManager>
         RandomPosNotNearChacracter(bot);
 
         bot.ActiveRandomWeapon();
-        bot.HandleAttackRangeBaseOnRangeWeapon();
         bot.OnInit();
+        bot.HandleAttackRangeBaseOnRangeWeapon();
         bot.ChangeState(new PatrolState());
     }
 
@@ -233,11 +236,13 @@ public class LevelManager : Singleton<LevelManager>
 
         // handle active range sprite and animate cam when start game
         currentPlayer.AttackRangeSpriteRender.enabled = true;
+        currentPlayer.CanvasShowLevel.gameObject.SetActive(true);
         currentPlayer.Cam.AnimateCamera();
 
         for (int i = 0; i < listBotCurrent.Count; i++)
         {
             listBotCurrent[i].ChangeState(new PatrolState());
+            listBotCurrent[i].CanvasShowLevel.gameObject.SetActive(true);
         }
     }
 
@@ -265,6 +270,7 @@ public class LevelManager : Singleton<LevelManager>
 
         // handle deactive range sprite and reset pos cam to init pos
         currentPlayer.AttackRangeSpriteRender.enabled = false;
+        currentPlayer.CanvasShowLevel.gameObject.SetActive(false);
         currentPlayer.Cam.SetCamBachToInit();
     }
 

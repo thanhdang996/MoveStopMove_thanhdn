@@ -39,6 +39,7 @@ public class Player : Character
         playerMovement.enabled = true;
         IsWin = false;
         TF.rotation = Quaternion.Euler(0, 180, 0);
+        canvasShowLevel.SetTextLevel(levelCharacter);
     }
 
     public override void OnDespawn() // check lose
