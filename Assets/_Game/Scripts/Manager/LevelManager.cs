@@ -14,6 +14,8 @@ public class LevelManager : Singleton<LevelManager>
     [SerializeField] private List<Bot> listBotCurrent = new List<Bot>();
     public List<Bot> ListBotCurrent => listBotCurrent;
 
+    private int maxLevel = 2;
+
     public void RemoveLastMap()
     {
         if (currentLevel != null)
@@ -124,8 +126,8 @@ public class LevelManager : Singleton<LevelManager>
             bot.TF.position = CurrentLevel.ListSpawnPosTrigger[i].TF.position;
 
             bot.ActiveRandomWeapon();
-            bot.HandleAttackRangeBaseOnRangeWeapon();
             bot.OnInit();
+            bot.HandleAttackRangeBaseOnRangeWeapon();
             bot.ChangeState(null);
         }
     }
@@ -138,8 +140,8 @@ public class LevelManager : Singleton<LevelManager>
             bot.TF.position = CurrentLevel.ListSpawnPosTrigger[i].TF.position;
 
             bot.ActiveRandomWeapon();
-            bot.HandleAttackRangeBaseOnRangeWeapon();
             bot.OnInit();
+            bot.HandleAttackRangeBaseOnRangeWeapon();
             bot.ChangeState(new PatrolState());
         }
     }
@@ -209,7 +211,15 @@ public class LevelManager : Singleton<LevelManager>
     {
         if (currentLevel.NoMoreEnemy && !currentPlayer.IsDead)
         {
-            UIManager.Instance.OpenUI<UICWinLevel>();
+            if (DataManager.Instance.Data.LevelId == maxLevel)
+            {
+                UIManager.Instance.OpenUI<UICFinalWin>();
+            }
+            else
+            {
+                UIManager.Instance.OpenUI<UICWinLevel>();
+            }
+
             currentPlayer.DisablePlayerMovement();
             currentPlayer.IsWin = true;
         }
@@ -248,6 +258,7 @@ public class LevelManager : Singleton<LevelManager>
         RevivePlayer();
         currentPlayer.ResetLevelCharacter(); // reset player moi revive bot, vi level bot base on player
         currentPlayer.HandleAttackRangeBaseOnRangeWeapon(); // reset size player
+        currentPlayer.HandleCamPlayerBaseOnRangeWeapon(); //reset offsetCam
         currentPlayer.TF.position = currentLevel.SpawnPosForPlayerTF.position;
 
         ReviveAllRandomBot();
