@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class LevelManager : Singleton<LevelManager>
 {
@@ -112,6 +111,8 @@ public class LevelManager : Singleton<LevelManager>
 
             bot.CreateWeaponBotBaseOnPlayerOwner();
             bot.ActiveRandomWeapon();
+
+            bot.RandomColorBotAndSetCanvasLevelColor(i);
             bot.OnInit();
             bot.HandleAttackRangeBaseOnRangeWeapon();
             bot.CanvasShowLevel.gameObject.SetActive(false);

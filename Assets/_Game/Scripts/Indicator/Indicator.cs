@@ -34,4 +34,8 @@ public class Indicator : GameUnit
     {
         textLevel.text = level.ToString();
     }
+    public void SetColor(Color color)
+    {
+        avatar.GetComponent<Image>().color = color;
+    }
 }

@@ -13,10 +13,13 @@ MonoBehaviour:
   m_Name: Color Props
   m_EditorClassIdentifier: 
   propsColors:
-  - mat: {fileID: 2100000, guid: c114d7d22acaaab4c99cd1769e342127, type: 2}
-  - mat: {fileID: 2100000, guid: e38f221522084c345959c0621beae449, type: 2}
-  - mat: {fileID: 2100000, guid: 2d116da627466f949ba84a3fd589203d, type: 2}
-  - mat: {fileID: 2100000, guid: 0df847de42ca93143825dc6cf64a1fb2, type: 2}
   - mat: {fileID: 2100000, guid: 41a90d376b49a2a4dad89d47c5b37cb0, type: 2}
-  - mat: {fileID: 2100000, guid: 9dee40907169f9441ae3b7043128074a, type: 2}
-  - mat: {fileID: 2100000, guid: 441dd7f83e16e644191b78469ee0a767, type: 2}
+  - mat: {fileID: 2100000, guid: 683ecd2c794566248832fcffb81882e3, type: 2}
+  - mat: {fileID: 2100000, guid: 285788acbf2fe8c41879ca45c594af58, type: 2}
+  - mat: {fileID: 2100000, guid: 948546291a58baa48ad4cc59f33c0753, type: 2}
+  - mat: {fileID: 2100000, guid: 936a7fb0db8047345bc568a0d5f6420d, type: 2}
+  - mat: {fileID: 2100000, guid: eb39a363f93626349881cfdb06af3c0f, type: 2}
+  - mat: {fileID: 2100000, guid: 0185296a3602a9c419bf208b208babfc, type: 2}
+  - mat: {fileID: 2100000, guid: 5a4546ecf820b0441b4daf6900522850, type: 2}
+  - mat: {fileID: 2100000, guid: 7146e1730c757e443943e9eeb09c9181, type: 2}
+  - mat: {fileID: 2100000, guid: e4241c0a757353e489e2412306015620, type: 2}

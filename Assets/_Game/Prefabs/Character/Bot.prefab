@@ -1158,6 +1158,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textLevel: {fileID: 1236902287892231271}
+  circleImage: {fileID: 7726988973136770911}
 --- !u!114 &1472505125711945201
 MonoBehaviour:
   m_ObjectHideFlags: 0

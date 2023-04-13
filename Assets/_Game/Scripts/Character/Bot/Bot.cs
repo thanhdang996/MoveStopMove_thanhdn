@@ -19,6 +19,7 @@ public class Bot : Character
     [SerializeField] private Indicator indicator;
     public Indicator Indicator { get => indicator; set => indicator = value; }
 
+    private Color currentColor;
 
     protected override void Awake()
     {
@@ -51,6 +52,7 @@ public class Bot : Character
 
         indicator = SimplePool.Spawn<Indicator>(PoolType.Indicator);
         indicator.SetTextLevel(levelCharacter);
+        indicator.SetColor(currentColor);
         indicator.HideIndicator(); // fix loi ruoi bay indicator khi moi sinh bot 
 
 
@@ -60,7 +62,7 @@ public class Bot : Character
         Destroy(currentHatAvaGOAttach);
         Destroy(currentShieldAvaGOAttach);
 
-        RandomColorBot();
+
         RandomHatBot();
         RandomPantBot();
         RandomShield();
@@ -94,11 +96,13 @@ public class Bot : Character
         }
     }
 
-    private void RandomColorBot()
+    public void RandomColorBotAndSetCanvasLevelColor(int index)
     {
-        int randomIndexColor = Random.Range(0, colorSO.propsColors.Length);
-        Material colorMat = colorSO.propsColors[randomIndexColor].mat;
+        Material colorMat = colorSO.propsColors[index].mat;
         currentSkinSet.material = colorMat;
+        currentColor = colorMat.color;
+
+        canvasShowLevel.SetColor(currentColor);
     }
     private void RandomHatBot()
     {

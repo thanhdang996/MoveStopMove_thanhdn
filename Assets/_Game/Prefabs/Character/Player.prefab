@@ -1028,6 +1028,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textLevel: {fileID: 603776632020239313}
+  circleImage: {fileID: 621542695283173550}
 --- !u!114 &3362496349135319631
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2147,15 +2148,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.29411772, g: 0.8039216, b: 0.34325662, a: 1}
+  m_Color: {r: 0.8313726, g: 0.8352942, b: 0.32156864, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: d3982db017529b049b0e62f7d413291e, type: 3}
-  m_Type: 0
+  m_Sprite: {fileID: 21300000, guid: 8ec6704ffac84294ebd04ae3d3f29d45, type: 3}
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -2706,7 +2707,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddfa2e7cbece5ea48a9891358bc93979, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
+  speed: 7
 --- !u!114 &7856952880071817192
 MonoBehaviour:
   m_ObjectHideFlags: 0
