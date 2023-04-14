@@ -204,6 +204,7 @@ public class Player : Character
 
     public void LoadSet()
     {
+        currentColor = defaultPlayerMat.color;
         int currentSetInData = DataManager.Instance.Data.CurrentSet;
         if (currentSetInData == -1)
         {
@@ -243,7 +244,7 @@ public class Player : Character
         DataManager.Instance.SaveData();
     }
 
-    
+
     #region Hat
     public void AttachHat(int idUIITemShop)
     {

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using static UnityEngine.ParticleSystem;
 
 public class Character : GameUnit
 {
@@ -100,6 +101,10 @@ public class Character : GameUnit
     [SerializeField] protected CanvasShowLevel canvasShowLevel;
     public CanvasShowLevel CanvasShowLevel => canvasShowLevel;
 
+    // Particle 
+    [SerializeField] ParticleSystem bloodExplosionPS;
+    protected Color currentColor;
+
 
     protected virtual void Awake()
     {
@@ -144,7 +149,15 @@ public class Character : GameUnit
     public virtual void OnDespawn()
     {
         SoundManager.Instance.PlaySoundSFX3D(SoundType.Dead, TF.position);
-        ParticlePool.Play(ParticleType.Hit, transform.position + Vector3.up * 2, Quaternion.identity);
+        //ParticlePool.Play(ParticleType.Hit, transform.position + Vector3.up * 2, Quaternion.identity);
+
+        foreach (ParticleSystem ps in bloodExplosionPS.GetComponentsInChildren<ParticleSystem>())
+        {
+            MainModule main = ps.main;
+            main.startColor = currentColor;
+        }
+        bloodExplosionPS.Play();
+     
         canvasShowLevel.gameObject.SetActive(false);
 
         SetPropWhenDeath();

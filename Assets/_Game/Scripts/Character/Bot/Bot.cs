@@ -19,7 +19,6 @@ public class Bot : Character
     [SerializeField] private Indicator indicator;
     public Indicator Indicator { get => indicator; set => indicator = value; }
 
-    private Color currentColor;
 
     protected override void Awake()
     {
