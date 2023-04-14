@@ -103,6 +103,7 @@ public class Character : GameUnit
 
     // Particle 
     [SerializeField] ParticleSystem bloodExplosionPS;
+    [SerializeField] ParticleSystem levelUpPS;
     protected Color currentColor;
 
 
@@ -149,7 +150,6 @@ public class Character : GameUnit
     public virtual void OnDespawn()
     {
         SoundManager.Instance.PlaySoundSFX3D(SoundType.Dead, TF.position);
-        //ParticlePool.Play(ParticleType.Hit, transform.position + Vector3.up * 2, Quaternion.identity);
 
         foreach (ParticleSystem ps in bloodExplosionPS.GetComponentsInChildren<ParticleSystem>())
         {
@@ -300,6 +300,7 @@ public class Character : GameUnit
 
         levelCharacter++;
         canvasShowLevel.SetTextLevel(levelCharacter);
+        levelUpPS.Play();
     }
     protected void ChangeAnim(string animName)
     {

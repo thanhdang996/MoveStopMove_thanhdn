@@ -1412,11 +1412,7 @@ MonoBehaviour:
     prefab: {fileID: 5020745761264018320, guid: 9d7c041b60d2bd948ae0eb48530f9d91, type: 3}
     amount: 10
     collect: 1
-  Particle:
-  - root: {fileID: 588977880}
-    particleType: 0
-    prefab: {fileID: 6539932792144332035, guid: 1e918c2c9c2da2f4488d8b7a9400d600, type: 3}
-    amount: 5
+  Particle: []
 --- !u!4 &1911569705
 Transform:
   m_ObjectHideFlags: 0
