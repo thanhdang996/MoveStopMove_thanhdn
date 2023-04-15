@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 
-public enum SoundType { ThrowWeapon, Dead, WeaponCollider, WeaponHit, Win, Lose}
+public enum SoundType { ThrowWeapon, Dead, WeaponCollider, WeaponHit, Win, Lose, Count, Click}
 
 [System.Serializable]
 public class SoundAudioClip

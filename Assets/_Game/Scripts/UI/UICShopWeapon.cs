@@ -61,6 +61,7 @@ public class UICShopWeapon : UICanvas
             currentWeaponTypeInShop = (WeaponType)MaxWeaponIndex;
             return;
         }
+        SoundManager.Instance.PlaySoundSFX2D(SoundType.Click);
         Vector3 pos = camTF.localPosition;
         pos.x += snapPerItem;
         camTF.localPosition = pos;
@@ -75,6 +76,7 @@ public class UICShopWeapon : UICanvas
             currentWeaponTypeInShop = 0;
             return;
         }
+        SoundManager.Instance.PlaySoundSFX2D(SoundType.Click);
         Vector3 pos = camTF.localPosition;
         pos.x -= snapPerItem;
         camTF.localPosition = pos;

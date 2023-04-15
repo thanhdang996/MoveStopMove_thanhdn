@@ -69,6 +69,7 @@ public abstract class AbstractTabItem : MonoBehaviour
 
     protected virtual void HandleOnClick()
     {
+        SoundManager.Instance.PlaySoundSFX2D(SoundType.Click);
         if (tabRoot.CurrentTabItem.tabIndex == tabIndex) return;
         tabRoot.OpenTab(tabIndex);
     }

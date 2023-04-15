@@ -116,6 +116,7 @@ public class UICShopDress : UICanvas
 
     public void Button_HandleBuyItem()
     {
+        SoundManager.Instance.PlaySoundSFX2D(SoundType.Click);
         if (CanBuyItem())
         {
             int coinRemain = GetCoinInData() - GetCurrentItemPrice();
@@ -134,6 +135,7 @@ public class UICShopDress : UICanvas
 
     public void Button_HandleDressingItem()
     {
+        SoundManager.Instance.PlaySoundSFX2D(SoundType.Click);
         if (currentButtonType == BuySkinnButtonType.Select)
         {
             SetPropButtonUnEquip();

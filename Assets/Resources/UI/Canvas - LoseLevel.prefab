@@ -395,7 +395,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Retry
+  m_text: Home
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -746,7 +746,7 @@ GameObject:
   - component: {fileID: 2301722832786826387}
   - component: {fileID: 2838011547846368925}
   m_Layer: 5
-  m_Name: Button Retry
+  m_Name: Button Home
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -794,7 +794,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.4000089, g: 0.9528302, b: 0.49335894, a: 1}
+  m_Color: {r: 0.9311185, g: 0.9716981, b: 0.2062567, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -857,7 +857,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 5031154244015003128}
         m_TargetAssemblyTypeName: UICLoseLevel, Assembly-CSharp
-        m_MethodName: Button_RetryLevel
+        m_MethodName: Button_BackTo_UICMainMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

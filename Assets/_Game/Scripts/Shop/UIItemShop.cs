@@ -79,6 +79,7 @@ public class UIItemShop : MonoBehaviour
 
     public void HandleOnClick()
     {
+        SoundManager.Instance.PlaySoundSFX2D(SoundType.Click);
         if (tabItem.GetCurrentUIItemShop().id == id) return;
 
         CheckIfItemUnlockChangeButtonTabRoot();

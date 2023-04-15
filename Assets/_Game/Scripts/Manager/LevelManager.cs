@@ -179,7 +179,7 @@ public class LevelManager : Singleton<LevelManager>
     {
         if (!currentPlayer.IsWin)
         {
-            UIManager.Instance.OpenUI<UICLoseLevel>();
+            UIManager.Instance.OpenUI<UICDelayLose>();
             SoundManager.Instance.StopBGSoundMusic();
         }
     }

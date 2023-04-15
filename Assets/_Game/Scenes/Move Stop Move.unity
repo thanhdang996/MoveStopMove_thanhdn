@@ -519,6 +519,15 @@ MonoBehaviour:
   - soundType: 4
     audioClips:
     - {fileID: 8300000, guid: 3f9df24e23a9cfc4bbcb24d35f881833, type: 3}
+  - soundType: 5
+    audioClips:
+    - {fileID: 8300000, guid: b0ecab52e9a553142a999ebe0df5bfa6, type: 3}
+  - soundType: 6
+    audioClips:
+    - {fileID: 8300000, guid: 93867221618e46c4686aa01b3a81a4be, type: 3}
+  - soundType: 7
+    audioClips:
+    - {fileID: 8300000, guid: 3b6425a632d4cfc4b9eb26a34e55071c, type: 3}
 --- !u!4 &696259106
 Transform:
   m_ObjectHideFlags: 0
@@ -815,7 +824,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 991
+    m_Bits: 2015
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0

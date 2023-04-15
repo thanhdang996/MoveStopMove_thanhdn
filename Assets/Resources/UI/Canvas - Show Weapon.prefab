@@ -1245,6 +1245,9 @@ MonoBehaviour:
   weaponSO: {fileID: 11400000, guid: 41ee8cc0b205f854b94fb8419e8f7cff, type: 2}
   camTF: {fileID: 8601992211665788033}
   listWeaponTF: {fileID: 8601992211201454027}
+  imageLeft: {fileID: 8601992210505560905}
+  imageRight: {fileID: 8601992211493731486}
+  disableColor: {r: 0.5188679, g: 0.5188679, b: 0.5188679, a: 1}
   buttonBuy: {fileID: 8601992211191472174}
   textButton: {fileID: 8601992211279598418}
   textNameWeapon: {fileID: 5965276184146848312}
