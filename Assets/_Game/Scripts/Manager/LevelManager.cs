@@ -261,8 +261,8 @@ public class LevelManager : Singleton<LevelManager>
             listBotCurrent.RemoveAt(i);
         }
         CurrentLevel.EnemyRemain = CurrentLevel.GetTotalEnemy();
-        RevivePlayer();
         currentPlayer.ResetLevelCharacter(); // reset player moi revive bot, vi level bot base on player
+        RevivePlayer();
         currentPlayer.HandleAttackRangeBaseOnRangeWeapon(); // reset size player
         currentPlayer.HandleCamPlayerBaseOnRangeWeapon(); //reset offsetCam
         currentPlayer.TF.position = currentLevel.SpawnPosForPlayerTF.position;

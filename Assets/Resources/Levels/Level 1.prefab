@@ -995,7 +995,7 @@ MonoBehaviour:
   spawnPosForPlayerTF: {fileID: 5829308430436609812}
   spawnPosForBotTF: {fileID: 5829308429887114712}
   listSpawnPosTrigger: []
-  totalEnemy: 100
+  totalEnemy: 11
 --- !u!1 &5829308430725940422
 GameObject:
   m_ObjectHideFlags: 0

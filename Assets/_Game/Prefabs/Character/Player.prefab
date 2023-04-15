@@ -3330,6 +3330,18 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 4941879279980899806, guid: 89ad36d6a36b2ca40bdc399aebfcea62, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4941879279980899806, guid: 89ad36d6a36b2ca40bdc399aebfcea62, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4941879279980899806, guid: 89ad36d6a36b2ca40bdc399aebfcea62, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 6301091579013807055, guid: 89ad36d6a36b2ca40bdc399aebfcea62, type: 3}
       propertyPath: m_Name
       value: ChargeAuraBlue
