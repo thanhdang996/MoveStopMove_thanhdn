@@ -14,4 +14,16 @@ public class Cache
 
         return characters[collider];
     }
+
+
+    private static Dictionary<Collider, Player> players = new Dictionary<Collider, Player>();
+    public static Player GetPlayer(Collider collider)
+    {
+        if (!players.ContainsKey(collider))
+        {
+            players.Add(collider, collider.GetComponent<Player>());
+        }
+
+        return players[collider];
+    }
 }

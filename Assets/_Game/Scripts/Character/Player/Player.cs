@@ -18,6 +18,7 @@ public class Player : Character
     public SpriteRenderer AttackRangeSpriteRender => attackRangeSpriteRender;
     [SerializeField] private Material defaultPlayerMat;
 
+    public TriggerInviObject CurrentTriggerInviObject { get; set; }
 
 
     private bool isWin;
@@ -47,7 +48,7 @@ public class Player : Character
         (TargetNearest as Bot)?.HideAim();
         base.OnDespawn();
         DisablePlayerMovement();
-
+        CurrentTriggerInviObject?.ShowWall();
         OnDeath?.Invoke();
     }
 
