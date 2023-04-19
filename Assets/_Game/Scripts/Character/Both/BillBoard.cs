@@ -12,7 +12,7 @@ public class BillBoard : MonoBehaviour
         GetComponent<Canvas>().worldCamera = cam.GetComponent<Camera>();
     }
 
-    private void LateUpdate()
+    private void Update()
     {
         transform.LookAt(transform.position + cam.forward);
     }
